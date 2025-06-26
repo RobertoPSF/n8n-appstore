@@ -60,3 +60,27 @@ export let MODIFY_USER_VISIBLE_APP_IDS = {
         },
     },
 };
+export let ADD_USER_VISIBLE_APP_IDS = {
+    displayName: 'App IDs to Add',
+    name: 'visibleAppsToAdd',
+    type: 'string' as NodePropertyTypes,
+    default: '',
+    description: 'Comma-separated list of App IDs to add to the user',
+    displayOptions: {
+        show: {
+            operation: ['addUserVisibleApps'],
+        },
+    },
+};
+export let REPLACE_USER_VISIBLE_APP_IDS = {
+    displayName: 'App IDs to Replace',
+    name: 'visibleAppsToReplace',
+    type: 'string' as NodePropertyTypes,
+    default: '',
+    description: 'Comma-separated list of App IDs to set as visible for the user (replaces all current visible apps)',
+    displayOptions: {
+        show: {
+            operation: ['replaceUserVisibleApps'],
+        },
+    },
+};
