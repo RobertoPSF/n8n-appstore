@@ -9,7 +9,16 @@ export let USER_ID_FIELD = {
     description: 'The ID of the user to retrieve, remove or modify',
     displayOptions: {
         show: {
-            operation: ['getUserById', 'removeUser', 'modifyUser', 'listUserVisibleApps', 'listUserVisibleAppRelationships', 'addUserVisibleApps', 'replaceUserVisibleApps'],
+            operation: [
+                'getUserById',
+                'removeUser',
+                'modifyUser',
+                'listUserVisibleAppsForUser',
+                'listUserVisibleAppRelationships',
+                'addUserVisibleApps',
+                'replaceUserVisibleApps',
+                'listVisibleAppsForUser',
+            ],
         },
     },
 }
