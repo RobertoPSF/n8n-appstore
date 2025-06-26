@@ -26,7 +26,7 @@ export class AppStoreApi implements ICredentialType {
 			type: 'string',
 			typeOptions: {
 				rows: 6,
-				password: false,
+				password: true,
 			},
 			default: '',
 			description: 'The private key (contents of the .p8 file). Keep this secret!',
