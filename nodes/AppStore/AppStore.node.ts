@@ -3,7 +3,10 @@ import {
 	ICredentialDataDecryptedObject,
 	NodeConnectionType,
 } from 'n8n-workflow';
-import jwt from 'jsonwebtoken';
+
+import { generateAppStoreJwt } from './utils/token_generate';
+import { callAppStoreApi } from './users_and_access/list_users';
+import { getUserById } from './users_and_access/read_user_information';
 
 import {
 	IDataObject,
@@ -48,47 +51,66 @@ export class AppStore implements INodeType {
 						value: 'listUsers',
 						description: 'Get a list of users',
 					},
+					{
+						name: 'Get User by ID',
+						value: 'getUserById',
+						description: 'Get a user by their ID',
+					},
 				],
-				default: 'listUsers',
+				default: '',
+			},
+			{
+				displayName: 'List Users',
+				name: 'listUsers',
+				type: 'boolean',
+				required: true,
+				default: false,
+				description: 'List users',
+			},
+			{
+				displayName: 'User ID',
+				name: 'userId',
+				type: 'string',
+				required: true,
+				default: '',
+				description: 'The ID of the user to retrieve',
+				displayOptions: {
+					show: {
+						operation: ['getUserById'],
+					},
+				},
 			},
 		],
 	};
 
 	async execute(this: IExecuteFunctions): Promise<INodeExecutionData[][]> {
-		//const items = this.getInputData();
 		const returnData: IDataObject[] = [];
 		const operation = this.getNodeParameter('operation', 0) as string;
 
 		const credentials = (await this.getCredentials('appStoreApi')) as IAppStoreApiCredentials;
 		const { issuerId, keyId, privateKey } = credentials;
 
-		const now = Math.floor(Date.now() / 1000);
-		const payload = {
-			iss: issuerId,
-			iat: now,
-			exp: now + 300,
-			aud: 'appstoreconnect-v1',
-		};
-
-        const formattedKey = privateKey.trim();
-
-		const jwtToken = jwt.sign(payload, formattedKey, {
-            algorithm: 'ES256',
-			keyid: keyId,
-		});
+		const jwtToken = generateAppStoreJwt(issuerId, keyId, privateKey);
 
 		if (operation === 'listUsers') {
 			try {
-				const response = await this.helpers.httpRequest({
-					method: 'GET',
-					url: 'https://api.appstoreconnect.apple.com/v1/users',
-					headers: {
-						Authorization: `Bearer ${jwtToken}`,
-						Accept: 'application/json',
-					},
-				});
+				const response = await callAppStoreApi(this.helpers, jwtToken, '/v1/users');
 				if (response.data) {
 					returnData.push(...response.data);
+				} else {
+					returnData.push(response);
+				}
+			} catch (error: any) {
+				throw new Error(`AppStore API request failed: ${error.message}`);
+			}
+		}
+
+		if (operation === 'getUserById') {
+			const userId = this.getNodeParameter('userId', 0) as string;
+			try {
+				const response = await getUserById(this.helpers, jwtToken, userId);
+				if (response.data) {
+					returnData.push(response.data);
 				} else {
 					returnData.push(response);
 				}
