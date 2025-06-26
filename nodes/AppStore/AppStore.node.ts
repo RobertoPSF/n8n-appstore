@@ -16,8 +16,9 @@ import { node_modify_user } from './operations/user/modify';
 import { node_list_user } from './operations/user/list';
 import { node_get_user } from './operations/user/getById';
 import { node_list_invitated_users } from './operations/user_invitations/list';
+import { node_remove_user } from './operations/user/remove';
 import { MODIFY_USER_ALL_APPS_VISIBLE_SWITCH, MODIFY_USER_PROVISIONING_ALLOWED_SWITCH, MODIFY_USER_ROLES_FIELD, MODIFY_USER_VISIBLE_APP_IDS } from './fields/users/modify_user_fields';
-import { MODIFY_USER_USER_ID_FIELD } from './fields/users/user_get_by_id_fields';
+import { USER_ID_FIELD } from './fields/users/user_get_by_id_fields';
 
 interface IAppStoreApiCredentials extends ICredentialDataDecryptedObject {
 	issuerId: string;
@@ -69,11 +70,16 @@ export class AppStore implements INodeType {
 						name: 'List Invitated Users',
 						value: 'listInvitatedUsers',
 						description: 'get a list of invitated users'
+					},
+					{
+						name: 'Remove User',
+						value: 'removeUser',
+						description: 'Remove a user account',
 					}
 				],
 				default: '',
 			},
-			MODIFY_USER_USER_ID_FIELD,
+			USER_ID_FIELD,
 			MODIFY_USER_ROLES_FIELD,
 			MODIFY_USER_ALL_APPS_VISIBLE_SWITCH,
 			MODIFY_USER_PROVISIONING_ALLOWED_SWITCH,
@@ -94,6 +100,8 @@ export class AppStore implements INodeType {
 		if (operation === 'getUserById') returnData.push(await node_get_user(this, jwtToken));
 		if (operation === 'modifyUser') returnData.push(await node_modify_user(this, jwtToken));
 		if (operation === 'listInvitatedUsers') returnData.push(await node_list_invitated_users(this, jwtToken));
+		if (operation === 'removeUser') returnData.push(await node_remove_user(this, jwtToken));
+		
 		return [this.helpers.returnJsonArray(returnData)];
 	}
 }
