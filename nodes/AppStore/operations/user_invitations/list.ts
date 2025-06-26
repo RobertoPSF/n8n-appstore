@@ -1,8 +1,8 @@
-import { listInvitatedUsers } from "../../requests/users_invitations/list_invitated_users";
+import { listUsersInvitations } from "../../requests/users_invitations/list_users_invitations";
 
-export async function node_list_invitated_users(context: any, jwtToken: string){
+export async function node_list_users_invitations(context: any, jwtToken: string){
     try {
-        const response = await listInvitatedUsers(context.helpers, jwtToken, '/v1/userInvitations');
+        const response = await listUsersInvitations(context.helpers, jwtToken, '/v1/userInvitations');
         if (response.data) {
             return response.data;
         } else {
