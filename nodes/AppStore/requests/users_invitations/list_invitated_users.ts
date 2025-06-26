@@ -1,6 +1,6 @@
 import { IHttpRequestOptions, IHttpRequestMethods } from 'n8n-workflow';
 
-export async function listUserPermissions(
+export async function listInvitatedUsers(
     helpers: any,
     jwtToken: string,
     endpoint: string,
