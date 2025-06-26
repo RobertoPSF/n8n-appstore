@@ -1,8 +1,14 @@
-import { listInvitatedUsers } from "../../requests/users_invitations/list_invitated_users";
+import { appStoreGeneralRequest } from "../../requests/general_request";
+import { ROUTE_USER_INVITATIONS } from "../../requests/api_routes";
 
-export async function node_list_invitated_users(context: any, jwtToken: string){
+export async function node_list_invitated_users(context: any, jwtToken: string) {
     try {
-        const response = await listInvitatedUsers(context.helpers, jwtToken, '/v1/userInvitations');
+        const response = await appStoreGeneralRequest({
+            method: 'GET',
+            endpoint: ROUTE_USER_INVITATIONS,
+            jwtToken,
+            helpers: context.helpers,
+        });
         if (response.data) {
             return response.data;
         } else {
