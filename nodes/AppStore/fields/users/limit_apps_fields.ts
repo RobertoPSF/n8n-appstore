@@ -1,5 +1,6 @@
 import { NodePropertyTypes } from "n8n-workflow";
-import { READ_USER_INFORMATION } from "../../utils/constants";
+// import { READ_USER_INFORMATION } from "../../utils/constants";
+import { USER_METHODS } from "../../utils/constants/constants";
 
 export let LIMIT_APPS_FIELDS = {
 	displayName: 'Limit',
@@ -14,7 +15,7 @@ export let LIMIT_APPS_FIELDS = {
 	description: 'The maximum number of games to show',
 	displayOptions: {
 		show: {
-			operation: [READ_USER_INFORMATION],
+			operation: [USER_METHODS.READ_USER_INFORMATION],
 		}
 	},
 }

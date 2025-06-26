@@ -1,5 +1,5 @@
 import { NodePropertyTypes } from "n8n-workflow";
-import { ADD_VISIBLE_APPS_TO_A_USER, LIST_ALL_APPS_VISIBLE_TO_A_USER, MODIFY_A_USER_ACCOUNT, REPLACE_THE_LIST_OF_VISIBLE_APPS_FOR_A_USER } from "../../utils/constants";
+import { USER_METHODS } from "../../utils/constants/constants";
 
 export let MODIFY_USER_ROLES_FIELD = {
     displayName: 'Roles',
@@ -21,7 +21,7 @@ export let MODIFY_USER_ROLES_FIELD = {
     description: 'Select one or more roles for the user',
     displayOptions: {
         show: {
-            operation: [MODIFY_A_USER_ACCOUNT],
+            operation: [USER_METHODS.MODIFY_A_USER_ACCOUNT],
         },
     },
 };
@@ -33,7 +33,7 @@ export let MODIFY_USER_ALL_APPS_VISIBLE_SWITCH = {
     description: 'Can the user see all apps?',
     displayOptions: {
         show: {
-            operation: [MODIFY_A_USER_ACCOUNT],
+            operation: [USER_METHODS.MODIFY_A_USER_ACCOUNT],
         },
     },
 };
@@ -45,7 +45,7 @@ export let MODIFY_USER_PROVISIONING_ALLOWED_SWITCH = {
     description: 'Is provisioning allowed for the user?',
     displayOptions: {
         show: {
-            operation: [MODIFY_A_USER_ACCOUNT],
+            operation: [USER_METHODS.MODIFY_A_USER_ACCOUNT],
         },
     },
 };
@@ -57,7 +57,7 @@ export let MODIFY_USER_VISIBLE_APP_IDS = {
     description: 'Comma-separated list of App IDs the user can see (leave blank for none)',
     displayOptions: {
         show: {
-            operation: [MODIFY_A_USER_ACCOUNT],
+            operation: [USER_METHODS.MODIFY_A_USER_ACCOUNT],
         },
     },
 };
@@ -69,7 +69,7 @@ export let ADD_USER_VISIBLE_APP_IDS = {
     description: 'Comma-separated list of App IDs to add to the user',
     displayOptions: {
         show: {
-            operation: [ADD_VISIBLE_APPS_TO_A_USER],
+            operation: [USER_METHODS.ADD_VISIBLE_APPS_TO_A_USER],
         },
     },
 };
@@ -81,7 +81,7 @@ export let REPLACE_USER_VISIBLE_APP_IDS = {
     description: 'Comma-separated list of App IDs to set as visible for the user (replaces all current visible apps)',
     displayOptions: {
         show: {
-            operation: [REPLACE_THE_LIST_OF_VISIBLE_APPS_FOR_A_USER],
+            operation: [USER_METHODS.REPLACE_THE_LIST_OF_VISIBLE_APPS_FOR_A_USER],
         },
     },
 };
@@ -98,7 +98,7 @@ export let LIST_ALL_APPS_USER_LIMIT_FIELD = {
     description: 'Number of apps to return (max 200)',
     displayOptions: {
         show: {
-        operation: [LIST_ALL_APPS_VISIBLE_TO_A_USER],
+        operation: [USER_METHODS.LIST_ALL_APPS_VISIBLE_TO_A_USER],
         },
     },
 };
@@ -125,7 +125,7 @@ export let LIST_ALL_APPS_USER_FIELDS_FIELD = {
     description: 'Fields of the app resource to return',
     displayOptions: {
         show: {
-            operation: [LIST_ALL_APPS_VISIBLE_TO_A_USER],
+            operation: [USER_METHODS.LIST_ALL_APPS_VISIBLE_TO_A_USER],
         },
     },
 };
