@@ -15,10 +15,11 @@ import {
 import { node_modify_user } from './operations/user/modify';
 import { node_list_user } from './operations/user/list';
 import { node_get_user } from './operations/user/getById';
-import { node_list_invitated_users } from './operations/user_invitations/list';
+import { node_list_users_invitations } from './operations/user_invitations/list';
 import { node_remove_user } from './operations/user/remove';
 import { MODIFY_USER_ALL_APPS_VISIBLE_SWITCH, MODIFY_USER_PROVISIONING_ALLOWED_SWITCH, MODIFY_USER_ROLES_FIELD, MODIFY_USER_VISIBLE_APP_IDS } from './fields/users/modify_user_fields';
-import { USER_ID_FIELD } from './fields/users/user_get_by_id_fields';
+import { ID_FIELD } from './fields/users/user_get_by_id_fields';
+import { node_get_user_invitation } from './operations/user_invitations/getById';
 
 interface IAppStoreApiCredentials extends ICredentialDataDecryptedObject {
 	issuerId: string;
@@ -67,9 +68,14 @@ export class AppStore implements INodeType {
 						description: 'Modify a user account',
 					},
 					{
-						name: 'List Invitated Users',
-						value: 'listInvitatedUsers',
-						description: 'get a list of invitated users'
+						name: 'List Users Invitations',
+						value: 'listUsersInvitations',
+						description: 'get a list of users invitations'
+					},
+					{
+						name: 'Get User Invitation By Id',
+						value: 'getUserInvitationById',
+						description: 'get a user invitation by id'
 					},
 					{
 						name: 'Remove User',
@@ -79,7 +85,7 @@ export class AppStore implements INodeType {
 				],
 				default: '',
 			},
-			USER_ID_FIELD,
+			ID_FIELD,
 			MODIFY_USER_ROLES_FIELD,
 			MODIFY_USER_ALL_APPS_VISIBLE_SWITCH,
 			MODIFY_USER_PROVISIONING_ALLOWED_SWITCH,
@@ -99,7 +105,8 @@ export class AppStore implements INodeType {
 		if (operation === 'listUsers') returnData = await node_list_user(this, jwtToken);
 		if (operation === 'getUserById') returnData.push(await node_get_user(this, jwtToken));
 		if (operation === 'modifyUser') returnData.push(await node_modify_user(this, jwtToken));
-		if (operation === 'listInvitatedUsers') returnData.push(await node_list_invitated_users(this, jwtToken));
+		if (operation === 'listUsersInvitations') returnData.push(await node_list_users_invitations(this, jwtToken));
+		if (operation === 'getUserInvitationById') returnData.push(await node_get_user_invitation(this, jwtToken));
 		if (operation === 'removeUser') returnData.push(await node_remove_user(this, jwtToken));
 		
 		return [this.helpers.returnJsonArray(returnData)];

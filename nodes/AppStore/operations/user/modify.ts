@@ -2,7 +2,7 @@ import { modifyUser } from "../../requests/users_and_access/modify_a_user_accoun
 
 export async function node_modify_user(context: any, jwtToken: string){
 
-    const userId = context.getNodeParameter('userId', 0) as string;
+    const userId = context.getNodeParameter('id', 0) as string;
     const roles = context.getNodeParameter('roles', 0) as string[];
     const allAppsVisible = context.getNodeParameter('allAppsVisible', 0) as boolean;
     const provisioningAllowed = context.getNodeParameter('provisioningAllowed', 0) as boolean;

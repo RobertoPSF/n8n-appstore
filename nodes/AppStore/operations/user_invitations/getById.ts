@@ -1,9 +1,10 @@
-import { removeUserAccount } from "../../requests/users_and_access/remove_user_account";
+import { getUserInvitationById } from "../../requests/users_invitations/read_user_invit_inf";
 
-export async function node_remove_user(context: any, jwtToken: string){
+
+export async function node_get_user_invitation(context: any, jwtToken: string){
     const userId = context.getNodeParameter('id', 0) as string;
     try {
-        const response = await removeUserAccount(context.helpers, jwtToken, userId);
+        const response = await getUserInvitationById(context.helpers, jwtToken, userId);
         if (response.data) {
             return response.data;
         } else {
