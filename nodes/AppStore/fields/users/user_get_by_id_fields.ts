@@ -1,4 +1,5 @@
 import { NodePropertyTypes } from "n8n-workflow";
+import { ADD_VISIBLE_APPS_TO_A_USER, GET_ALL_VISIBLE_APP_RESOURCE_IDS_FOR_A_USER, LIST_ALL_APPS_VISIBLE_TO_A_USER, MODIFY_A_USER_ACCOUNT, READ_USER_INFORMATION, REMOVE_A_USER_ACCOUNT, REPLACE_THE_LIST_OF_VISIBLE_APPS_FOR_A_USER } from "../../utils/constants";
 
 export let USER_ID_FIELD = {
     displayName: 'User ID',
@@ -10,14 +11,14 @@ export let USER_ID_FIELD = {
     displayOptions: {
         show: {
             operation: [
-                'getUserById',
-                'removeUser',
-                'modifyUser',
+                READ_USER_INFORMATION,
+                REMOVE_A_USER_ACCOUNT,
+                MODIFY_A_USER_ACCOUNT,
                 'listUserVisibleAppsForUser',
-                'listUserVisibleAppRelationships',
-                'addUserVisibleApps',
-                'replaceUserVisibleApps',
-                'listVisibleAppsForUser',
+                GET_ALL_VISIBLE_APP_RESOURCE_IDS_FOR_A_USER,
+                ADD_VISIBLE_APPS_TO_A_USER,
+                REPLACE_THE_LIST_OF_VISIBLE_APPS_FOR_A_USER,
+                LIST_ALL_APPS_VISIBLE_TO_A_USER,
             ],
         },
     },

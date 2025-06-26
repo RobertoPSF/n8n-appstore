@@ -1,4 +1,5 @@
 import { NodePropertyTypes } from "n8n-workflow";
+import { READ_USER_INFORMATION } from "../../utils/constants";
 
 export let INCLUDE_VISIBLE_APPS_FIELD = {
     displayName: 'Include visible apps?',
@@ -8,7 +9,7 @@ export let INCLUDE_VISIBLE_APPS_FIELD = {
     description: 'Should be true if you want to include all visible apps',
     displayOptions: {
         show: {
-            operation: ['getUserById'],
+            operation: [READ_USER_INFORMATION],
         },
     },
 };

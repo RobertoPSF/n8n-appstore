@@ -1,4 +1,5 @@
 import { NodePropertyTypes } from "n8n-workflow";
+import { READ_USER_INFORMATION } from "../../utils/constants";
 
 export let USERS_FIELDS = {
     displayName: 'Users fields to get on response',
@@ -17,7 +18,7 @@ export let USERS_FIELDS = {
     description: 'The fields of the user that you want to get on the request',
     displayOptions: {
         show: {
-            operation: ['getUserById'],
+            operation: [READ_USER_INFORMATION],
         },
     },
 };

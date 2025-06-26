@@ -1,4 +1,5 @@
 import { NodePropertyTypes } from "n8n-workflow";
+import { READ_USER_INFORMATION } from "../../utils/constants";
 
 export let APPS_FIELDS = {
     displayName: 'Apps fields to get on response',
@@ -60,7 +61,7 @@ export let APPS_FIELDS = {
     description: 'The fields of the games that you want to get on the request',
     displayOptions: {
         show: {
-            operation: ['getUserById'],
+            operation: [READ_USER_INFORMATION],
         },
     },
 };
