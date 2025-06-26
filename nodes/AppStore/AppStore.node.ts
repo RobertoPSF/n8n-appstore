@@ -66,14 +66,6 @@ export class AppStore implements INodeType {
 				default: '',
 			},
 			{
-				displayName: 'List Users',
-				name: 'listUsers',
-				type: 'boolean',
-				required: true,
-				default: false,
-				description: 'List users',
-			},
-			{
 				displayName: 'User ID',
 				name: 'userId',
 				type: 'string',
