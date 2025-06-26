@@ -8,6 +8,8 @@ import { generateAppStoreJwt } from './utils/token_generate';
 import { callAppStoreApi } from './users_and_access/list_users';
 import { getUserById } from './users_and_access/read_user_information';
 import { modifyUser } from './users_and_access/modify_a_user_account';
+import { listVisibleAppsForUser } from './users_and_access/list_all_apps_user';
+
 
 import {
 	IDataObject,
@@ -47,6 +49,8 @@ export class AppStore implements INodeType {
 				name: 'operation',
 				type: 'options',
 				options: [
+
+					
 					{
 						name: 'List Users',
 						value: 'listUsers',
@@ -61,6 +65,12 @@ export class AppStore implements INodeType {
 						name: 'Modify User',
 						value: 'modifyUser',
 						description: 'Modify a user account',
+					},
+
+					{
+						name: 'List Visible Apps for User',
+						value: 'listVisibleAppsForUser',
+						description: 'Get a list of apps that a user can view',
 					},
 				],
 				default: '',
@@ -82,10 +92,29 @@ export class AppStore implements INodeType {
 				description: 'The ID of the user to retrieve',
 				displayOptions: {
 					show: {
-						operation: ['getUserById'],
+						operation: ['getUserById', 'modifyUser', 'listVisibleAppsForUser'],
 					},
 				},
 			},
+
+			{
+				displayName: 'Limit',
+				name: 'limit',
+				type: 'number',
+				typeOptions: {
+					minValue: 1,
+					maxValue: 200,
+				},
+
+				default: 100,
+				description: 'Number of apps to return (max 200)',
+				displayOptions: {
+					show: {
+					operation: ['listVisibleAppsForUser'],
+					},
+				},
+			},
+
 			{
 				displayName: 'Roles',
 				name: 'roles',
@@ -110,18 +139,35 @@ export class AppStore implements INodeType {
 					},
 				},
 			},
+
 			{
-				displayName: 'All Apps Visible',
-				name: 'allAppsVisible',
-				type: 'boolean',
-				default: false,
-				description: 'Can the user see all apps?',
+				displayName: 'Fields (apps)',
+				name: 'fieldsApps',
+				type: 'multiOptions',
+				options: [
+					{ name: 'accessibilityUrl', value: 'accessibilityUrl' },
+					{ name: 'name', value: 'name' },
+					{ name: 'bundleId', value: 'bundleId' },
+					{ name: 'sku', value: 'sku' },
+					{ name: 'primaryLocale', value: 'primaryLocale' },
+					{ name: 'isOrEverWasMadeForKids', value: 'isOrEverWasMadeForKids' },
+					{ name: 'subscriptionStatusUrl', value: 'subscriptionStatusUrl' },
+					{ name: 'subscriptionStatusUrlVersion', value: 'subscriptionStatusUrlVersion' },
+					{ name: 'subscriptionStatusUrlForSandbox', value: 'subscriptionStatusUrlForSandbox' },
+					{ name: 'subscriptionStatusUrlVersionForSandbox', value: 'subscriptionStatusUrlVersionForSandbox' },
+					{ name: 'contentRightsDeclaration', value: 'contentRightsDeclaration' },
+					{ name: 'streamlinedPurchasingEnabled', value: 'streamlinedPurchasingEnabled' },
+					{ name: 'appStoreVersions', value: 'appStoreVersions' },
+				],
+				default: [],
+				description: 'Fields of the app resource to return',
 				displayOptions: {
 					show: {
-						operation: ['modifyUser'],
+						operation: ['listVisibleAppsForUser'],
 					},
 				},
 			},
+
 			{
 				displayName: 'Provisioning Allowed',
 				name: 'provisioningAllowed',
@@ -146,6 +192,7 @@ export class AppStore implements INodeType {
 					},
 				},
 			},
+
 		],
 	};
 
@@ -227,6 +274,33 @@ export class AppStore implements INodeType {
 				throw new Error(`AppStore API request failed: ${error.message}`);
 			}
 		}
+
+		if (operation === 'listVisibleAppsForUser') {
+			const userId = this.getNodeParameter('userId', 0) as string;
+			const limit = this.getNodeParameter('limit', 0) as number;
+			const fieldsApps = this.getNodeParameter('fieldsApps', 0) as string[];
+
+			const params: Record<string, any> = {};
+			if (limit) {
+				params.limit = limit;
+			}
+			if (fieldsApps.length > 0) {
+				params['fields[apps]'] = fieldsApps.join(',');
+			}
+
+			try {
+				const response = await listVisibleAppsForUser(this.helpers, jwtToken, userId, params);
+				if (response.data) {
+					returnData.push(...response.data);
+				} else {
+					returnData.push(response);
+				}
+			} catch (error: any) {
+				throw new Error(`AppStore API request failed: ${error.message}`);
+			}
+		}
+
+
 
 		return [this.helpers.returnJsonArray(returnData)];
 	}
