@@ -60,3 +60,71 @@ export let MODIFY_USER_VISIBLE_APP_IDS = {
         },
     },
 };
+export let ADD_USER_VISIBLE_APP_IDS = {
+    displayName: 'App IDs to Add',
+    name: 'visibleAppsToAdd',
+    type: 'string' as NodePropertyTypes,
+    default: '',
+    description: 'Comma-separated list of App IDs to add to the user',
+    displayOptions: {
+        show: {
+            operation: ['addUserVisibleApps'],
+        },
+    },
+};
+export let REPLACE_USER_VISIBLE_APP_IDS = {
+    displayName: 'App IDs to Replace',
+    name: 'visibleAppsToReplace',
+    type: 'string' as NodePropertyTypes,
+    default: '',
+    description: 'Comma-separated list of App IDs to set as visible for the user (replaces all current visible apps)',
+    displayOptions: {
+        show: {
+            operation: ['replaceUserVisibleApps'],
+        },
+    },
+};
+export let LIST_ALL_APPS_USER_LIMIT_FIELD = {
+    displayName: 'Limit',
+    name: 'limit',
+    type: 'number' as NodePropertyTypes,
+    typeOptions: {
+        minValue: 1,
+        maxValue: 200,
+    },
+
+    default: 100,
+    description: 'Number of apps to return (max 200)',
+    displayOptions: {
+        show: {
+        operation: ['listVisibleAppsForUser'],
+        },
+    },
+};
+export let LIST_ALL_APPS_USER_FIELDS_FIELD = {
+    displayName: 'Fields (apps)',
+    name: 'fieldsApps',
+    type: 'multiOptions' as NodePropertyTypes,
+    options: [
+        { name: 'accessibilityUrl', value: 'accessibilityUrl' },
+        { name: 'name', value: 'name' },
+        { name: 'bundleId', value: 'bundleId' },
+        { name: 'sku', value: 'sku' },
+        { name: 'primaryLocale', value: 'primaryLocale' },
+        { name: 'isOrEverWasMadeForKids', value: 'isOrEverWasMadeForKids' },
+        { name: 'subscriptionStatusUrl', value: 'subscriptionStatusUrl' },
+        { name: 'subscriptionStatusUrlVersion', value: 'subscriptionStatusUrlVersion' },
+        { name: 'subscriptionStatusUrlForSandbox', value: 'subscriptionStatusUrlForSandbox' },
+        { name: 'subscriptionStatusUrlVersionForSandbox', value: 'subscriptionStatusUrlVersionForSandbox' },
+        { name: 'contentRightsDeclaration', value: 'contentRightsDeclaration' },
+        { name: 'streamlinedPurchasingEnabled', value: 'streamlinedPurchasingEnabled' },
+        { name: 'appStoreVersions', value: 'appStoreVersions' },
+    ],
+    default: [],
+    description: 'Fields of the app resource to return',
+    displayOptions: {
+        show: {
+            operation: ['listVisibleAppsForUser'],
+        },
+    },
+};
