@@ -1,4 +1,5 @@
-import { listVisibleAppsForUser } from "../../requests/users_and_access/list_all_apps_user";
+import { appStoreGeneralRequest } from "../../requests/general_request";
+import { ROUTE_USER_VISIBLE_APPS } from "../../requests/api_routes";
 
 export async function node_list_user_visible_apps(context: any, jwtToken: string) {
     const userId = context.getNodeParameter('userId', 0) as string;
@@ -13,7 +14,13 @@ export async function node_list_user_visible_apps(context: any, jwtToken: string
         params['fields[apps]'] = fieldsApps.join(',');
     }
     try {
-        const response = await listVisibleAppsForUser(context.helpers, jwtToken, userId, Object.keys(params).length ? params : undefined);
+        const response = await appStoreGeneralRequest({
+            method: 'GET',
+            endpoint: ROUTE_USER_VISIBLE_APPS(userId),
+            jwtToken,
+            helpers: context.helpers,
+            params: Object.keys(params).length ? params : undefined,
+        });
         if (response.data) {
             return response.data;
         } else {

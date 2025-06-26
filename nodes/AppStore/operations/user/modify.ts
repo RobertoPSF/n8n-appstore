@@ -1,8 +1,8 @@
-import { modifyUser } from "../../requests/users_and_access/modify_a_user_account";
+import { appStoreGeneralRequest } from "../../requests/general_request";
+import { ROUTE_USER_BY_ID } from "../../requests/api_routes";
 
-export async function node_modify_user(context: any, jwtToken: string){
-
-    const userId = context.getNodeParameter('id', 0) as string;
+export async function node_modify_user(context: any, jwtToken: string) {
+    const userId = context.getNodeParameter('userId', 0) as string;
     const roles = context.getNodeParameter('roles', 0) as string[];
     const allAppsVisible = context.getNodeParameter('allAppsVisible', 0) as boolean;
     const provisioningAllowed = context.getNodeParameter('provisioningAllowed', 0) as boolean;
@@ -33,7 +33,13 @@ export async function node_modify_user(context: any, jwtToken: string){
     }
 
     try {
-        const response = await modifyUser(context.helpers, jwtToken, userId, data);
+        const response = await appStoreGeneralRequest({
+            method: 'PATCH',
+            endpoint: ROUTE_USER_BY_ID(userId),
+            jwtToken,
+            helpers: context.helpers,
+            body: data,
+        });
         if (response.data) {
             return response.data;
         } else {

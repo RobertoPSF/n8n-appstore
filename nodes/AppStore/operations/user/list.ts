@@ -1,8 +1,14 @@
-import { listUsers } from "../../requests/users_and_access/list_users";
+import { appStoreGeneralRequest } from "../../requests/general_request";
+import { ROUTE_USERS } from "../../requests/api_routes";
 
-export async function node_list_user(context: any, jwtToken: string){
+export async function node_list_user(context: any, jwtToken: string) {
     try {
-        const response = await listUsers(context.helpers, jwtToken, '/v1/users');
+        const response = await appStoreGeneralRequest({
+            method: 'GET',
+            endpoint: ROUTE_USERS,
+            jwtToken,
+            helpers: context.helpers,
+        });
         if (response.data) {
             return response.data;
         } else {
