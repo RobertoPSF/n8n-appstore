@@ -14,9 +14,10 @@ import {
 } from 'n8n-workflow';
 import { node_modify_user } from './operations/user/modify';
 import { node_list_user } from './operations/user/list';
-import { node_get_user } from './operations/user/get';
+import { node_get_user } from './operations/user/getById';
 import { MODIFY_USER_ALL_APPS_VISIBLE_SWITCH, MODIFY_USER_PROVISIONING_ALLOWED_SWITCH, MODIFY_USER_ROLES_FIELD, MODIFY_USER_VISIBLE_APP_IDS } from './fields/users/modify_user_fields';
 import { MODIFY_USER_USER_ID_FIELD } from './fields/users/user_get_by_id_fields';
+import { node_list_user_permissions } from './operations/user_permissions/list';
 
 interface IAppStoreApiCredentials extends ICredentialDataDecryptedObject {
 	issuerId: string;
@@ -64,6 +65,11 @@ export class AppStore implements INodeType {
 						value: 'modifyUser',
 						description: 'Modify a user account',
 					},
+					{
+						name: 'List Users Permissions',
+						value: 'listUsersPermissions',
+						description: 'get a list of users permissions'
+					}
 				],
 				default: '',
 			},
@@ -87,7 +93,7 @@ export class AppStore implements INodeType {
 		if (operation === 'listUsers') returnData = await node_list_user(this, jwtToken);
 		if (operation === 'getUserById') returnData.push(await node_get_user(this, jwtToken));
 		if (operation === 'modifyUser') returnData.push(await node_modify_user(this, jwtToken));
-
+		if (operation === 'listUsersPermissions') returnData.push(await node_list_user_permissions(this, jwtToken));
 		return [this.helpers.returnJsonArray(returnData)];
 	}
 }
