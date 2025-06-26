@@ -5,13 +5,6 @@ export class AppStoreApi implements ICredentialType {
 	displayName = 'App Store API';
 	properties: INodeProperties[] = [
 		{
-			displayName: 'JWT',
-			name: 'jwt',
-			type: 'string',
-			default: '',
-			description: 'JWT token for App Store Connect API authentication',
-		},
-		{
             displayName: 'Issuer ID',
             name: 'issuerId',
             type: 'string',
@@ -33,7 +26,7 @@ export class AppStoreApi implements ICredentialType {
 			type: 'string',
 			typeOptions: {
 				rows: 6,
-				password: true,
+				password: false,
 			},
 			default: '',
 			description: 'The private key (contents of the .p8 file). Keep this secret!',

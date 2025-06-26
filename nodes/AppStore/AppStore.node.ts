@@ -70,7 +70,9 @@ export class AppStore implements INodeType {
 			aud: 'appstoreconnect-v1',
 		};
 
-		const jwtToken = jwt.sign(payload, privateKey, {
+        const formattedKey = privateKey.trim();
+
+		const jwtToken = jwt.sign(payload, formattedKey, {
             algorithm: 'ES256',
 			keyid: keyId,
 		});
@@ -98,3 +100,4 @@ export class AppStore implements INodeType {
 		return [this.helpers.returnJsonArray(returnData)];
 	}
 }
+
