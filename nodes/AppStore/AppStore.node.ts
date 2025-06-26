@@ -30,6 +30,10 @@ import { MODIFY_USER_ALL_APPS_VISIBLE_SWITCH,
 	LIST_ALL_APPS_USER_LIMIT_FIELD, 
 	LIST_ALL_APPS_USER_FIELDS_FIELD } from './fields/users/modify_user_fields';
 import { USER_ID_FIELD } from './fields/users/user_get_by_id_fields';
+import { INCLUDE_VISIBLE_APPS_FIELD } from './fields/users/include_visible_apps_fields';
+import { USERS_FIELDS } from './fields/users/users_fields';
+import { APPS_FIELDS } from './fields/users/apps_fields';
+import { LIMIT_APPS_FIELDS } from './fields/users/limit_apps_fields';
 
 interface IAppStoreApiCredentials extends ICredentialDataDecryptedObject {
 	issuerId: string;
@@ -120,6 +124,13 @@ export class AppStore implements INodeType {
 			REPLACE_USER_VISIBLE_APP_IDS,
 			LIST_ALL_APPS_USER_LIMIT_FIELD,
 			LIST_ALL_APPS_USER_FIELDS_FIELD,
+			
+			// GET_USER_BY_ID
+			INCLUDE_VISIBLE_APPS_FIELD,
+			USERS_FIELDS,
+			APPS_FIELDS,
+			LIMIT_APPS_FIELDS
+
 		],
 	};
 
