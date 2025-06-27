@@ -66,23 +66,6 @@ export let APP_IDS_FIELD = {
         },
     },
 };
-export let LIST_ALL_APPS_USER_LIMIT_FIELD = {
-    displayName: 'Limit',
-    name: 'limit',
-    type: 'number' as NodePropertyTypes,
-    typeOptions: {
-        minValue: 1,
-        maxValue: 200,
-    },
-
-    default: 100,
-    description: 'Number of apps to return (max 200)',
-    displayOptions: {
-        show: {
-        operation: [USER_METHODS.LIST_ALL_APPS_VISIBLE_TO_A_USER],
-        },
-    },
-};
 export let LIST_ALL_APPS_USER_FIELDS_FIELD = {
     displayName: 'Fields (apps)',
     name: 'fieldsApps',

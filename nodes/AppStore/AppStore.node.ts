@@ -11,8 +11,7 @@ import {
 	MODIFY_USER_ALL_APPS_VISIBLE_SWITCH, 
 	MODIFY_USER_PROVISIONING_ALLOWED_SWITCH, 
 	MODIFY_USER_ROLES_FIELD, 
-	APP_IDS_FIELD,
-	LIST_ALL_APPS_USER_LIMIT_FIELD, 
+	APP_IDS_FIELD, 
 	LIST_ALL_APPS_USER_FIELDS_FIELD 
 } from './fields/users/modify_user_fields';
 import { USER_INVITATIONS_METHODS, USER_METHODS } from './utils/constants/constants';
@@ -30,7 +29,7 @@ import { USER_ID_FIELD } from './fields/users/user_get_by_id_fields';
 import { INCLUDE_VISIBLE_APPS_FIELD } from './fields/users/include_visible_apps_fields';
 import { USERS_FIELDS } from './fields/users/users_fields';
 import { APPS_FIELDS } from './fields/users/apps_fields';
-import { LIMIT_APPS_FIELDS } from './fields/users/limit_apps_fields';
+import { LIMIT } from './fields/users/limit_field';
 import { USERS_OPERATIONS, USER_INVITATIONS_OPERATIONS } from './utils/constants/operations_constants';
 import { node_remove_visible_apps } from './operations/user/remove_visible_apps';
 
@@ -72,15 +71,13 @@ export class AppStore implements INodeType {
 			MODIFY_USER_ALL_APPS_VISIBLE_SWITCH,
 			MODIFY_USER_PROVISIONING_ALLOWED_SWITCH,
 			APP_IDS_FIELD,
-			LIST_ALL_APPS_USER_LIMIT_FIELD,
+			LIMIT(200, 'Number of apps to return (max 200)', [USER_METHODS.LIST_ALL_APPS_VISIBLE_TO_A_USER]),
 			LIST_ALL_APPS_USER_FIELDS_FIELD,
-			
-			// GET_USER_BY_ID
 			INCLUDE_VISIBLE_APPS_FIELD,
 			USERS_FIELDS,
 			APPS_FIELDS,
-			LIMIT_APPS_FIELDS
-
+			LIMIT(50, 'The maximum number of games to show (max 50)', [USER_METHODS.READ_USER_INFORMATION])
+			
 		],
 	};
 
