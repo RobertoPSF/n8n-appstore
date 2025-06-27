@@ -12,7 +12,7 @@ export let INVITATION_ID_FIELD = {
         show: {
             operation: [
                 USER_INVITATIONS_METHODS.READ_USER_INVITATION_INFORMATION,
-								USER_INVITATIONS_METHODS.CANCEL_USER_INVITATION
+                USER_INVITATIONS_METHODS.CANCEL_USER_INVITATION
             ],
         },
     },

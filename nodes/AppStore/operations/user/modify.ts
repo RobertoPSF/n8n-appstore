@@ -6,13 +6,8 @@ export async function node_modify_user(context: any, jwtToken: string) {
     const roles = context.getNodeParameter('roles', 0) as string[];
     const allAppsVisible = context.getNodeParameter('allAppsVisible', 0) as boolean;
     const provisioningAllowed = context.getNodeParameter('provisioningAllowed', 0) as boolean;
-    const visibleAppsStr = context.getNodeParameter('visibleApps', 0) as string;
-    const visibleApps = visibleAppsStr
-        .split(',')
-        .map(id => id.trim())
-        .filter(id => id.length > 0)
-        .map(id => ({ type: 'apps', id }));
-
+    const visibleAppsList = context.getNodeParameter('visibleApps', 0) as string[];
+    const visibleApps = visibleAppsList.map(id => ({ type: 'apps', id }));
     const data: any = {
         data: {
             type: 'users',
@@ -31,7 +26,6 @@ export async function node_modify_user(context: any, jwtToken: string) {
             },
         };
     }
-
     try {
         const response = await appStoreGeneralRequest({
             method: 'PATCH',

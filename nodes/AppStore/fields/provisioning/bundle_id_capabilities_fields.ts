@@ -1,5 +1,6 @@
 import { NodePropertyTypes } from "n8n-workflow";
 import { PROVISIONING_BUNDLE_ID_CAPABILITIES_METHODS } from "../../utils/constants/methods_constants";
+import { CAPABILITIES_TYPES } from "../../utils/constants/capabilities_types";
 
 export let CAPABILITY_ID_FIELD = {
     displayName: 'Capability ID',
@@ -22,36 +23,10 @@ export let CAPABILITY_TYPE_FIELD = {
     displayName: 'Capability Type',
     name: 'capabilityType',
     type: 'options' as NodePropertyTypes,
-    options: [
-        { name: 'iCloud', value: 'ICLOUD' },
-        { name: 'In-App Purchase', value: 'IN_APP_PURCHASE' },
-        { name: 'Game Center', value: 'GAME_CENTER' },
-        { name: 'Push Notifications', value: 'PUSH_NOTIFICATIONS' },
-        { name: 'Wallet', value: 'WALLET' },
-        { name: 'Inter-App Audio', value: 'INTER_APP_AUDIO' },
-        { name: 'Maps', value: 'MAPS' },
-        { name: 'Associated Domains', value: 'ASSOCIATED_DOMAINS' },
-        { name: 'Personal VPN', value: 'PERSONAL_VPN' },
-        { name: 'App Groups', value: 'APP_GROUPS' },
-        { name: 'HealthKit', value: 'HEALTHKIT' },
-        { name: 'HomeKit', value: 'HOMEKIT' },
-        { name: 'Wireless Accessory Configuration', value: 'WIRELESS_ACCESSORY_CONFIGURATION' },
-        { name: 'Apple Pay', value: 'APPLE_PAY' },
-        { name: 'Data Protection', value: 'DATA_PROTECTION' },
-        { name: 'SiriKit', value: 'SIRIKIT' },
-        { name: 'Network Extensions', value: 'NETWORK_EXTENSIONS' },
-        { name: 'Multipath', value: 'MULTIPATH' },
-        { name: 'Hot Spot', value: 'HOT_SPOT' },
-        { name: 'NFC Tag Reading', value: 'NFC_TAG_READING' },
-        { name: 'ClassKit', value: 'CLASSKIT' },
-        { name: 'Autofill Credential Provider', value: 'AUTOFILL_CREDENTIAL_PROVIDER' },
-        { name: 'Access Wi-Fi Information', value: 'ACCESS_WIFI_INFORMATION' },
-        { name: 'Network Custom Protocol', value: 'NETWORK_CUSTOM_PROTOCOL' },
-        { name: 'CoreMedia HLS Low Latency', value: 'COREMEDIA_HLS_LOW_LATENCY' },
-        { name: 'System Extension Install', value: 'SYSTEM_EXTENSION_INSTALL' },
-        { name: 'User Management', value: 'USER_MANAGEMENT' },
-        { name: 'Apple ID Auth', value: 'APPLE_ID_AUTH' },
-    ],
+    options: CAPABILITIES_TYPES.map((name) => ({
+        name: name,
+        value: name,
+    })),
     required: true,
     default: '',
     description: 'The type of capability to enable',

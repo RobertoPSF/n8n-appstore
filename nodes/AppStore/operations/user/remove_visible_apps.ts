@@ -3,12 +3,8 @@ import { ROUTE_USER_VISIBLE_APPS_REL } from "../../requests/api_routes";
 
 export async function node_remove_visible_apps(context: any, jwtToken: string) {
     const userId = context.getNodeParameter('userId', 0) as string;
-    const visibleAppsStr = context.getNodeParameter('visibleApps', 0) as string;
-    const visibleApps = visibleAppsStr
-        .split(',')
-        .map(id => id.trim())
-        .filter(id => id.length > 0)
-        .map(id => ({ type: 'apps', id: id }));
+    const visibleAppsList = context.getNodeParameter('visibleApps', 0) as string[];
+    const visibleApps = visibleAppsList.map(id => ({ type: 'apps', id: id }));
     try {
         const response = await appStoreGeneralRequest({
             method: 'DELETE',

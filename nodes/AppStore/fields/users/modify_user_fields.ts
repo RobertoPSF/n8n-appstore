@@ -1,27 +1,24 @@
 import { NodePropertyTypes } from "n8n-workflow";
 import { USER_INVITATIONS_METHODS, USER_METHODS } from "../../utils/constants/methods_constants";
+import { APPS_PROPERTIES } from "../../utils/constants/apps_properties";
+import { ROLES } from "../../utils/constants/app_store_roles";
 
 export let MODIFY_USER_ROLES_FIELD = {
     displayName: 'Roles',
     name: 'roles',
     type: 'multiOptions' as NodePropertyTypes,
-    options: [
-        { name: 'ADMIN', value: 'ADMIN' },
-        { name: 'FINANCE', value: 'FINANCE' },
-        { name: 'TECHNICAL', value: 'TECHNICAL' },
-        { name: 'SALES', value: 'SALES' },
-        { name: 'MARKETING', value: 'MARKETING' },
-        { name: 'DEVELOPER', value: 'DEVELOPER' },
-        { name: 'APP MANAGER', value: 'APP_MANAGER' },
-        { name: 'ACCESS TO REPORTS', value: 'ACCESS_TO_REPORTS' },
-        { name: 'CUSTOMER SUPPORT', value: 'CUSTOMER_SUPPORT' },
-        { name: 'CREATE APPS', value: 'CREATE_APPS' },
-    ],
+    options: ROLES.map((role) => ({
+        name: role,
+        value: role
+    })),
     default: [],
     description: 'Select one or more roles for the user',
     displayOptions: {
         show: {
-            operation: [USER_METHODS.MODIFY_A_USER_ACCOUNT, USER_INVITATIONS_METHODS.INVITE_A_USER],
+            operation: [
+                USER_METHODS.MODIFY_A_USER_ACCOUNT, 
+                USER_INVITATIONS_METHODS.INVITE_A_USER
+            ],
         },
     },
 };
@@ -53,8 +50,12 @@ export let APP_IDS_FIELD = {
     displayName: 'App IDs',
     name: 'visibleApps',
     type: 'string' as NodePropertyTypes,
-    default: '',
-    description: 'Comma-separated list of App IDs',
+    default: [],
+    description: 'List of App IDs',
+    typeOptions: {
+        multipleValues: true,
+        multipleValueButtonText: 'Add app id',
+    },
     displayOptions: {
         show: {
             operation: [
@@ -70,21 +71,10 @@ export let LIST_ALL_APPS_USER_FIELDS_FIELD = {
     displayName: 'Fields (Apps)',
     name: 'fieldsApps',
     type: 'multiOptions' as NodePropertyTypes,
-    options: [
-        { name: 'Accessibility Url', value: 'accessibilityUrl' },
-        { name: 'Name', value: 'name' },
-        { name: 'Bundle ID', value: 'bundleId' },
-        { name: 'Sku', value: 'sku' },
-        { name: 'Primary Locale', value: 'primaryLocale' },
-        { name: 'Is Or Ever Was Made For Kids', value: 'isOrEverWasMadeForKids' },
-        { name: 'subscriptionStatusUrl', value: 'subscriptionStatusUrl' },
-        { name: 'subscriptionStatusUrlVersion', value: 'subscriptionStatusUrlVersion' },
-        { name: 'subscriptionStatusUrlForSandbox', value: 'subscriptionStatusUrlForSandbox' },
-        { name: 'subscriptionStatusUrlVersionForSandbox', value: 'subscriptionStatusUrlVersionForSandbox' },
-        { name: 'contentRightsDeclaration', value: 'contentRightsDeclaration' },
-        { name: 'streamlinedPurchasingEnabled', value: 'streamlinedPurchasingEnabled' },
-        { name: 'appStoreVersions', value: 'appStoreVersions' },
-    ],
+    options: APPS_PROPERTIES.map((name) => ({
+        name: name,
+        value: name,
+    })),
     default: [],
     description: 'Fields of the app resource to return',
     displayOptions: {
