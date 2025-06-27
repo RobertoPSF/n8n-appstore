@@ -1,5 +1,5 @@
 import { NodePropertyTypes } from "n8n-workflow";
-import {USER_METHODS } from "../../utils/constants/methods_constants";
+import { USER_INVITATIONS_METHODS, USER_METHODS } from "../../utils/constants/methods_constants";
 
 export let USER_ID_FIELD = {
     displayName: 'User ID',
@@ -19,7 +19,8 @@ export let USER_ID_FIELD = {
                 USER_METHODS.ADD_VISIBLE_APPS_TO_A_USER,
                 USER_METHODS.REPLACE_THE_LIST_OF_VISIBLE_APPS_FOR_A_USER,
                 USER_METHODS.LIST_ALL_APPS_VISIBLE_TO_A_USER,
-                USER_METHODS.REMOVE_VISIBLE_APPS_FROM_A_USER
+                USER_METHODS.REMOVE_VISIBLE_APPS_FROM_A_USER,
+                USER_INVITATIONS_METHODS.LIST_ALL_APPS_VISIBLE_TO_AN_INVITED_USER
             ],
         },
     },

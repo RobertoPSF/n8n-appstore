@@ -12,10 +12,16 @@ import {
 	MODIFY_USER_PROVISIONING_ALLOWED_SWITCH,
 	MODIFY_USER_ROLES_FIELD,
 	APP_IDS_FIELD,
-	LIST_ALL_APPS_USER_LIMIT_FIELD,
 	LIST_ALL_APPS_USER_FIELDS_FIELD
 } from './fields/users/modify_user_fields';
-import { USER_INVITATIONS_METHODS, USER_METHODS } from './utils/constants/methods_constants';
+
+import {
+	SANDBOX_TESTERS_METHODS,
+	PROVISIONING_BUNDLE_ID_CAPABILITIES_METHODS,
+	USER_INVITATIONS_METHODS,
+	USER_METHODS
+} from './utils/constants/methods_constants';
+
 import { generateAppStoreJwt } from './utils/token_generate';
 import { node_modify_user } from './operations/user/modify';
 import { node_list_user } from './operations/user/list';
@@ -31,9 +37,20 @@ import { USER_ID_FIELD } from './fields/users/user_get_by_id_fields';
 import { INCLUDE_VISIBLE_APPS_FIELD } from './fields/users/include_visible_apps_fields';
 import { USERS_FIELDS } from './fields/users/users_fields';
 import { APPS_FIELDS } from './fields/users/apps_fields';
-import { LIMIT_APPS_FIELDS } from './fields/users/limit_apps_fields';
-import { USERS_OPERATIONS, USER_INVITATIONS_OPERATIONS } from './utils/constants/operations_constants';
+import { LIMIT } from './fields/users/limit_field';
+import { PROVISIONING_BUNDLE_ID_CAPABILITIES_OPERATIONS, SANDBOX_TESTERS_OPERATIONS, USERS_OPERATIONS, USER_INVITATIONS_OPERATIONS } from './utils/constants/operations_constants';
 import { node_remove_visible_apps } from './operations/user/remove_visible_apps';
+import { disable_a_bundle_id_capability } from './provisioning/bundle_id_capabilities/disable_a_capability';
+import { node_list_sandbox_testers } from './operations/sandbox_testers/list';
+import { CAPABILITY_ID_FIELD, ENABLE_CAPABILITY_BUNDLE_ID_REL_FIELD, CAPABILITY_SETTINGS_FIELD, CAPABILITY_TYPE_FIELD } from './fields/provisioning/bundle_id_capabilities_fields';
+import { enable_a_bundle_id_capability } from './provisioning/bundle_id_capabilities/enable_a_capability';
+import { modify_a_bundle_id_capability } from './provisioning/bundle_id_capabilities/modify_a_capability';
+import { TERRITORY_FIELD } from './fields/sandbox_testers/territory';
+import { SANDBOX_USER_ID_FIELD } from './fields/sandbox_testers/sandbox_tester_id_field';
+import { SUBSCRIPTION_RENEWAL_RATE_FIELD } from './fields/sandbox_testers/subscription_renewal_rate_field';
+import { INTERRUPTED_PURCHASE_FIELD } from './fields/sandbox_testers/interrupted_purchase_field';
+import { node_modify_sandbox_tester } from './operations/sandbox_testers/modify';
+import { list_visible_apps_invited_user } from './operations/user_invitations/list_visible_apps_invited_user';
 import { INVITATION_ID_FIELD } from './fields/user_invitations/invitation_get_by_id_fields';
 import { INVITE_USER_ALL_APPS_VISIBLE_SWITCH, INVITE_USER_EMAIL_FIELD, INVITE_USER_FIRST_NAME_FIELD, INVITE_USER_LAST_NAME_FIELD, INVITE_USER_PROVISIONING_ALLOWED_SWITCH } from './fields/user_invitations/invite_user_fields';
 import { node_invite_user } from './operations/user_invitations/invite';
@@ -66,36 +83,100 @@ export class AppStore implements INodeType {
 		],
 		properties: [
 			{
-				displayName: 'Operation',
-				name: 'operation',
-				type: 'options',
-				noDataExpression: true,
-				options: USERS_OPERATIONS.concat(USER_INVITATIONS_OPERATIONS),
-				default: '',
+			  displayName: 'Resource',
+			  name: 'resource',
+			  type: 'options',
+			  options: [
+				{ name: 'Users', value: 'users' },
+				{ name: 'User Invitations', value: 'userInvitations' },
+				{ name: 'Sandbox Tester', value: 'sandboxTesters' },
+				{ name: 'Bundle ID Capabilities', value: 'bundleIdCapabilities' },
+			  ],
+			  default: 'users',
+			  noDataExpression: true,
+			},
+			{
+			  displayName: 'Operation',
+			  name: 'operation',
+			  type: 'options',
+			  displayOptions: {
+				show: { resource: ['users'] },
+			  },
+			  options: USERS_OPERATIONS,
+			  default: '',
+			  typeOptions: {
+				groups: [{ name: 'Users' }],
+			  },
+			},
+			{
+			  displayName: 'Operation',
+			  name: 'operation',
+			  type: 'options',
+			  displayOptions: {
+				show: { resource: ['userInvitations'] },
+			  },
+			  options: USER_INVITATIONS_OPERATIONS,
+			  default: '',
+			  typeOptions: {
+				groups: [{ name: 'User Invitations' }],
+			  },
+			},
+			{
+			  displayName: 'Operation',
+			  name: 'operation',
+			  type: 'options',
+			  displayOptions: {
+				show: { resource: ['sandboxTesters'] },
+			  },
+			  options: SANDBOX_TESTERS_OPERATIONS,
+			  default: '',
+			  typeOptions: {
+				groups: [{ name: 'Sandbox Testers' }],
+			  },
+			},
+			{
+			  displayName: 'Operation',
+			  name: 'operation',
+			  type: 'options',
+			  displayOptions: {
+				show: { resource: ['bundleIdCapabilities'] },
+			  },
+			  options: PROVISIONING_BUNDLE_ID_CAPABILITIES_OPERATIONS,
+			  default: '',
+			  typeOptions: {
+				groups: [{ name: 'Bundle ID Capabilities' }],
+			  },
 			},
 			USER_ID_FIELD,
 			MODIFY_USER_ROLES_FIELD,
 			MODIFY_USER_ALL_APPS_VISIBLE_SWITCH,
 			MODIFY_USER_PROVISIONING_ALLOWED_SWITCH,
 			APP_IDS_FIELD,
-			LIST_ALL_APPS_USER_LIMIT_FIELD,
-			LIST_ALL_APPS_USER_FIELDS_FIELD,
-			INVITATION_ID_FIELD,
-			INCLUDE_VISIBLE_APPS_FIELD,
+			LIMIT(200, 'Number of apps to return (max 200)', [USER_METHODS.LIST_ALL_APPS_VISIBLE_TO_A_USER]),
+			LIMIT(100, 'Limit of apps to fetch',[USER_INVITATIONS_METHODS.LIST_ALL_APPS_VISIBLE_TO_AN_INVITED_USER]),
 
-			// INVITE_A_USER
-			INVITE_USER_ALL_APPS_VISIBLE_SWITCH,
-			INVITE_USER_PROVISIONING_ALLOWED_SWITCH,
-			INVITE_USER_EMAIL_FIELD,
-			INVITE_USER_FIRST_NAME_FIELD,
-			INVITE_USER_LAST_NAME_FIELD,
+			LIST_ALL_APPS_USER_FIELDS_FIELD,
 
 			// GET_USER_BY_ID
 			INCLUDE_VISIBLE_APPS_FIELD,
 			USERS_FIELDS,
 			APPS_FIELDS,
-			LIMIT_APPS_FIELDS
-
+			LIMIT(50, 'The maximum number of games to show (max 50)', [USER_METHODS.READ_USER_INFORMATION]),
+			CAPABILITY_ID_FIELD,
+			LIMIT(200, 'The maximum number of sandbox testers to show (max 200)', [SANDBOX_TESTERS_METHODS.LIST_SANDBOX_TESTERS]),
+			ENABLE_CAPABILITY_BUNDLE_ID_REL_FIELD,
+			CAPABILITY_TYPE_FIELD,
+			CAPABILITY_SETTINGS_FIELD,
+			SUBSCRIPTION_RENEWAL_RATE_FIELD,
+			TERRITORY_FIELD,
+			SANDBOX_USER_ID_FIELD,
+			INTERRUPTED_PURCHASE_FIELD,
+			INVITATION_ID_FIELD,
+			INVITE_USER_EMAIL_FIELD,
+			INVITE_USER_FIRST_NAME_FIELD,
+			INVITE_USER_LAST_NAME_FIELD,
+			INVITE_USER_ALL_APPS_VISIBLE_SWITCH,
+			INVITE_USER_PROVISIONING_ALLOWED_SWITCH
 		],
 	};
 
@@ -123,7 +204,17 @@ export class AppStore implements INodeType {
 		if (operation === USER_INVITATIONS_METHODS.LIST_INVITED_USERS) returnData.push(await node_list_invited_users(this, jwtToken));
 		if (operation === USER_INVITATIONS_METHODS.READ_USER_INVITATION_INFORMATION) returnData.push(await node_get_user_invitation(this, jwtToken));
 		if (operation === USER_INVITATIONS_METHODS.INVITE_A_USER) returnData.push(await node_invite_user(this, jwtToken));
+		if (operation === USER_INVITATIONS_METHODS.LIST_ALL_APPS_VISIBLE_TO_AN_INVITED_USER) returnData = await list_visible_apps_invited_user(this, jwtToken);
+
+		// sandbox testers
+		if (operation === SANDBOX_TESTERS_METHODS.LIST_SANDBOX_TESTERS) returnData = await node_list_sandbox_testers(this, jwtToken);
+		if (operation === SANDBOX_TESTERS_METHODS.MODIFY_A_SANDBOX_TESTER) returnData.push(await node_modify_sandbox_tester(this, jwtToken));
+
+		// provisioning bundle id capabilities
+		if (operation === PROVISIONING_BUNDLE_ID_CAPABILITIES_METHODS.DISABLE_CAPABILITY) returnData.push(await disable_a_bundle_id_capability(this, jwtToken));
+		if (operation === PROVISIONING_BUNDLE_ID_CAPABILITIES_METHODS.ENABLE_CAPABILITY) returnData.push(await enable_a_bundle_id_capability(this, jwtToken));
+		if (operation === PROVISIONING_BUNDLE_ID_CAPABILITIES_METHODS.MODIFY_CAPABILITY) returnData.push(await modify_a_bundle_id_capability(this, jwtToken));
+
 		return [this.helpers.returnJsonArray(returnData)];
 	}
 }
-
