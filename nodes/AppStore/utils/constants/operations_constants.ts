@@ -85,4 +85,9 @@ export const PROVISIONING_BUNDLE_ID_CAPABILITIES_OPERATIONS = [
         value: PROVISIONING_BUNDLE_ID_CAPABILITIES_METHODS.DISABLE_CAPABILITY,
         description: 'Disable a capability'
     },
-]
+    {
+        name: 'Enable a Capability',
+        value: PROVISIONING_BUNDLE_ID_CAPABILITIES_METHODS.ENABLE_CAPABILITY,
+        description: 'Enable a capability'
+    },
+];
