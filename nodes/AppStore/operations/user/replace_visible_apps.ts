@@ -3,7 +3,7 @@ import { ROUTE_USER_VISIBLE_APPS_REL } from "../../requests/api_routes";
 
 export async function node_replace_user_visible_apps(context: any, jwtToken: string) {
     const userId = context.getNodeParameter('userId', 0) as string;
-    const visibleAppsStr = context.getNodeParameter('visibleAppsToReplace', 0) as string;
+    const visibleAppsStr = context.getNodeParameter('visibleApps', 0) as string;
     const appIds = visibleAppsStr
         .split(',')
         .map(id => id.trim())

@@ -41,6 +41,11 @@ export let USERS_OPERATIONS = [
         value: USER_METHODS.REPLACE_THE_LIST_OF_VISIBLE_APPS_FOR_A_USER,
         description: 'Replace the list of visible apps for a user',
     },
+    {
+        name: 'Remove Visible Apps from a User',
+        value: USER_METHODS.REMOVE_VISIBLE_APPS_FROM_A_USER,
+        description: 'Useful if you want to revoke user access to some app'
+    }
 ];
 
 export const USER_INVITATIONS_OPERATIONS = [

@@ -49,39 +49,20 @@ export let MODIFY_USER_PROVISIONING_ALLOWED_SWITCH = {
         },
     },
 };
-export let MODIFY_USER_VISIBLE_APP_IDS = {
-    displayName: 'Visible App IDs',
+export let APP_IDS_FIELD = {
+    displayName: 'App IDs',
     name: 'visibleApps',
     type: 'string' as NodePropertyTypes,
     default: '',
-    description: 'Comma-separated list of App IDs the user can see (leave blank for none)',
+    description: 'Comma-separated list of App IDs',
     displayOptions: {
         show: {
-            operation: [USER_METHODS.MODIFY_A_USER_ACCOUNT],
-        },
-    },
-};
-export let ADD_USER_VISIBLE_APP_IDS = {
-    displayName: 'App IDs to Add',
-    name: 'visibleAppsToAdd',
-    type: 'string' as NodePropertyTypes,
-    default: '',
-    description: 'Comma-separated list of App IDs to add to the user',
-    displayOptions: {
-        show: {
-            operation: [USER_METHODS.ADD_VISIBLE_APPS_TO_A_USER],
-        },
-    },
-};
-export let REPLACE_USER_VISIBLE_APP_IDS = {
-    displayName: 'App IDs to Replace',
-    name: 'visibleAppsToReplace',
-    type: 'string' as NodePropertyTypes,
-    default: '',
-    description: 'Comma-separated list of App IDs to set as visible for the user (replaces all current visible apps)',
-    displayOptions: {
-        show: {
-            operation: [USER_METHODS.REPLACE_THE_LIST_OF_VISIBLE_APPS_FOR_A_USER],
+            operation: [
+                USER_METHODS.MODIFY_A_USER_ACCOUNT,
+                USER_METHODS.ADD_VISIBLE_APPS_TO_A_USER,
+                USER_METHODS.REPLACE_THE_LIST_OF_VISIBLE_APPS_FOR_A_USER,
+                USER_METHODS.REMOVE_VISIBLE_APPS_FROM_A_USER
+            ],
         },
     },
 };

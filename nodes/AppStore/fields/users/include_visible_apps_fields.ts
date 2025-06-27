@@ -1,5 +1,4 @@
 import { NodePropertyTypes } from "n8n-workflow";
-// import { READ_USER_INFORMATION } from "../../utils/constants";
 import { USER_METHODS } from "../../utils/constants/constants";
 
 export let INCLUDE_VISIBLE_APPS_FIELD = {
