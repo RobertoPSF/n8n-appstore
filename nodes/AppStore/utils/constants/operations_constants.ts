@@ -1,4 +1,4 @@
-import { USER_INVITATIONS_METHODS, USER_METHODS } from "./constants";
+import { PROVISIONING_BUNDLE_ID_CAPABILITIES_METHODS, USER_INVITATIONS_METHODS, USER_METHODS } from "./constants";
 
 export let USERS_OPERATIONS = [
     {
@@ -53,5 +53,13 @@ export const USER_INVITATIONS_OPERATIONS = [
         name: 'List Invitated Users',
         value: USER_INVITATIONS_METHODS.LIST_INVITED_USERS,
         description: 'Get a list of invitated users'
+    },
+];
+
+export const PROVISIONING_BUNDLE_ID_CAPABILITIES_OPERATIONS = [
+    {
+        name: 'Disable a Capability',
+        value: PROVISIONING_BUNDLE_ID_CAPABILITIES_METHODS.DISABLE_CAPABILITY,
+        description: 'Disable a capability'
     },
 ];
