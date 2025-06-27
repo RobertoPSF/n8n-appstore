@@ -1,8 +1,8 @@
 import { NodePropertyTypes } from "n8n-workflow";
-import { SANDBOX_TESTERS_METHODS } from "../../utils/constants/constants";
+import { SANDBOX_TESTERS_METHODS } from "../../utils/constants/methods_constants";
 
 export let SANDBOX_USER_ID_FIELD = {
-    displayName: 'Sandbox user id',
+    displayName: 'Sandbox User ID',
     name: 'sandBoxUserId',
     type: 'string' as NodePropertyTypes,
     required: true,

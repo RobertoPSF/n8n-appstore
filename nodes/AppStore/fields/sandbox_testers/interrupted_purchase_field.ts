@@ -1,5 +1,5 @@
 import { NodePropertyTypes } from "n8n-workflow";
-import { SANDBOX_TESTERS_METHODS } from "../../utils/constants/constants";
+import { SANDBOX_TESTERS_METHODS } from "../../utils/constants/methods_constants";
 
 export let INTERRUPTED_PURCHASE_FIELD = {
     displayName: 'Simulates fail at the buying process',

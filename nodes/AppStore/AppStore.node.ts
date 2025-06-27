@@ -104,6 +104,7 @@ export class AppStore implements INodeType {
 			  },
 			  options: USERS_OPERATIONS,
 			  default: '',
+			  noDataExpression: true,
 			  typeOptions: {
 				groups: [{ name: 'Users' }],
 			  },
@@ -117,6 +118,7 @@ export class AppStore implements INodeType {
 			  },
 			  options: USER_INVITATIONS_OPERATIONS,
 			  default: '',
+			  noDataExpression: true,
 			  typeOptions: {
 				groups: [{ name: 'User Invitations' }],
 			  },
@@ -130,6 +132,7 @@ export class AppStore implements INodeType {
 			  },
 			  options: SANDBOX_TESTERS_OPERATIONS,
 			  default: '',
+			  noDataExpression: true,
 			  typeOptions: {
 				groups: [{ name: 'Sandbox Testers' }],
 			  },
@@ -143,6 +146,7 @@ export class AppStore implements INodeType {
 			  },
 			  options: PROVISIONING_BUNDLE_ID_CAPABILITIES_OPERATIONS,
 			  default: '',
+			  noDataExpression: true,
 			  typeOptions: {
 				groups: [{ name: 'Bundle ID Capabilities' }],
 			  },

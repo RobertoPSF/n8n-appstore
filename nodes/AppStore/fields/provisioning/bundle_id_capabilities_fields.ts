@@ -1,5 +1,5 @@
 import { NodePropertyTypes } from "n8n-workflow";
-import { PROVISIONING_BUNDLE_ID_CAPABILITIES_METHODS } from "../../utils/constants/constants";
+import { PROVISIONING_BUNDLE_ID_CAPABILITIES_METHODS } from "../../utils/constants/methods_constants";
 
 export let CAPABILITY_ID_FIELD = {
     displayName: 'Capability ID',
@@ -58,7 +58,7 @@ export let CAPABILITY_TYPE_FIELD = {
     displayOptions: {
         show: {
             operation: [
-                PROVISIONING_BUNDLE_ID_CAPABILITIES_METHODS.ENABLE_CAPABILITY, 
+                PROVISIONING_BUNDLE_ID_CAPABILITIES_METHODS.ENABLE_CAPABILITY,
                 PROVISIONING_BUNDLE_ID_CAPABILITIES_METHODS.MODIFY_CAPABILITY
             ],
         },
@@ -210,7 +210,7 @@ export let CAPABILITY_SETTINGS_FIELD = {
     displayOptions: {
         show: {
             operation: [
-                PROVISIONING_BUNDLE_ID_CAPABILITIES_METHODS.ENABLE_CAPABILITY, 
+                PROVISIONING_BUNDLE_ID_CAPABILITIES_METHODS.ENABLE_CAPABILITY,
                 PROVISIONING_BUNDLE_ID_CAPABILITIES_METHODS.MODIFY_CAPABILITY
             ],
         },
@@ -227,7 +227,7 @@ export let ENABLE_CAPABILITY_BUNDLE_ID_REL_FIELD = {
     displayOptions: {
         show: {
             operation: [
-                PROVISIONING_BUNDLE_ID_CAPABILITIES_METHODS.ENABLE_CAPABILITY, 
+                PROVISIONING_BUNDLE_ID_CAPABILITIES_METHODS.ENABLE_CAPABILITY,
                 PROVISIONING_BUNDLE_ID_CAPABILITIES_METHODS.MODIFY_CAPABILITY
             ],
         },
