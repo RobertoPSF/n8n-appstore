@@ -19,6 +19,7 @@ export let USER_ID_FIELD = {
                 USER_METHODS.ADD_VISIBLE_APPS_TO_A_USER,
                 USER_METHODS.REPLACE_THE_LIST_OF_VISIBLE_APPS_FOR_A_USER,
                 USER_METHODS.LIST_ALL_APPS_VISIBLE_TO_A_USER,
+                USER_METHODS.REMOVE_VISIBLE_APPS_FROM_A_USER
             ],
         },
     },

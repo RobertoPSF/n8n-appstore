@@ -32,6 +32,7 @@ import { USERS_FIELDS } from './fields/users/users_fields';
 import { APPS_FIELDS } from './fields/users/apps_fields';
 import { LIMIT_APPS_FIELDS } from './fields/users/limit_apps_fields';
 import { USERS_OPERATIONS, USER_INVITATIONS_OPERATIONS } from './utils/constants/operations_constants';
+import { node_remove_visible_apps } from './operations/user/remove_visible_apps';
 
 interface IAppStoreApiCredentials extends ICredentialDataDecryptedObject {
 	issuerId: string;
@@ -101,7 +102,8 @@ export class AppStore implements INodeType {
 		if (operation === USER_METHODS.GET_ALL_VISIBLE_APP_RESOURCE_IDS_FOR_A_USER) returnData = await node_list_user_visible_app_relationships(this, jwtToken);
 		if (operation === USER_METHODS.ADD_VISIBLE_APPS_TO_A_USER) returnData = await node_add_user_visible_apps(this, jwtToken);
 		if (operation === USER_METHODS.REPLACE_THE_LIST_OF_VISIBLE_APPS_FOR_A_USER) returnData = await node_replace_user_visible_apps(this, jwtToken);
-		
+		if (operation === USER_METHODS.REMOVE_VISIBLE_APPS_FROM_A_USER) returnData = await node_remove_visible_apps(this, jwtToken);
+
 		// user invitations
 		if (operation === USER_INVITATIONS_METHODS.LIST_INVITED_USERS) returnData.push(await node_list_invitated_users(this, jwtToken));
 		
