@@ -43,6 +43,11 @@ import { node_list_sandbox_testers } from './operations/sandbox_testers/list';
 import { CAPABILITY_ID_FIELD, ENABLE_CAPABILITY_BUNDLE_ID_REL_FIELD, CAPABILITY_SETTINGS_FIELD, CAPABILITY_TYPE_FIELD } from './fields/provisioning/bundle_id_capabilities_fields';
 import { enable_a_bundle_id_capability } from './provisioning/bundle_id_capabilities/enable_a_capability';
 import { modify_a_bundle_id_capability } from './provisioning/bundle_id_capabilities/modify_a_capability';
+import { TERRITORY_FIELD } from './fields/sandbox_testers/territory';
+import { SANDBOX_USER_ID_FIELD } from './fields/sandbox_testers/sandbox_tester_id_field';
+import { SUBSCRIPTION_RENEWAL_RATE_FIELD } from './fields/sandbox_testers/subscription_renewal_rate_field';
+import { INTERRUPTED_PURCHASE_FIELD } from './fields/sandbox_testers/interrupted_purchase_field';
+import { node_modify_sandbox_tester } from './operations/sandbox_testers/modify';
 
 interface IAppStoreApiCredentials extends ICredentialDataDecryptedObject {
 	issuerId: string;
@@ -98,6 +103,10 @@ export class AppStore implements INodeType {
 			ENABLE_CAPABILITY_BUNDLE_ID_REL_FIELD,
 			CAPABILITY_TYPE_FIELD,
 			CAPABILITY_SETTINGS_FIELD,
+			SUBSCRIPTION_RENEWAL_RATE_FIELD,
+			TERRITORY_FIELD,
+			SANDBOX_USER_ID_FIELD,
+			INTERRUPTED_PURCHASE_FIELD
 		],
 	};
 
@@ -131,7 +140,7 @@ export class AppStore implements INodeType {
 		
 		// sandbox testers operations
 		if (operation === SANDBOX_TESTERS_METHODS.LIST_SANDBOX_TESTERS) returnData = await node_list_sandbox_testers(this, jwtToken);
-		if (operation === SANDBOX_TESTERS_METHODS.MODIFY_A_SANDBOX_TESTER) returnData.push({"TO": "DO"} as IDataObject);//todo
+		if (operation === SANDBOX_TESTERS_METHODS.MODIFY_A_SANDBOX_TESTER) returnData.push(await node_modify_sandbox_tester(this, jwtToken));
 		if (operation === SANDBOX_TESTERS_METHODS.CLEAR_PURCHASE_HISTORY_FOR_A_SANDBOX_TESTER) returnData.push({"TO": "DO"} as IDataObject);//todo
 
 		return [this.helpers.returnJsonArray(returnData)];
