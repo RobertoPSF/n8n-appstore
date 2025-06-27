@@ -1,4 +1,9 @@
-import { PROVISIONING_BUNDLE_ID_CAPABILITIES_METHODS, USER_INVITATIONS_METHODS, USER_METHODS } from "./constants";
+import { 
+    PROVISIONING_BUNDLE_ID_CAPABILITIES_METHODS, 
+    USER_INVITATIONS_METHODS, 
+    USER_METHODS, 
+    SANDBOX_TESTERS_METHODS
+} from "./constants";
 
 export let USERS_OPERATIONS = [
     {
@@ -56,10 +61,28 @@ export const USER_INVITATIONS_OPERATIONS = [
     },
 ];
 
+export const SANDBOX_TESTERS_OPERATIONS = [
+    {
+        name: 'List Sandbox Testers',
+        value: SANDBOX_TESTERS_METHODS.LIST_SANDBOX_TESTERS,
+        description: 'Get a list of Sandbox Testers for your team.'
+    },
+    {
+        name: 'Modify a Sandbox Tester',
+        value: SANDBOX_TESTERS_METHODS.MODIFY_A_SANDBOX_TESTER,
+        description: 'Change the subscription renewal time rate, set interrupted purchases or change territory of Sandbox Apple Account.'
+    },
+    {
+        name: 'Clear Purchase History for a Sandbox Tester',
+        value: SANDBOX_TESTERS_METHODS.CLEAR_PURCHASE_HISTORY_FOR_A_SANDBOX_TESTER,
+        description: 'Remove purchase history from a Sandbox Apple Account.'
+    }
+];
+
 export const PROVISIONING_BUNDLE_ID_CAPABILITIES_OPERATIONS = [
     {
         name: 'Disable a Capability',
         value: PROVISIONING_BUNDLE_ID_CAPABILITIES_METHODS.DISABLE_CAPABILITY,
         description: 'Disable a capability'
     },
-];
+]

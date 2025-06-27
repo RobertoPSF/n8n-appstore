@@ -14,7 +14,12 @@ import {
 	APP_IDS_FIELD, 
 	LIST_ALL_APPS_USER_FIELDS_FIELD 
 } from './fields/users/modify_user_fields';
-import { PROVISIONING_BUNDLE_ID_CAPABILITIES_METHODS, USER_INVITATIONS_METHODS, USER_METHODS } from './utils/constants/constants';
+import {
+	SANDBOX_TESTERS_METHODS, 
+	PROVISIONING_BUNDLE_ID_CAPABILITIES_METHODS, 
+	USER_INVITATIONS_METHODS, 
+	USER_METHODS
+} from './utils/constants/constants';
 import { generateAppStoreJwt } from './utils/token_generate';
 import { node_modify_user } from './operations/user/modify';
 import { node_list_user } from './operations/user/list';
@@ -30,10 +35,12 @@ import { INCLUDE_VISIBLE_APPS_FIELD } from './fields/users/include_visible_apps_
 import { USERS_FIELDS } from './fields/users/users_fields';
 import { APPS_FIELDS } from './fields/users/apps_fields';
 import { LIMIT } from './fields/users/limit_field';
-import { USERS_OPERATIONS, USER_INVITATIONS_OPERATIONS, PROVISIONING_BUNDLE_ID_CAPABILITIES_OPERATIONS } from './utils/constants/operations_constants';
+import { PROVISIONING_BUNDLE_ID_CAPABILITIES_OPERATIONS } from './utils/constants/operations_constants';
 import { node_remove_visible_apps } from './operations/user/remove_visible_apps';
 import { disable_a_bundle_id_capability } from './provisioning/bundle_id_capabilities/disable_a_capability';
 import { CAPABILITY_ID_FIELD } from './fields/provisioning/bundle_id_capabilities_fields';
+import { SANDBOX_TESTERS_OPERATIONS, USERS_OPERATIONS, USER_INVITATIONS_OPERATIONS } from './utils/constants/operations_constants';
+import { node_list_sandbox_testers } from './operations/sandbox_testers/list';
 
 interface IAppStoreApiCredentials extends ICredentialDataDecryptedObject {
 	issuerId: string;
@@ -65,7 +72,12 @@ export class AppStore implements INodeType {
 				displayName: 'Operation',
 				name: 'operation',
 				type: 'options',
-				options: USERS_OPERATIONS.concat(USER_INVITATIONS_OPERATIONS).concat(PROVISIONING_BUNDLE_ID_CAPABILITIES_OPERATIONS),
+				options: [
+					...USERS_OPERATIONS, 
+					...USER_INVITATIONS_OPERATIONS,
+					...SANDBOX_TESTERS_OPERATIONS,
+					...PROVISIONING_BUNDLE_ID_CAPABILITIES_OPERATIONS
+				],
 				default: '',
 			},
 			USER_ID_FIELD,
@@ -80,7 +92,7 @@ export class AppStore implements INodeType {
 			APPS_FIELDS,
 			LIMIT(50, 'The maximum number of games to show (max 50)', [USER_METHODS.READ_USER_INFORMATION]),
 			CAPABILITY_ID_FIELD,
-			
+			LIMIT(200, 'The maximum number of sandbox testers to show (max 200)', [SANDBOX_TESTERS_METHODS.LIST_SANDBOX_TESTERS]),
 		],
 	};
 
@@ -110,6 +122,11 @@ export class AppStore implements INodeType {
 		// provisioning bundle id capabilities
 		if (operation === PROVISIONING_BUNDLE_ID_CAPABILITIES_METHODS.DISABLE_CAPABILITY) returnData.push(await disable_a_bundle_id_capability(this, jwtToken));
 		
+		// sandbox testers operations
+		if (operation === SANDBOX_TESTERS_METHODS.LIST_SANDBOX_TESTERS) returnData = await node_list_sandbox_testers(this, jwtToken);
+		if (operation === SANDBOX_TESTERS_METHODS.MODIFY_A_SANDBOX_TESTER) returnData.push({"TO": "DO"} as IDataObject);//todo
+		if (operation === SANDBOX_TESTERS_METHODS.CLEAR_PURCHASE_HISTORY_FOR_A_SANDBOX_TESTER) returnData.push({"TO": "DO"} as IDataObject);//todo
+
 		return [this.helpers.returnJsonArray(returnData)];
 	}
 }
