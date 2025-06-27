@@ -12,13 +12,13 @@ export let CAPABILITY_ID_FIELD = {
         show: {
             operation: [
                 PROVISIONING_BUNDLE_ID_CAPABILITIES_METHODS.DISABLE_CAPABILITY,
-                PROVISIONING_BUNDLE_ID_CAPABILITIES_METHODS.ENABLE_CAPABILITY,
+                PROVISIONING_BUNDLE_ID_CAPABILITIES_METHODS.MODIFY_CAPABILITY,
             ],
         },
     },
 };
 
-export let ENABLE_CAPABILITY_TYPE_FIELD = {
+export let CAPABILITY_TYPE_FIELD = {
     displayName: 'Capability Type',
     name: 'capabilityType',
     type: 'options' as NodePropertyTypes,
@@ -57,12 +57,15 @@ export let ENABLE_CAPABILITY_TYPE_FIELD = {
     description: 'The type of capability to enable',
     displayOptions: {
         show: {
-            operation: [PROVISIONING_BUNDLE_ID_CAPABILITIES_METHODS.ENABLE_CAPABILITY],
+            operation: [
+                PROVISIONING_BUNDLE_ID_CAPABILITIES_METHODS.ENABLE_CAPABILITY, 
+                PROVISIONING_BUNDLE_ID_CAPABILITIES_METHODS.MODIFY_CAPABILITY
+            ],
         },
     },
 };
 
-export let ENABLE_CAPABILITY_SETTINGS_FIELD = {
+export let CAPABILITY_SETTINGS_FIELD = {
     displayName: 'Settings',
     name: 'settings',
     type: 'fixedCollection' as NodePropertyTypes,
@@ -206,7 +209,10 @@ export let ENABLE_CAPABILITY_SETTINGS_FIELD = {
     description: 'Settings for the capability (opcional)',
     displayOptions: {
         show: {
-            operation: [PROVISIONING_BUNDLE_ID_CAPABILITIES_METHODS.ENABLE_CAPABILITY],
+            operation: [
+                PROVISIONING_BUNDLE_ID_CAPABILITIES_METHODS.ENABLE_CAPABILITY, 
+                PROVISIONING_BUNDLE_ID_CAPABILITIES_METHODS.MODIFY_CAPABILITY
+            ],
         },
     },
 };
@@ -220,7 +226,10 @@ export let ENABLE_CAPABILITY_BUNDLE_ID_REL_FIELD = {
     description: 'The bundleId to associate with the capability (relationship)',
     displayOptions: {
         show: {
-            operation: [PROVISIONING_BUNDLE_ID_CAPABILITIES_METHODS.ENABLE_CAPABILITY],
+            operation: [
+                PROVISIONING_BUNDLE_ID_CAPABILITIES_METHODS.ENABLE_CAPABILITY, 
+                PROVISIONING_BUNDLE_ID_CAPABILITIES_METHODS.MODIFY_CAPABILITY
+            ],
         },
     },
 };

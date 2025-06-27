@@ -40,8 +40,9 @@ import { node_remove_visible_apps } from './operations/user/remove_visible_apps'
 import { disable_a_bundle_id_capability } from './provisioning/bundle_id_capabilities/disable_a_capability';
 import { SANDBOX_TESTERS_OPERATIONS, USERS_OPERATIONS, USER_INVITATIONS_OPERATIONS } from './utils/constants/operations_constants';
 import { node_list_sandbox_testers } from './operations/sandbox_testers/list';
-import { CAPABILITY_ID_FIELD, ENABLE_CAPABILITY_BUNDLE_ID_REL_FIELD, ENABLE_CAPABILITY_SETTINGS_FIELD, ENABLE_CAPABILITY_TYPE_FIELD } from './fields/provisioning/bundle_id_capabilities_fields';
+import { CAPABILITY_ID_FIELD, ENABLE_CAPABILITY_BUNDLE_ID_REL_FIELD, CAPABILITY_SETTINGS_FIELD, CAPABILITY_TYPE_FIELD } from './fields/provisioning/bundle_id_capabilities_fields';
 import { enable_a_bundle_id_capability } from './provisioning/bundle_id_capabilities/enable_a_capability';
+import { modify_a_bundle_id_capability } from './provisioning/bundle_id_capabilities/modify_a_capability';
 
 interface IAppStoreApiCredentials extends ICredentialDataDecryptedObject {
 	issuerId: string;
@@ -95,8 +96,8 @@ export class AppStore implements INodeType {
 			CAPABILITY_ID_FIELD,
 			LIMIT(200, 'The maximum number of sandbox testers to show (max 200)', [SANDBOX_TESTERS_METHODS.LIST_SANDBOX_TESTERS]),
 			ENABLE_CAPABILITY_BUNDLE_ID_REL_FIELD,
-			ENABLE_CAPABILITY_TYPE_FIELD,
-			ENABLE_CAPABILITY_SETTINGS_FIELD,
+			CAPABILITY_TYPE_FIELD,
+			CAPABILITY_SETTINGS_FIELD,
 		],
 	};
 
@@ -126,6 +127,7 @@ export class AppStore implements INodeType {
 		// provisioning bundle id capabilities
 		if (operation === PROVISIONING_BUNDLE_ID_CAPABILITIES_METHODS.DISABLE_CAPABILITY) returnData.push(await disable_a_bundle_id_capability(this, jwtToken));
 		if (operation === PROVISIONING_BUNDLE_ID_CAPABILITIES_METHODS.ENABLE_CAPABILITY) returnData.push(await enable_a_bundle_id_capability(this, jwtToken));
+		if (operation === PROVISIONING_BUNDLE_ID_CAPABILITIES_METHODS.MODIFY_CAPABILITY) returnData.push(await modify_a_bundle_id_capability(this, jwtToken));
 		
 		// sandbox testers operations
 		if (operation === SANDBOX_TESTERS_METHODS.LIST_SANDBOX_TESTERS) returnData = await node_list_sandbox_testers(this, jwtToken);
