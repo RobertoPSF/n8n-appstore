@@ -70,6 +70,7 @@ export class AppStore implements INodeType {
 		icon: 'file:appstore.svg',
 		group: ['transform'],
 		version: 1,
+		subtitle: '={{ $parameter["operation"] + ": " + $parameter["resource"] }}',
 		description: 'Consume AppStore API',
 		defaults: {
 			name: 'AppStore',
@@ -87,6 +88,7 @@ export class AppStore implements INodeType {
 			  displayName: 'Resource',
 			  name: 'resource',
 			  type: 'options',
+					noDataExpression: true,
 			  options: [
 				{ name: 'Users', value: 'users' },
 				{ name: 'User Invitations', value: 'userInvitations' },
@@ -99,6 +101,7 @@ export class AppStore implements INodeType {
 			  displayName: 'Operation',
 			  name: 'operation',
 			  type: 'options',
+					noDataExpression: true,
 			  displayOptions: {
 				show: { resource: ['users'] },
 			  },
@@ -112,6 +115,7 @@ export class AppStore implements INodeType {
 			  displayName: 'Operation',
 			  name: 'operation',
 			  type: 'options',
+					noDataExpression: true,
 			  displayOptions: {
 				show: { resource: ['userInvitations'] },
 			  },
@@ -125,6 +129,7 @@ export class AppStore implements INodeType {
 			  displayName: 'Operation',
 			  name: 'operation',
 			  type: 'options',
+					noDataExpression: true,
 			  displayOptions: {
 				show: { resource: ['sandboxTesters'] },
 			  },
@@ -138,6 +143,7 @@ export class AppStore implements INodeType {
 			  displayName: 'Operation',
 			  name: 'operation',
 			  type: 'options',
+					noDataExpression: true,
 			  displayOptions: {
 				show: { resource: ['bundleIdCapabilities'] },
 			  },
