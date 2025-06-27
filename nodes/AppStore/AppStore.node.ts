@@ -57,6 +57,7 @@ import { disable_a_bundle_id_capability } from './operations/provisioning/bundle
 import { enable_a_bundle_id_capability } from './operations/provisioning/bundle_id_capabilities/enable_a_capability';
 import { modify_a_bundle_id_capability } from './operations/provisioning/bundle_id_capabilities/modify_a_capability';
 import { node_cancel_user_invitation } from './operations/user_invitations/cancel_invitation';
+import { SANDBOX_TESTER_IDS_FIELDS } from './fields/sandbox_testers/sandbox_tester_ids_fields';
 
 interface IAppStoreApiCredentials extends ICredentialDataDecryptedObject {
 	issuerId: string;
@@ -183,7 +184,8 @@ export class AppStore implements INodeType {
 			INVITE_USER_FIRST_NAME_FIELD,
 			INVITE_USER_LAST_NAME_FIELD,
 			INVITE_USER_ALL_APPS_VISIBLE_SWITCH,
-			INVITE_USER_PROVISIONING_ALLOWED_SWITCH
+			INVITE_USER_PROVISIONING_ALLOWED_SWITCH,
+			SANDBOX_TESTER_IDS_FIELDS
 		],
 	};
 

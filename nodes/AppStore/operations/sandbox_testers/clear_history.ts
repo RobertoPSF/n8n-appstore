@@ -1,24 +1,26 @@
 import { appStoreGeneralRequest } from "../../requests/general_request";
-import { ROUTE_USER_VISIBLE_APPS_REL } from "../../requests/api_routes";
+import { ROUTE_SANDBOX_TESTERS_CLEAR_PURCHASE_HISTORY } from "../../requests/api_routes";
 
 export async function node_clear_sandbox_tester_history(context: any, jwtToken: string) {
     const get = context.getNodeParameter;
-    const sandBoxUserId = get('sandBoxUserId', 0) as string;
+    const sandBoxUsersIds = get('sandBoxTesterIds', 0) as string[];
     try {
         const response = await appStoreGeneralRequest({
             method: 'POST',
-            endpoint: ROUTE_USER_VISIBLE_APPS_REL(sandBoxUserId),
+            endpoint: ROUTE_SANDBOX_TESTERS_CLEAR_PURCHASE_HISTORY,
             jwtToken,
             helpers: context.helpers,
             body: {
                 data: {
                     type: "sandboxTestersClearPurchaseHistoryRequest",
                     relationships: {
-                      sandboxTester: {
-                        data: {
-                          type: "sandboxTesters",
-                          id: sandBoxUserId
-                        }
+                      sandboxTesters: {
+                        data: sandBoxUsersIds.map(id => {
+                          return {
+                            id: id,
+                            type: "sandboxTesters"
+                          };
+                        })
                       }
                     }
                   }

@@ -8,5 +8,6 @@ export const ROUTE_BUNDLE_ID_CAPABILITY_BY_ID = (capabilityId: string) => `/v1/b
 export const ROUTE_BUNDLE_ID_CAPABILITIES = '/v1/bundleIdCapabilities';
 export const ROUTE_SANDBOX_TESTERS = `/v2/sandboxTesters`;
 export const ROUTE_SANDBOX_TESTERS_BY_ID = (sandBoxTesterId: string) => `/v2/sandboxTesters/${sandBoxTesterId}`;
+export const ROUTE_SANDBOX_TESTERS_CLEAR_PURCHASE_HISTORY = "/v2/sandboxTestersClearPurchaseHistoryRequest";
 export const ROUTE_USER_INVITATION_VISIBLE_APPS = (id: string) => `/v1/userInvitations/${id}/visibleApps`;
 export const ROUTE_USER_INVITATION_VISIBLE_APP_RELATIONSHIPS = (id: string) => `/v1/userInvitations/${id}/relationships/visibleApps`;
