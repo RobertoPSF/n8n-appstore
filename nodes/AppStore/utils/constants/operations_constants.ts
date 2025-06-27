@@ -50,8 +50,12 @@ export let USERS_OPERATIONS = [
 
 export const USER_INVITATIONS_OPERATIONS = [
     {
-        name: 'List Invitated Users',
+        name: 'List Invited Users',
         value: USER_INVITATIONS_METHODS.LIST_INVITED_USERS,
-        description: 'Get a list of invitated users'
-    },
+        description: 'Get a list of invited users'
+    },{
+        name: 'Read User Invitation Information',
+        value: USER_INVITATIONS_METHODS.READ_USER_INVITATION_INFORMATION,
+        description: 'Get information about a pending invitation to join your team.'
+    }
 ];

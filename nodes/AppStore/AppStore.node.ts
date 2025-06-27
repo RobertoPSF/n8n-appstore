@@ -20,7 +20,8 @@ import { generateAppStoreJwt } from './utils/token_generate';
 import { node_modify_user } from './operations/user/modify';
 import { node_list_user } from './operations/user/list';
 import { node_get_user } from './operations/user/get_by_id';
-import { node_list_invitated_users } from './operations/user_invitations/list';
+import { node_list_invited_users } from './operations/user_invitations/list';
+import { node_get_user_invitation } from './operations/user_invitations/getById';
 import { node_remove_user } from './operations/user/remove';
 import { node_list_user_visible_apps } from './operations/user/list_visible_apps';
 import { node_list_user_visible_app_relationships } from './operations/user/list_visible_app_relationships';
@@ -33,6 +34,7 @@ import { APPS_FIELDS } from './fields/users/apps_fields';
 import { LIMIT_APPS_FIELDS } from './fields/users/limit_apps_fields';
 import { USERS_OPERATIONS, USER_INVITATIONS_OPERATIONS } from './utils/constants/operations_constants';
 import { node_remove_visible_apps } from './operations/user/remove_visible_apps';
+import { INVITATION_ID_FIELD } from './fields/users/invitation_get_by_id_fields';
 
 interface IAppStoreApiCredentials extends ICredentialDataDecryptedObject {
 	issuerId: string;
@@ -74,6 +76,7 @@ export class AppStore implements INodeType {
 			APP_IDS_FIELD,
 			LIST_ALL_APPS_USER_LIMIT_FIELD,
 			LIST_ALL_APPS_USER_FIELDS_FIELD,
+			INVITATION_ID_FIELD,
 			
 			// GET_USER_BY_ID
 			INCLUDE_VISIBLE_APPS_FIELD,
@@ -105,8 +108,8 @@ export class AppStore implements INodeType {
 		if (operation === USER_METHODS.REMOVE_VISIBLE_APPS_FROM_A_USER) returnData = await node_remove_visible_apps(this, jwtToken);
 
 		// user invitations
-		if (operation === USER_INVITATIONS_METHODS.LIST_INVITED_USERS) returnData.push(await node_list_invitated_users(this, jwtToken));
-		
+		if (operation === USER_INVITATIONS_METHODS.LIST_INVITED_USERS) returnData.push(await node_list_invited_users(this, jwtToken));
+		if (operation === USER_INVITATIONS_METHODS.READ_USER_INVITATION_INFORMATION) returnData.push(await node_get_user_invitation(this, jwtToken));
 		return [this.helpers.returnJsonArray(returnData)];
 	}
 }
