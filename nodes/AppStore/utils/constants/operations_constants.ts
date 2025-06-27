@@ -49,7 +49,7 @@ export let USERS_OPERATIONS = [
     {
         name: 'Remove Visible Apps from a User',
         value: USER_METHODS.REMOVE_VISIBLE_APPS_FROM_A_USER,
-        description: 'Useful if you want to revoke user access to some app'
+        description: 'Useful if you want to revoke user access to some app',
     }
 ];
 
@@ -57,7 +57,7 @@ export const USER_INVITATIONS_OPERATIONS = [
     {
         name: 'List Invitated Users',
         value: USER_INVITATIONS_METHODS.LIST_INVITED_USERS,
-        description: 'Get a list of invitated users'
+        description: 'Get a list of invitated users',
     },
     {
         name: 'List visible apps for invited user',
@@ -70,17 +70,17 @@ export const SANDBOX_TESTERS_OPERATIONS = [
     {
         name: 'List Sandbox Testers',
         value: SANDBOX_TESTERS_METHODS.LIST_SANDBOX_TESTERS,
-        description: 'Get a list of Sandbox Testers for your team.'
+        description: 'Get a list of Sandbox Testers for your team.',
     },
     {
         name: 'Modify a Sandbox Tester',
         value: SANDBOX_TESTERS_METHODS.MODIFY_A_SANDBOX_TESTER,
-        description: 'Change the subscription renewal time rate, set interrupted purchases or change territory of Sandbox Apple Account.'
+        description: 'Change the subscription renewal time rate, set interrupted purchases or change territory of Sandbox Apple Account.',
     },
     {
         name: 'Clear Purchase History for a Sandbox Tester',
         value: SANDBOX_TESTERS_METHODS.CLEAR_PURCHASE_HISTORY_FOR_A_SANDBOX_TESTER,
-        description: 'Remove purchase history from a Sandbox Apple Account.'
+        description: 'Remove purchase history from a Sandbox Apple Account.',
     }
 ];
 
@@ -88,16 +88,16 @@ export const PROVISIONING_BUNDLE_ID_CAPABILITIES_OPERATIONS = [
     {
         name: 'Disable a Capability',
         value: PROVISIONING_BUNDLE_ID_CAPABILITIES_METHODS.DISABLE_CAPABILITY,
-        description: 'Disable a capability'
+        description: 'Disable a capability',
     },
     {
         name: 'Enable a Capability',
         value: PROVISIONING_BUNDLE_ID_CAPABILITIES_METHODS.ENABLE_CAPABILITY,
-        description: 'Enable a capability'
+        description: 'Enable a capability',
     },
     {
         name: 'Modify a Capability',
         value: PROVISIONING_BUNDLE_ID_CAPABILITIES_METHODS.MODIFY_CAPABILITY,
-        description: 'Modify a capability'
+        description: 'Modify a capability',
     }
 ];
