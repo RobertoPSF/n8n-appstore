@@ -7,6 +7,7 @@ import {
 	INodeType,
 	INodeTypeDescription,
 } from 'n8n-workflow';
+
 import { 
 	MODIFY_USER_ALL_APPS_VISIBLE_SWITCH, 
 	MODIFY_USER_PROVISIONING_ALLOWED_SWITCH, 
@@ -14,12 +15,14 @@ import {
 	APP_IDS_FIELD, 
 	LIST_ALL_APPS_USER_FIELDS_FIELD 
 } from './fields/users/modify_user_fields';
+
 import {
 	SANDBOX_TESTERS_METHODS, 
 	PROVISIONING_BUNDLE_ID_CAPABILITIES_METHODS, 
 	USER_INVITATIONS_METHODS, 
 	USER_METHODS
 } from './utils/constants/constants';
+
 import { generateAppStoreJwt } from './utils/token_generate';
 import { node_modify_user } from './operations/user/modify';
 import { node_list_user } from './operations/user/list';
@@ -71,16 +74,69 @@ export class AppStore implements INodeType {
 		],
 		properties: [
 			{
-				displayName: 'Operation',
-				name: 'operation',
-				type: 'options',
-				options: [
-					...USERS_OPERATIONS, 
-					...USER_INVITATIONS_OPERATIONS,
-					...SANDBOX_TESTERS_OPERATIONS,
-					...PROVISIONING_BUNDLE_ID_CAPABILITIES_OPERATIONS
-				],
-				default: '',
+			  displayName: 'Resource',
+			  name: 'resource',
+			  type: 'options',
+			  options: [
+				{ name: 'Users', value: 'users' },
+				{ name: 'User Invitations', value: 'userInvitations' },
+				{ name: 'Sandbox Tester', value: 'sandboxTesters' },
+				{ name: 'Bundle ID Capabilities', value: 'bundleIdCapabilities' },
+			  ],
+			  default: 'users',
+			  noDataExpression: true,
+			},
+			{
+			  displayName: 'Operation',
+			  name: 'operation',
+			  type: 'options',
+			  displayOptions: {
+				show: { resource: ['users'] },
+			  },
+			  options: USERS_OPERATIONS,
+			  default: '',
+			  typeOptions: {
+				groups: [{ name: 'Users' }],
+			  },
+			},
+			{
+			  displayName: 'Operation',
+			  name: 'operation',
+			  type: 'options',
+			  displayOptions: {
+				show: { resource: ['userInvitations'] },
+			  },
+			  options: USER_INVITATIONS_OPERATIONS,
+			  default: '',
+			  typeOptions: {
+				groups: [{ name: 'User Invitations' }],
+			  },
+			},
+			{
+			  displayName: 'Operation',
+			  name: 'operation',
+			  type: 'options',
+			  displayOptions: {
+				show: { resource: ['sandboxTesters'] },
+			  },
+			  options: SANDBOX_TESTERS_OPERATIONS,
+			  default: '',
+			  typeOptions: {
+				groups: [{ name: 'Sandbox Testers' }],
+			  },
+			},
+			{
+			  displayName: 'Operation',
+			  name: 'operation',
+			  type: 'options',
+			  displayOptions: {
+				show: { resource: ['bundleIdCapabilities'] },
+			  },
+			  options: PROVISIONING_BUNDLE_ID_CAPABILITIES_OPERATIONS,
+			  default: '',
+			  typeOptions: {
+				groups: [{ name: 'Bundle ID Capabilities' }],
+			  },
 			},
 			USER_ID_FIELD,
 			MODIFY_USER_ROLES_FIELD,
