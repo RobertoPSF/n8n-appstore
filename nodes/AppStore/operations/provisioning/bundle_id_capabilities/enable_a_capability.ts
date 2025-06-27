@@ -1,12 +1,12 @@
-import { appStoreGeneralRequest } from "../../requests/general_request";
-import { ROUTE_BUNDLE_ID_CAPABILITY_BY_ID } from "../../requests/api_routes";
+import { appStoreGeneralRequest } from "../../../requests/general_request";
+import { ROUTE_BUNDLE_ID_CAPABILITIES } from "../../../requests/api_routes";
 
-export async function modify_a_bundle_id_capability(context: any, jwtToken: string) {
-    const capabilityId = context.getNodeParameter('capabilityId', 0) as string;
+export async function enable_a_bundle_id_capability(context: any, jwtToken: string) {
     const capabilityType = context.getNodeParameter('capabilityType', 0) as string;
     const bundleId = context.getNodeParameter('bundleId', 0) as string;
     const settingsRaw = context.getNodeParameter('settings', 0, []) as any;
 
+    // Parse settings (fixedCollection)
     let settings: any[] = [];
     if (Array.isArray(settingsRaw.settings)) {
         settings = settingsRaw.settings.map((setting: any) => {
@@ -38,7 +38,6 @@ export async function modify_a_bundle_id_capability(context: any, jwtToken: stri
 
     const data = {
         data: {
-            id: capabilityId,
             type: "bundleIdCapabilities",
             attributes: {
                 capabilityType,
@@ -57,8 +56,8 @@ export async function modify_a_bundle_id_capability(context: any, jwtToken: stri
 
     try {
         const response = await appStoreGeneralRequest({
-            method: 'PATCH',
-            endpoint: ROUTE_BUNDLE_ID_CAPABILITY_BY_ID(capabilityId),
+            method: 'POST',
+            endpoint: ROUTE_BUNDLE_ID_CAPABILITIES,
             jwtToken,
             helpers: context.helpers,
             body: data,
@@ -67,4 +66,4 @@ export async function modify_a_bundle_id_capability(context: any, jwtToken: stri
     } catch (error: any) {
         throw new Error(`AppStore API request failed: ${error.message}`);
     }
-} 
+}

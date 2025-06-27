@@ -105,6 +105,13 @@ export const USER_INVITATIONS_OPERATIONS = [
         value: USER_INVITATIONS_METHODS.LIST_VISIBLE_APP_RELATIONSHIPS_FOR_INVITED_USER,
         description: 'List app relationship links for a user invitation',
     },
+    {
+        name: 'Cancel User Invitation',
+        value: USER_INVITATIONS_METHODS.CANCEL_USER_INVITATION,
+        description: 'Cancel a pending user invitation',
+        group: ['User Invitations'],
+        action: 'Cancel User Invitation',
+    },
 ];
 
 export const SANDBOX_TESTERS_OPERATIONS = [

@@ -40,11 +40,8 @@ import { APPS_FIELDS } from './fields/users/apps_fields';
 import { LIMIT } from './fields/users/limit_field';
 import { PROVISIONING_BUNDLE_ID_CAPABILITIES_OPERATIONS, SANDBOX_TESTERS_OPERATIONS, USERS_OPERATIONS, USER_INVITATIONS_OPERATIONS } from './utils/constants/operations_constants';
 import { node_remove_visible_apps } from './operations/user/remove_visible_apps';
-import { disable_a_bundle_id_capability } from './provisioning/bundle_id_capabilities/disable_a_capability';
 import { node_list_sandbox_testers } from './operations/sandbox_testers/list';
 import { CAPABILITY_ID_FIELD, ENABLE_CAPABILITY_BUNDLE_ID_REL_FIELD, CAPABILITY_SETTINGS_FIELD, CAPABILITY_TYPE_FIELD } from './fields/provisioning/bundle_id_capabilities_fields';
-import { enable_a_bundle_id_capability } from './provisioning/bundle_id_capabilities/enable_a_capability';
-import { modify_a_bundle_id_capability } from './provisioning/bundle_id_capabilities/modify_a_capability';
 import { TERRITORY_FIELD } from './fields/sandbox_testers/territory';
 import { SANDBOX_USER_ID_FIELD } from './fields/sandbox_testers/sandbox_tester_id_field';
 import { SUBSCRIPTION_RENEWAL_RATE_FIELD } from './fields/sandbox_testers/subscription_renewal_rate_field';
@@ -56,6 +53,10 @@ import { INVITATION_ID_FIELD } from './fields/user_invitations/invitation_get_by
 import { INVITE_USER_ALL_APPS_VISIBLE_SWITCH, INVITE_USER_EMAIL_FIELD, INVITE_USER_FIRST_NAME_FIELD, INVITE_USER_LAST_NAME_FIELD, INVITE_USER_PROVISIONING_ALLOWED_SWITCH } from './fields/user_invitations/invite_user_fields';
 import { node_invite_user } from './operations/user_invitations/invite';
 import { node_list_visible_apps_relationship } from './operations/user_invitations/list_visible_apps_relationship';
+import { disable_a_bundle_id_capability } from './operations/provisioning/bundle_id_capabilities/disable_a_capability';
+import { enable_a_bundle_id_capability } from './operations/provisioning/bundle_id_capabilities/enable_a_capability';
+import { modify_a_bundle_id_capability } from './operations/provisioning/bundle_id_capabilities/modify_a_capability';
+import { node_cancel_user_invitation } from './operations/user_invitations/cancel_invitation';
 
 interface IAppStoreApiCredentials extends ICredentialDataDecryptedObject {
 	issuerId: string;
@@ -212,6 +213,7 @@ export class AppStore implements INodeType {
 		if (operation === USER_INVITATIONS_METHODS.INVITE_A_USER) returnData.push(await node_invite_user(this, jwtToken));
 		if (operation === USER_INVITATIONS_METHODS.LIST_ALL_APPS_VISIBLE_TO_AN_INVITED_USER) returnData = await list_visible_apps_invited_user(this, jwtToken);
 		if (operation === USER_INVITATIONS_METHODS.LIST_VISIBLE_APP_RELATIONSHIPS_FOR_INVITED_USER) returnData = await node_list_visible_apps_relationship(this, jwtToken);
+		if (operation === USER_INVITATIONS_METHODS.CANCEL_USER_INVITATION) returnData.push(await node_cancel_user_invitation(this, jwtToken));
 
 		// sandbox testers
 		if (operation === SANDBOX_TESTERS_METHODS.LIST_SANDBOX_TESTERS) returnData = await node_list_sandbox_testers(this, jwtToken);
