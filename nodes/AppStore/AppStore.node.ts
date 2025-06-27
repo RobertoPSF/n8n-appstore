@@ -50,10 +50,12 @@ import { SANDBOX_USER_ID_FIELD } from './fields/sandbox_testers/sandbox_tester_i
 import { SUBSCRIPTION_RENEWAL_RATE_FIELD } from './fields/sandbox_testers/subscription_renewal_rate_field';
 import { INTERRUPTED_PURCHASE_FIELD } from './fields/sandbox_testers/interrupted_purchase_field';
 import { node_modify_sandbox_tester } from './operations/sandbox_testers/modify';
+import { node_clear_sandbox_tester_history } from './operations/sandbox_testers/clear_history';
 import { list_visible_apps_invited_user } from './operations/user_invitations/list_visible_apps_invited_user';
 import { INVITATION_ID_FIELD } from './fields/user_invitations/invitation_get_by_id_fields';
 import { INVITE_USER_ALL_APPS_VISIBLE_SWITCH, INVITE_USER_EMAIL_FIELD, INVITE_USER_FIRST_NAME_FIELD, INVITE_USER_LAST_NAME_FIELD, INVITE_USER_PROVISIONING_ALLOWED_SWITCH } from './fields/user_invitations/invite_user_fields';
 import { node_invite_user } from './operations/user_invitations/invite';
+import { node_list_visible_apps_relationship } from './operations/user_invitations/list_visible_apps_relationship';
 
 interface IAppStoreApiCredentials extends ICredentialDataDecryptedObject {
 	issuerId: string;
@@ -158,7 +160,7 @@ export class AppStore implements INodeType {
 			APP_IDS_FIELD,
 			LIMIT(200, 'Number of apps to return (max 200)', [USER_METHODS.LIST_ALL_APPS_VISIBLE_TO_A_USER]),
 			LIMIT(100, 'Limit of apps to fetch',[USER_INVITATIONS_METHODS.LIST_ALL_APPS_VISIBLE_TO_AN_INVITED_USER]),
-
+			LIMIT(200, 'Maximum number of app relationships to return (max 200)', [USER_INVITATIONS_METHODS.LIST_VISIBLE_APP_RELATIONSHIPS_FOR_INVITED_USER]),
 			LIST_ALL_APPS_USER_FIELDS_FIELD,
 
 			// GET_USER_BY_ID
@@ -209,10 +211,12 @@ export class AppStore implements INodeType {
 		if (operation === USER_INVITATIONS_METHODS.READ_USER_INVITATION_INFORMATION) returnData.push(await node_get_user_invitation(this, jwtToken));
 		if (operation === USER_INVITATIONS_METHODS.INVITE_A_USER) returnData.push(await node_invite_user(this, jwtToken));
 		if (operation === USER_INVITATIONS_METHODS.LIST_ALL_APPS_VISIBLE_TO_AN_INVITED_USER) returnData = await list_visible_apps_invited_user(this, jwtToken);
+		if (operation === USER_INVITATIONS_METHODS.LIST_VISIBLE_APP_RELATIONSHIPS_FOR_INVITED_USER) returnData = await node_list_visible_apps_relationship(this, jwtToken);
 
 		// sandbox testers
 		if (operation === SANDBOX_TESTERS_METHODS.LIST_SANDBOX_TESTERS) returnData = await node_list_sandbox_testers(this, jwtToken);
 		if (operation === SANDBOX_TESTERS_METHODS.MODIFY_A_SANDBOX_TESTER) returnData.push(await node_modify_sandbox_tester(this, jwtToken));
+		if (operation === SANDBOX_TESTERS_METHODS.CLEAR_PURCHASE_HISTORY_FOR_A_SANDBOX_TESTER) returnData.push(await node_clear_sandbox_tester_history(this, jwtToken));
 
 		// provisioning bundle id capabilities
 		if (operation === PROVISIONING_BUNDLE_ID_CAPABILITIES_METHODS.DISABLE_CAPABILITY) returnData.push(await disable_a_bundle_id_capability(this, jwtToken));
