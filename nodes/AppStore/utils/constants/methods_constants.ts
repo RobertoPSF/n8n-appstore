@@ -14,7 +14,7 @@ export const USER_INVITATIONS_METHODS = {
     LIST_INVITED_USERS: "list_invited_users",
     READ_USER_INVITATION_INFORMATION: "read_user_invitation_information",
     INVITE_A_USER: "invite_a_user",
-    CANCEL_A_USER_INVITATION: "cancel_a_user_invitation",
+    CANCEL_USER_INVITATION: "cancel_user_invitation",
     LIST_ALL_APPS_VISIBLE_TO_AN_INVITED_USER: "list_all_apps_visible_to_an_invited_user",
     LIST_VISIBLE_APP_RELATIONSHIPS_FOR_INVITED_USER: 'listVisibleAppRelationshipsForInvitedUser',
 
