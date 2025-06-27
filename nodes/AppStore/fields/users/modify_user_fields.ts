@@ -1,5 +1,5 @@
 import { NodePropertyTypes } from "n8n-workflow";
-import { USER_METHODS } from "../../utils/constants/constants";
+import { USER_INVITATIONS_METHODS, USER_METHODS } from "../../utils/constants/methods_constants";
 
 export let MODIFY_USER_ROLES_FIELD = {
     displayName: 'Roles',
@@ -21,7 +21,7 @@ export let MODIFY_USER_ROLES_FIELD = {
     description: 'Select one or more roles for the user',
     displayOptions: {
         show: {
-            operation: [USER_METHODS.MODIFY_A_USER_ACCOUNT],
+            operation: [USER_METHODS.MODIFY_A_USER_ACCOUNT, USER_INVITATIONS_METHODS.INVITE_A_USER],
         },
     },
 };
@@ -84,16 +84,16 @@ export let LIST_ALL_APPS_USER_LIMIT_FIELD = {
     },
 };
 export let LIST_ALL_APPS_USER_FIELDS_FIELD = {
-    displayName: 'Fields (apps)',
+    displayName: 'Fields (Apps)',
     name: 'fieldsApps',
     type: 'multiOptions' as NodePropertyTypes,
     options: [
-        { name: 'accessibilityUrl', value: 'accessibilityUrl' },
-        { name: 'name', value: 'name' },
-        { name: 'bundleId', value: 'bundleId' },
-        { name: 'sku', value: 'sku' },
-        { name: 'primaryLocale', value: 'primaryLocale' },
-        { name: 'isOrEverWasMadeForKids', value: 'isOrEverWasMadeForKids' },
+        { name: 'Accessibility Url', value: 'accessibilityUrl' },
+        { name: 'Name', value: 'name' },
+        { name: 'Bundle ID', value: 'bundleId' },
+        { name: 'Sku', value: 'sku' },
+        { name: 'Primary Locale', value: 'primaryLocale' },
+        { name: 'Is Or Ever Was Made For Kids', value: 'isOrEverWasMadeForKids' },
         { name: 'subscriptionStatusUrl', value: 'subscriptionStatusUrl' },
         { name: 'subscriptionStatusUrlVersion', value: 'subscriptionStatusUrlVersion' },
         { name: 'subscriptionStatusUrlForSandbox', value: 'subscriptionStatusUrlForSandbox' },

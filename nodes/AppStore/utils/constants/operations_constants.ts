@@ -1,4 +1,4 @@
-import { USER_INVITATIONS_METHODS, USER_METHODS } from "./constants";
+import { USER_INVITATIONS_METHODS, USER_METHODS } from "./methods_constants";
 
 export let USERS_OPERATIONS = [
     {
@@ -57,5 +57,9 @@ export const USER_INVITATIONS_OPERATIONS = [
         name: 'Read User Invitation Information',
         value: USER_INVITATIONS_METHODS.READ_USER_INVITATION_INFORMATION,
         description: 'Get information about a pending invitation to join your team.'
+    },{
+        name: 'Invite a User',
+        value: USER_INVITATIONS_METHODS.INVITE_A_USER,
+        description: 'Invite a user with assigned user roles to join your team.'
     }
 ];

@@ -7,15 +7,15 @@ import {
 	INodeType,
 	INodeTypeDescription,
 } from 'n8n-workflow';
-import { 
-	MODIFY_USER_ALL_APPS_VISIBLE_SWITCH, 
-	MODIFY_USER_PROVISIONING_ALLOWED_SWITCH, 
-	MODIFY_USER_ROLES_FIELD, 
+import {
+	MODIFY_USER_ALL_APPS_VISIBLE_SWITCH,
+	MODIFY_USER_PROVISIONING_ALLOWED_SWITCH,
+	MODIFY_USER_ROLES_FIELD,
 	APP_IDS_FIELD,
-	LIST_ALL_APPS_USER_LIMIT_FIELD, 
-	LIST_ALL_APPS_USER_FIELDS_FIELD 
+	LIST_ALL_APPS_USER_LIMIT_FIELD,
+	LIST_ALL_APPS_USER_FIELDS_FIELD
 } from './fields/users/modify_user_fields';
-import { USER_INVITATIONS_METHODS, USER_METHODS } from './utils/constants/constants';
+import { USER_INVITATIONS_METHODS, USER_METHODS } from './utils/constants/methods_constants';
 import { generateAppStoreJwt } from './utils/token_generate';
 import { node_modify_user } from './operations/user/modify';
 import { node_list_user } from './operations/user/list';
@@ -34,7 +34,9 @@ import { APPS_FIELDS } from './fields/users/apps_fields';
 import { LIMIT_APPS_FIELDS } from './fields/users/limit_apps_fields';
 import { USERS_OPERATIONS, USER_INVITATIONS_OPERATIONS } from './utils/constants/operations_constants';
 import { node_remove_visible_apps } from './operations/user/remove_visible_apps';
-import { INVITATION_ID_FIELD } from './fields/users/invitation_get_by_id_fields';
+import { INVITATION_ID_FIELD } from './fields/user_invitations/invitation_get_by_id_fields';
+import { INVITE_USER_ALL_APPS_VISIBLE_SWITCH, INVITE_USER_EMAIL_FIELD, INVITE_USER_FIRST_NAME_FIELD, INVITE_USER_LAST_NAME_FIELD, INVITE_USER_PROVISIONING_ALLOWED_SWITCH } from './fields/user_invitations/invite_user_fields';
+import { node_invite_user } from './operations/user_invitations/invite';
 
 interface IAppStoreApiCredentials extends ICredentialDataDecryptedObject {
 	issuerId: string;
@@ -50,6 +52,7 @@ export class AppStore implements INodeType {
 		group: ['transform'],
 		version: 1,
 		description: 'Consume AppStore API',
+		subtitle: '={{ $parameter["operation"] + ": " + $parameter["resource"] }}',
 		defaults: {
 			name: 'AppStore',
 		},
@@ -66,6 +69,7 @@ export class AppStore implements INodeType {
 				displayName: 'Operation',
 				name: 'operation',
 				type: 'options',
+				noDataExpression: true,
 				options: USERS_OPERATIONS.concat(USER_INVITATIONS_OPERATIONS),
 				default: '',
 			},
@@ -77,7 +81,15 @@ export class AppStore implements INodeType {
 			LIST_ALL_APPS_USER_LIMIT_FIELD,
 			LIST_ALL_APPS_USER_FIELDS_FIELD,
 			INVITATION_ID_FIELD,
-			
+			INCLUDE_VISIBLE_APPS_FIELD,
+
+			// INVITE_A_USER
+			INVITE_USER_ALL_APPS_VISIBLE_SWITCH,
+			INVITE_USER_PROVISIONING_ALLOWED_SWITCH,
+			INVITE_USER_EMAIL_FIELD,
+			INVITE_USER_FIRST_NAME_FIELD,
+			INVITE_USER_LAST_NAME_FIELD,
+
 			// GET_USER_BY_ID
 			INCLUDE_VISIBLE_APPS_FIELD,
 			USERS_FIELDS,
@@ -110,6 +122,7 @@ export class AppStore implements INodeType {
 		// user invitations
 		if (operation === USER_INVITATIONS_METHODS.LIST_INVITED_USERS) returnData.push(await node_list_invited_users(this, jwtToken));
 		if (operation === USER_INVITATIONS_METHODS.READ_USER_INVITATION_INFORMATION) returnData.push(await node_get_user_invitation(this, jwtToken));
+		if (operation === USER_INVITATIONS_METHODS.INVITE_A_USER) returnData.push(await node_invite_user(this, jwtToken));
 		return [this.helpers.returnJsonArray(returnData)];
 	}
 }

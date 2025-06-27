@@ -1,5 +1,5 @@
 import { NodePropertyTypes } from "n8n-workflow";
-import { USER_METHODS } from "../../utils/constants/constants";
+import { USER_METHODS } from "../../utils/constants/methods_constants";
 
 export let USERS_FIELDS = {
     displayName: 'Users fields to get on response',
