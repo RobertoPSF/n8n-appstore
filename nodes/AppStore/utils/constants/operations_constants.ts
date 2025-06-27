@@ -85,6 +85,12 @@ export const USER_INVITATIONS_OPERATIONS = [
         group: ['User Invitations'],
         action: 'List Visible Apps for Invited User',
     },
+
+    {
+        name: 'List visible app relationships for invited user',
+        value: USER_INVITATIONS_METHODS.LIST_VISIBLE_APP_RELATIONSHIPS_FOR_INVITED_USER,
+        description: 'List app relationship links for a user invitation',
+    },
 ];
 
 export const SANDBOX_TESTERS_OPERATIONS = [

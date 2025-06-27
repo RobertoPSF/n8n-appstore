@@ -52,6 +52,7 @@ import { SUBSCRIPTION_RENEWAL_RATE_FIELD } from './fields/sandbox_testers/subscr
 import { INTERRUPTED_PURCHASE_FIELD } from './fields/sandbox_testers/interrupted_purchase_field';
 import { node_modify_sandbox_tester } from './operations/sandbox_testers/modify';
 import { list_visible_apps_invited_user } from './operations/user_invitations/list_visible_apps_invited_user';
+import { node_list_visible_apps_relationship } from './operations/user_invitations/list_visible_apps_relationship';
 
 interface IAppStoreApiCredentials extends ICredentialDataDecryptedObject {
 	issuerId: string;
@@ -151,7 +152,7 @@ export class AppStore implements INodeType {
 			APP_IDS_FIELD,
 			LIMIT(200, 'Number of apps to return (max 200)', [USER_METHODS.LIST_ALL_APPS_VISIBLE_TO_A_USER]),
 			LIMIT(100, 'Limit of apps to fetch',[USER_INVITATIONS_METHODS.LIST_ALL_APPS_VISIBLE_TO_AN_INVITED_USER]),
-
+			LIMIT(200, 'Maximum number of app relationships to return (max 200)', [USER_INVITATIONS_METHODS.LIST_VISIBLE_APP_RELATIONSHIPS_FOR_INVITED_USER]),
 			LIST_ALL_APPS_USER_FIELDS_FIELD,
 			INCLUDE_VISIBLE_APPS_FIELD,
 			USERS_FIELDS,
@@ -192,6 +193,7 @@ export class AppStore implements INodeType {
 		// user invitations
 		if (operation === USER_INVITATIONS_METHODS.LIST_INVITED_USERS) returnData.push(await node_list_invitated_users(this, jwtToken));
 		if (operation === USER_INVITATIONS_METHODS.LIST_ALL_APPS_VISIBLE_TO_AN_INVITED_USER) {returnData = await list_visible_apps_invited_user(this, jwtToken);}
+		if (operation === USER_INVITATIONS_METHODS.LIST_VISIBLE_APP_RELATIONSHIPS_FOR_INVITED_USER) {returnData = await node_list_visible_apps_relationship(this, jwtToken);}
 
 		// provisioning bundle id capabilities
 		if (operation === PROVISIONING_BUNDLE_ID_CAPABILITIES_METHODS.DISABLE_CAPABILITY) returnData.push(await disable_a_bundle_id_capability(this, jwtToken));
