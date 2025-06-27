@@ -4,6 +4,8 @@ export const ROUTE_USER_VISIBLE_APPS = (userId: string) => `/v1/users/${userId}/
 export const ROUTE_USER_VISIBLE_APPS_REL = (userId: string) => `/v1/users/${userId}/relationships/visibleApps`;
 export const ROUTE_USER_INVITATIONS = '/v1/userInvitations';
 export const ROUTE_USER_INVITATION_BY_ID = (invitationId: string) => `/v1/userInvitations/${invitationId}`;
-export const ROUTE_SANDBOX_TESTERS = `/v2/sandboxTesters`;
 export const ROUTE_BUNDLE_ID_CAPABILITY_BY_ID = (capabilityId: string) => `/v1/bundleIdCapabilities/${capabilityId}`;
 export const ROUTE_BUNDLE_ID_CAPABILITIES = '/v1/bundleIdCapabilities';
+export const ROUTE_SANDBOX_TESTERS = `/v2/sandboxTesters`;
+export const ROUTE_SANDBOX_TESTERS_BY_ID = (sandBoxTesterId: string) => `/v2/sandboxTesters/${sandBoxTesterId}`;
+export const ROUTE_USER_INVITATION_VISIBLE_APPS = (id: string) => `/v1/userInvitations/${id}/visibleApps`;

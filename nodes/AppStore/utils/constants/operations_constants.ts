@@ -59,6 +59,11 @@ export const USER_INVITATIONS_OPERATIONS = [
         value: USER_INVITATIONS_METHODS.LIST_INVITED_USERS,
         description: 'Get a list of invitated users',
     },
+    {
+        name: 'List visible apps for invited user',
+        value: USER_INVITATIONS_METHODS.LIST_ALL_APPS_VISIBLE_TO_AN_INVITED_USER,
+        description: 'List all apps visible to an invited user',
+    },
 ];
 
 export const SANDBOX_TESTERS_OPERATIONS = [

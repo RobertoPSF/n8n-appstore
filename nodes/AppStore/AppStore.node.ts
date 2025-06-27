@@ -46,6 +46,12 @@ import { node_list_sandbox_testers } from './operations/sandbox_testers/list';
 import { CAPABILITY_ID_FIELD, ENABLE_CAPABILITY_BUNDLE_ID_REL_FIELD, CAPABILITY_SETTINGS_FIELD, CAPABILITY_TYPE_FIELD } from './fields/provisioning/bundle_id_capabilities_fields';
 import { enable_a_bundle_id_capability } from './provisioning/bundle_id_capabilities/enable_a_capability';
 import { modify_a_bundle_id_capability } from './provisioning/bundle_id_capabilities/modify_a_capability';
+import { TERRITORY_FIELD } from './fields/sandbox_testers/territory';
+import { SANDBOX_USER_ID_FIELD } from './fields/sandbox_testers/sandbox_tester_id_field';
+import { SUBSCRIPTION_RENEWAL_RATE_FIELD } from './fields/sandbox_testers/subscription_renewal_rate_field';
+import { INTERRUPTED_PURCHASE_FIELD } from './fields/sandbox_testers/interrupted_purchase_field';
+import { node_modify_sandbox_tester } from './operations/sandbox_testers/modify';
+import { list_visible_apps_invited_user } from './operations/user_invitations/list_visible_apps_invited_user';
 
 interface IAppStoreApiCredentials extends ICredentialDataDecryptedObject {
 	issuerId: string;
@@ -144,6 +150,8 @@ export class AppStore implements INodeType {
 			MODIFY_USER_PROVISIONING_ALLOWED_SWITCH,
 			APP_IDS_FIELD,
 			LIMIT(200, 'Number of apps to return (max 200)', [USER_METHODS.LIST_ALL_APPS_VISIBLE_TO_A_USER]),
+			LIMIT(100, 'Limit of apps to fetch',[USER_INVITATIONS_METHODS.LIST_ALL_APPS_VISIBLE_TO_AN_INVITED_USER]),
+
 			LIST_ALL_APPS_USER_FIELDS_FIELD,
 			INCLUDE_VISIBLE_APPS_FIELD,
 			USERS_FIELDS,
@@ -154,6 +162,10 @@ export class AppStore implements INodeType {
 			ENABLE_CAPABILITY_BUNDLE_ID_REL_FIELD,
 			CAPABILITY_TYPE_FIELD,
 			CAPABILITY_SETTINGS_FIELD,
+			SUBSCRIPTION_RENEWAL_RATE_FIELD,
+			TERRITORY_FIELD,
+			SANDBOX_USER_ID_FIELD,
+			INTERRUPTED_PURCHASE_FIELD
 		],
 	};
 
@@ -179,6 +191,7 @@ export class AppStore implements INodeType {
 
 		// user invitations
 		if (operation === USER_INVITATIONS_METHODS.LIST_INVITED_USERS) returnData.push(await node_list_invitated_users(this, jwtToken));
+		if (operation === USER_INVITATIONS_METHODS.LIST_ALL_APPS_VISIBLE_TO_AN_INVITED_USER) {returnData = await list_visible_apps_invited_user(this, jwtToken);}
 
 		// provisioning bundle id capabilities
 		if (operation === PROVISIONING_BUNDLE_ID_CAPABILITIES_METHODS.DISABLE_CAPABILITY) returnData.push(await disable_a_bundle_id_capability(this, jwtToken));
@@ -187,10 +200,9 @@ export class AppStore implements INodeType {
 		
 		// sandbox testers operations
 		if (operation === SANDBOX_TESTERS_METHODS.LIST_SANDBOX_TESTERS) returnData = await node_list_sandbox_testers(this, jwtToken);
-		if (operation === SANDBOX_TESTERS_METHODS.MODIFY_A_SANDBOX_TESTER) returnData.push({"TO": "DO"} as IDataObject);//todo
+		if (operation === SANDBOX_TESTERS_METHODS.MODIFY_A_SANDBOX_TESTER) returnData.push(await node_modify_sandbox_tester(this, jwtToken));
 		if (operation === SANDBOX_TESTERS_METHODS.CLEAR_PURCHASE_HISTORY_FOR_A_SANDBOX_TESTER) returnData.push({"TO": "DO"} as IDataObject);//todo
 
 		return [this.helpers.returnJsonArray(returnData)];
 	}
 }
-
