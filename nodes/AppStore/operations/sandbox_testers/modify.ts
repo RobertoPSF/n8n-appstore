@@ -15,12 +15,14 @@ export async function node_modify_sandbox_tester(context: any, jwtToken: string)
             jwtToken,
             helpers: context.helpers,
             body: {
-                id: sanboxUserId,
-                type: "sandboxTesters",
-                attributes: {
-                    interruptPurchases: interruptedPurchase,
-                    subscriptionRenewalRate: subscription,
-                    territory: countryTerritoryCodes[territory]
+                data: {
+                    id: sanboxUserId,
+                    type: "sandboxTesters",
+                    attributes: {
+                        interruptPurchases: interruptedPurchase,
+                        subscriptionRenewalRate: subscription,
+                        territory: countryTerritoryCodes[territory]
+                    }
                 }
             },
         });
