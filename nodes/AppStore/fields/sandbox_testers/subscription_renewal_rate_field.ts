@@ -1,5 +1,5 @@
 import { NodePropertyTypes } from "n8n-workflow";
-import { SANDBOX_TESTERS_METHODS } from "../../utils/constants/constants";
+import { SANDBOX_TESTERS_METHODS } from "../../utils/constants/methods_constants";
 import { SUBSCRIPTION_RENEWAL_RATE } from "../../utils/constants/subscription_renewal_rate";
 
 export let SUBSCRIPTION_RENEWAL_RATE_FIELD = {

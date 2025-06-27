@@ -1,6 +1,6 @@
 import { NodePropertyTypes } from "n8n-workflow";
-import { USER_METHODS } from "../../utils/constants/constants";
-import { USER_INVITATIONS_METHODS } from "../../utils/constants/constants"; 
+import { USER_METHODS } from "../../utils/constants/methods_constants";
+import { USER_INVITATIONS_METHODS } from "../../utils/constants/methods_constants";
 
 export let APPS_FIELDS = {
     displayName: 'Apps fields to get on response',
@@ -64,7 +64,6 @@ export let APPS_FIELDS = {
         show: {
             operation: [USER_METHODS.READ_USER_INFORMATION,
                 USER_INVITATIONS_METHODS.LIST_ALL_APPS_VISIBLE_TO_AN_INVITED_USER,
-
             ],
         },
     },

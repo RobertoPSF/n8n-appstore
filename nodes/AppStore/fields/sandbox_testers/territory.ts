@@ -1,6 +1,6 @@
 import { NodePropertyTypes } from "n8n-workflow";
 import { countryNames } from "../../utils/constants/territory_codes";
-import { SANDBOX_TESTERS_METHODS } from "../../utils/constants/constants";
+import { SANDBOX_TESTERS_METHODS } from "../../utils/constants/methods_constants";
 
 export let TERRITORY_FIELD = {
     displayName: 'Sandbox Account Territory',

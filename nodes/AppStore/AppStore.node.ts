@@ -7,27 +7,27 @@ import {
 	INodeType,
 	INodeTypeDescription,
 } from 'n8n-workflow';
-
-import { 
-	MODIFY_USER_ALL_APPS_VISIBLE_SWITCH, 
-	MODIFY_USER_PROVISIONING_ALLOWED_SWITCH, 
-	MODIFY_USER_ROLES_FIELD, 
-	APP_IDS_FIELD, 
-	LIST_ALL_APPS_USER_FIELDS_FIELD 
+import {
+	MODIFY_USER_ALL_APPS_VISIBLE_SWITCH,
+	MODIFY_USER_PROVISIONING_ALLOWED_SWITCH,
+	MODIFY_USER_ROLES_FIELD,
+	APP_IDS_FIELD,
+	LIST_ALL_APPS_USER_FIELDS_FIELD
 } from './fields/users/modify_user_fields';
 
 import {
-	SANDBOX_TESTERS_METHODS, 
-	PROVISIONING_BUNDLE_ID_CAPABILITIES_METHODS, 
-	USER_INVITATIONS_METHODS, 
+	SANDBOX_TESTERS_METHODS,
+	PROVISIONING_BUNDLE_ID_CAPABILITIES_METHODS,
+	USER_INVITATIONS_METHODS,
 	USER_METHODS
-} from './utils/constants/constants';
+} from './utils/constants/methods_constants';
 
 import { generateAppStoreJwt } from './utils/token_generate';
 import { node_modify_user } from './operations/user/modify';
 import { node_list_user } from './operations/user/list';
 import { node_get_user } from './operations/user/get_by_id';
-import { node_list_invitated_users } from './operations/user_invitations/list';
+import { node_list_invited_users } from './operations/user_invitations/list';
+import { node_get_user_invitation } from './operations/user_invitations/getById';
 import { node_remove_user } from './operations/user/remove';
 import { node_list_user_visible_apps } from './operations/user/list_visible_apps';
 import { node_list_user_visible_app_relationships } from './operations/user/list_visible_app_relationships';
@@ -38,10 +38,9 @@ import { INCLUDE_VISIBLE_APPS_FIELD } from './fields/users/include_visible_apps_
 import { USERS_FIELDS } from './fields/users/users_fields';
 import { APPS_FIELDS } from './fields/users/apps_fields';
 import { LIMIT } from './fields/users/limit_field';
-import { PROVISIONING_BUNDLE_ID_CAPABILITIES_OPERATIONS } from './utils/constants/operations_constants';
+import { PROVISIONING_BUNDLE_ID_CAPABILITIES_OPERATIONS, SANDBOX_TESTERS_OPERATIONS, USERS_OPERATIONS, USER_INVITATIONS_OPERATIONS } from './utils/constants/operations_constants';
 import { node_remove_visible_apps } from './operations/user/remove_visible_apps';
 import { disable_a_bundle_id_capability } from './provisioning/bundle_id_capabilities/disable_a_capability';
-import { SANDBOX_TESTERS_OPERATIONS, USERS_OPERATIONS, USER_INVITATIONS_OPERATIONS } from './utils/constants/operations_constants';
 import { node_list_sandbox_testers } from './operations/sandbox_testers/list';
 import { CAPABILITY_ID_FIELD, ENABLE_CAPABILITY_BUNDLE_ID_REL_FIELD, CAPABILITY_SETTINGS_FIELD, CAPABILITY_TYPE_FIELD } from './fields/provisioning/bundle_id_capabilities_fields';
 import { enable_a_bundle_id_capability } from './provisioning/bundle_id_capabilities/enable_a_capability';
@@ -51,7 +50,11 @@ import { SANDBOX_USER_ID_FIELD } from './fields/sandbox_testers/sandbox_tester_i
 import { SUBSCRIPTION_RENEWAL_RATE_FIELD } from './fields/sandbox_testers/subscription_renewal_rate_field';
 import { INTERRUPTED_PURCHASE_FIELD } from './fields/sandbox_testers/interrupted_purchase_field';
 import { node_modify_sandbox_tester } from './operations/sandbox_testers/modify';
+import { node_clear_sandbox_tester_history } from './operations/sandbox_testers/clear_history';
 import { list_visible_apps_invited_user } from './operations/user_invitations/list_visible_apps_invited_user';
+import { INVITATION_ID_FIELD } from './fields/user_invitations/invitation_get_by_id_fields';
+import { INVITE_USER_ALL_APPS_VISIBLE_SWITCH, INVITE_USER_EMAIL_FIELD, INVITE_USER_FIRST_NAME_FIELD, INVITE_USER_LAST_NAME_FIELD, INVITE_USER_PROVISIONING_ALLOWED_SWITCH } from './fields/user_invitations/invite_user_fields';
+import { node_invite_user } from './operations/user_invitations/invite';
 import { node_list_visible_apps_relationship } from './operations/user_invitations/list_visible_apps_relationship';
 
 interface IAppStoreApiCredentials extends ICredentialDataDecryptedObject {
@@ -68,6 +71,7 @@ export class AppStore implements INodeType {
 		group: ['transform'],
 		version: 1,
 		description: 'Consume AppStore API',
+		subtitle: '={{ $parameter["operation"] + ": " + $parameter["resource"] }}',
 		defaults: {
 			name: 'AppStore',
 		},
@@ -102,6 +106,7 @@ export class AppStore implements INodeType {
 			  },
 			  options: USERS_OPERATIONS,
 			  default: '',
+			  noDataExpression: true,
 			  typeOptions: {
 				groups: [{ name: 'Users' }],
 			  },
@@ -115,6 +120,7 @@ export class AppStore implements INodeType {
 			  },
 			  options: USER_INVITATIONS_OPERATIONS,
 			  default: '',
+			  noDataExpression: true,
 			  typeOptions: {
 				groups: [{ name: 'User Invitations' }],
 			  },
@@ -128,6 +134,7 @@ export class AppStore implements INodeType {
 			  },
 			  options: SANDBOX_TESTERS_OPERATIONS,
 			  default: '',
+			  noDataExpression: true,
 			  typeOptions: {
 				groups: [{ name: 'Sandbox Testers' }],
 			  },
@@ -141,6 +148,7 @@ export class AppStore implements INodeType {
 			  },
 			  options: PROVISIONING_BUNDLE_ID_CAPABILITIES_OPERATIONS,
 			  default: '',
+			  noDataExpression: true,
 			  typeOptions: {
 				groups: [{ name: 'Bundle ID Capabilities' }],
 			  },
@@ -154,6 +162,8 @@ export class AppStore implements INodeType {
 			LIMIT(100, 'Limit of apps to fetch',[USER_INVITATIONS_METHODS.LIST_ALL_APPS_VISIBLE_TO_AN_INVITED_USER]),
 			LIMIT(200, 'Maximum number of app relationships to return (max 200)', [USER_INVITATIONS_METHODS.LIST_VISIBLE_APP_RELATIONSHIPS_FOR_INVITED_USER]),
 			LIST_ALL_APPS_USER_FIELDS_FIELD,
+
+			// GET_USER_BY_ID
 			INCLUDE_VISIBLE_APPS_FIELD,
 			USERS_FIELDS,
 			APPS_FIELDS,
@@ -166,7 +176,13 @@ export class AppStore implements INodeType {
 			SUBSCRIPTION_RENEWAL_RATE_FIELD,
 			TERRITORY_FIELD,
 			SANDBOX_USER_ID_FIELD,
-			INTERRUPTED_PURCHASE_FIELD
+			INTERRUPTED_PURCHASE_FIELD,
+			INVITATION_ID_FIELD,
+			INVITE_USER_EMAIL_FIELD,
+			INVITE_USER_FIRST_NAME_FIELD,
+			INVITE_USER_LAST_NAME_FIELD,
+			INVITE_USER_ALL_APPS_VISIBLE_SWITCH,
+			INVITE_USER_PROVISIONING_ALLOWED_SWITCH
 		],
 	};
 
@@ -191,19 +207,21 @@ export class AppStore implements INodeType {
 		if (operation === USER_METHODS.REMOVE_VISIBLE_APPS_FROM_A_USER) returnData = await node_remove_visible_apps(this, jwtToken);
 
 		// user invitations
-		if (operation === USER_INVITATIONS_METHODS.LIST_INVITED_USERS) returnData.push(await node_list_invitated_users(this, jwtToken));
-		if (operation === USER_INVITATIONS_METHODS.LIST_ALL_APPS_VISIBLE_TO_AN_INVITED_USER) {returnData = await list_visible_apps_invited_user(this, jwtToken);}
-		if (operation === USER_INVITATIONS_METHODS.LIST_VISIBLE_APP_RELATIONSHIPS_FOR_INVITED_USER) {returnData = await node_list_visible_apps_relationship(this, jwtToken);}
+		if (operation === USER_INVITATIONS_METHODS.LIST_INVITED_USERS) returnData.push(await node_list_invited_users(this, jwtToken));
+		if (operation === USER_INVITATIONS_METHODS.READ_USER_INVITATION_INFORMATION) returnData.push(await node_get_user_invitation(this, jwtToken));
+		if (operation === USER_INVITATIONS_METHODS.INVITE_A_USER) returnData.push(await node_invite_user(this, jwtToken));
+		if (operation === USER_INVITATIONS_METHODS.LIST_ALL_APPS_VISIBLE_TO_AN_INVITED_USER) returnData = await list_visible_apps_invited_user(this, jwtToken);
+		if (operation === USER_INVITATIONS_METHODS.LIST_VISIBLE_APP_RELATIONSHIPS_FOR_INVITED_USER) returnData = await node_list_visible_apps_relationship(this, jwtToken);
+
+		// sandbox testers
+		if (operation === SANDBOX_TESTERS_METHODS.LIST_SANDBOX_TESTERS) returnData = await node_list_sandbox_testers(this, jwtToken);
+		if (operation === SANDBOX_TESTERS_METHODS.MODIFY_A_SANDBOX_TESTER) returnData.push(await node_modify_sandbox_tester(this, jwtToken));
+		if (operation === SANDBOX_TESTERS_METHODS.CLEAR_PURCHASE_HISTORY_FOR_A_SANDBOX_TESTER) returnData.push(await node_clear_sandbox_tester_history(this, jwtToken));
 
 		// provisioning bundle id capabilities
 		if (operation === PROVISIONING_BUNDLE_ID_CAPABILITIES_METHODS.DISABLE_CAPABILITY) returnData.push(await disable_a_bundle_id_capability(this, jwtToken));
 		if (operation === PROVISIONING_BUNDLE_ID_CAPABILITIES_METHODS.ENABLE_CAPABILITY) returnData.push(await enable_a_bundle_id_capability(this, jwtToken));
 		if (operation === PROVISIONING_BUNDLE_ID_CAPABILITIES_METHODS.MODIFY_CAPABILITY) returnData.push(await modify_a_bundle_id_capability(this, jwtToken));
-		
-		// sandbox testers operations
-		if (operation === SANDBOX_TESTERS_METHODS.LIST_SANDBOX_TESTERS) returnData = await node_list_sandbox_testers(this, jwtToken);
-		if (operation === SANDBOX_TESTERS_METHODS.MODIFY_A_SANDBOX_TESTER) returnData.push(await node_modify_sandbox_tester(this, jwtToken));
-		if (operation === SANDBOX_TESTERS_METHODS.CLEAR_PURCHASE_HISTORY_FOR_A_SANDBOX_TESTER) returnData.push({"TO": "DO"} as IDataObject);//todo
 
 		return [this.helpers.returnJsonArray(returnData)];
 	}

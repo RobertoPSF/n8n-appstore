@@ -1,7 +1,7 @@
 import { appStoreGeneralRequest } from "../../requests/general_request";
 import { ROUTE_USER_INVITATIONS } from "../../requests/api_routes";
 
-export async function node_list_invitated_users(context: any, jwtToken: string) {
+export async function node_list_invited_users(context: any, jwtToken: string) {
     try {
         const response = await appStoreGeneralRequest({
             method: 'GET',
