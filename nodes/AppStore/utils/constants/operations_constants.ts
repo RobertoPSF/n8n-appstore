@@ -246,6 +246,20 @@ export const PROVISIONING_CERTIFICATES_OPERATIONS = [
 		group: ['Certificates'],
 		action: 'Read Certificate Information',
 	},
+	{
+		name: 'List Pass Type IDs for a Certificate',
+		value: PROVISIONING_CERTIFICATES_METHODS.LIST_PASSTYPEID_IDS_FOR_CERTIFICATE,
+		description: 'List all pass type IDs for a certificate',
+		group: ['Certificates'],
+		action: 'List Pass Type IDs for a Certificate',
+	},
+	{
+		name: 'Get Pass Type ID Relationship for a Certificate',
+		value: PROVISIONING_CERTIFICATES_METHODS.GET_CERTIFICATE_PASSTYPEID_RELATIONSHIP,
+		description: 'Get a pass type ID relationship for a certificate',
+		group: ['Certificates'],
+		action: 'Get Pass Type ID Relationship for a Certificate',
+	}
 ]
 
 export const DEVICES_OPERATIONS = [
@@ -254,7 +268,7 @@ export const DEVICES_OPERATIONS = [
 		value: DEVICE_METHODS.REGISTER_DEVICE,
 		description: 'Register a new device to the App Store Connect account',
 	},
-    
+
 	{
 		name: 'List Devices',
 		value: DEVICE_METHODS.LIST_DEVICES,
@@ -299,4 +313,4 @@ export const PROVISIONING_PROFILES_OPERATIONS = [
         action: 'Read Bundle ID',
     },
 ];
-  
+
