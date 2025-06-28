@@ -21,3 +21,4 @@ export const ROUTE_BUNDLE_ID_BUNDLE_ID_CAPABILITIES_RELATIONSHIPS = (bundleId: s
 export const ROUTE_BUNDLE_ID_PROFILES_RELATIONSHIPS = (bundleId: string) => `/v1/bundleIds/${bundleId}/relationships/profiles`;
 export const ROUTE_CERTIFICATES = '/v1/certificates';
 export const ROUTE_CERTIFICATE_BY_ID = (certificateId: string) => `/v1/certificates/${certificateId}`;
+export const ROUTE_DEVICES = '/v1/devices';

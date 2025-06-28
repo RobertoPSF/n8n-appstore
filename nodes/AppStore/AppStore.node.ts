@@ -24,6 +24,15 @@ import {
 	PROVISIONING_CERTIFICATES_METHODS
 } from './utils/constants/methods_constants';
 
+import { node_register_device } from './operations/provisioning/devices/register';
+
+import { LIST_DEVICES_FIELDS } from './fields/provisioning/devices/list_field';
+import { node_list_devices } from './operations/provisioning/devices/list';
+
+import { DEVICE_METHODS } from './utils/constants/methods_constants';
+import { DEVICES_OPERATIONS } from './utils/constants/operations_constants';
+import { REGISTER_DEVICE_FIELDS } from './fields/provisioning/devices/register_fields';
+
 import { generateAppStoreJwt } from './utils/token_generate';
 import { node_modify_user } from './operations/user/modify';
 import { node_list_user } from './operations/user/list';
@@ -113,8 +122,23 @@ export class AppStore implements INodeType {
 				{ name: 'Sandbox Tester', value: 'sandboxTesters' },
 				{ name: 'User Invitations', value: 'userInvitations' },
 				{ name: 'Users', value: 'users' },
+				{ name: 'Devices', value: 'devices' },
 			  ],
 			  default: 'users',
+			},
+			{
+				displayName: 'Operation',
+				name: 'operation',
+				type: 'options',
+				noDataExpression: true,
+				displayOptions: {
+					show: { resource: ['devices'] },
+				},
+				options: DEVICES_OPERATIONS,
+				default: '',
+				typeOptions: {
+					groups: [{ name: 'Devices' }],
+				},
 			},
 			{
 			  displayName: 'Operation',
@@ -210,7 +234,9 @@ export class AppStore implements INodeType {
 			LIMIT(100, 'Limit of apps to fetch',[USER_INVITATIONS_METHODS.LIST_ALL_APPS_VISIBLE_TO_AN_INVITED_USER]),
 			LIMIT(200, 'Maximum number of app relationships to return (max 200)', [USER_INVITATIONS_METHODS.LIST_VISIBLE_APP_RELATIONSHIPS_FOR_INVITED_USER]),
 			LIST_ALL_APPS_USER_FIELDS_FIELD,
-
+			...REGISTER_DEVICE_FIELDS,
+			...LIST_DEVICES_FIELDS,
+			LIMIT(200, 'Maximum number of devices to return (max 200)', [DEVICE_METHODS.LIST_DEVICES]),
 			// GET_USER_BY_ID
 			INCLUDE_VISIBLE_APPS_FIELD,
 			USERS_FIELDS,
@@ -293,6 +319,10 @@ export class AppStore implements INodeType {
 		// provisioning certificates
 		if (operation === PROVISIONING_CERTIFICATES_METHODS.LIST_AND_DOWNLOAD_CERTIFICATES) returnData = await node_list_certificates(this, jwtToken);
 		if (operation === PROVISIONING_CERTIFICATES_METHODS.READ_AND_DOWNLOAD_CERTIFICATE_INFORMATION) returnData.push(await node_read_certificate_information(this, jwtToken));
+
+		// device
+		if (operation === DEVICE_METHODS.REGISTER_DEVICE) returnData.push(await node_register_device(this, jwtToken));
+		if (operation === DEVICE_METHODS.LIST_DEVICES)    returnData       = await node_list_devices(this, jwtToken);
 
 		return [this.helpers.returnJsonArray(returnData)];
 	}

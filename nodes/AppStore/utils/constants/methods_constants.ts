@@ -98,3 +98,8 @@ export const PROVISIONING_PASSTYPE_IDS_METHODS = {
     CREATE_PASSTYPEID: "create_passtypeid",
     DELETE_PASSTYPEID: "delete_passtypeid",
 }
+
+export const DEVICE_METHODS = {
+	REGISTER_DEVICE: 'registerDevice',
+	LIST_DEVICES: 'listDevices',
+};

@@ -3,8 +3,9 @@ import {
     USER_INVITATIONS_METHODS,
     USER_METHODS,
     SANDBOX_TESTERS_METHODS,
-		PROVISIONING_BUNDLE_ID_METHODS,
-		PROVISIONING_CERTIFICATES_METHODS
+	PROVISIONING_BUNDLE_ID_METHODS,
+	PROVISIONING_CERTIFICATES_METHODS,
+    DEVICE_METHODS
 } from "./methods_constants";
 
 export let USERS_OPERATIONS = [
@@ -245,3 +246,17 @@ export const PROVISIONING_CERTIFICATES_OPERATIONS = [
 		action: 'Read Certificate Information',
 	},
 ]
+
+export const DEVICES_OPERATIONS = [
+	{
+		name: 'Register a Device',
+		value: DEVICE_METHODS.REGISTER_DEVICE,
+		description: 'Register a new device to the App Store Connect account',
+	},
+    
+	{
+		name: 'List Devices',
+		value: DEVICE_METHODS.LIST_DEVICES,
+		description: 'List registered devices',
+	},
+];
