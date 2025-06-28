@@ -11,3 +11,5 @@ export const ROUTE_SANDBOX_TESTERS_BY_ID = (sandBoxTesterId: string) => `/v2/san
 export const ROUTE_SANDBOX_TESTERS_CLEAR_PURCHASE_HISTORY = "/v2/sandboxTestersClearPurchaseHistoryRequest";
 export const ROUTE_USER_INVITATION_VISIBLE_APPS = (id: string) => `/v1/userInvitations/${id}/visibleApps`;
 export const ROUTE_USER_INVITATION_VISIBLE_APP_RELATIONSHIPS = (id: string) => `/v1/userInvitations/${id}/relationships/visibleApps`;
+export const ROUTE_BUNDLE_ID = '/v1/bundleIds';
+export const ROUTE_BUNDLE_ID_BY_ID = (bundleId: string) => `/v1/bundleIds/${bundleId}`;
