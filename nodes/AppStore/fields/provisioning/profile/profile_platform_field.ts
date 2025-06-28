@@ -3,7 +3,7 @@ import { PROVISIONING_PROFILES_METHODS } from "../../../utils/constants/methods_
 import { PLATFORM_TYPE } from "../../../utils/constants/platform_type";
 
 export let PROFILE_PLATFORM_TYPE_FIELD = {
-    displayName: 'Profile platform',
+    displayName: 'Profile Platform',
     name: 'profilePlatform',
     type: 'options' as NodePropertyTypes,
     options: PLATFORM_TYPE.map(name => {

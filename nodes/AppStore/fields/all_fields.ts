@@ -5,6 +5,7 @@ import { CAPABILITY_ID_FIELD, CAPABILITY_SETTINGS_FIELD, CAPABILITY_TYPE_FIELD, 
 import { CERTIFICATE_ID_FIELD } from "./provisioning/certificates/get_certificate_by_id_fields";
 import { LIST_DEVICES_FIELDS } from "./provisioning/devices/list_field";
 import { REGISTER_DEVICE_FIELDS } from "./provisioning/devices/register_fields";
+import { PROFILE_ID_FIELD } from "./provisioning/profile/profile_id_field";
 import { PROFILE_BUNDLE_ID_FIELD } from "./provisioning/profile/profile_bundle_id_field";
 import { PROFILE_CERTIFICATES_IDS_FIELDS } from "./provisioning/profile/profile_certificates_ids_fields";
 import { PROFILE_DEVICES_IDS_FIELDS } from "./provisioning/profile/profile_device_id_fields";
@@ -72,4 +73,5 @@ export const ALL_FIELDS = [
     PROFILE_TYPE_FIELD,
     PROFILE_CERTIFICATES_IDS_FIELDS,
     PROFILE_DEVICES_IDS_FIELDS,
+		PROFILE_ID_FIELD
 ];

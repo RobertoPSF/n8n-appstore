@@ -325,5 +325,40 @@ export const PROVISIONING_PROFILES_OPERATIONS = [
         group: ['Profiles'],
         action: 'Read Bundle ID',
     },
+		{
+			name: 'Get Bundle ID Relationship with Profiles',
+			value: PROVISIONING_BUNDLE_ID_METHODS.GET_BUNDLEID_PROFILES_RELATIONSHIP,
+			description: 'Get a bundle ID relationship with profiles',
+			group: ['Bundle ID'],
+			action: 'Get Bundle ID Relationship with Profiles',
+		},
+		{
+			name: 'List Certificates for a Profile',
+			value: PROVISIONING_PROFILES_METHODS.LIST_PROFILE_CERTIFICATES,
+			description: 'List all certificates for a profile',
+			group: ['Profiles'],
+			action: 'List Certificates for a Profile',
+		},
+		{
+			name: 'Get Certificates Relationship with Profiles',
+			value: PROVISIONING_PROFILES_METHODS.GET_PROFILE_CERTIFICATES_RELATIONSHIP,
+			description: 'Get a certificates relationship with profiles',
+			group: ['Profiles'],
+			action: 'Get Certificates Relationship with Profiles',
+		},
+		{
+			name: 'List Devices for a Profile',
+			value: PROVISIONING_PROFILES_METHODS.LIST_PROFILE_DEVICES,
+			description: 'List all devices for a profile',
+			group: ['Profiles'],
+			action: 'List Devices for a Profile',
+		},
+		{
+			name: 'Get Devices Relationship with Profiles',
+			value: PROVISIONING_PROFILES_METHODS.GET_PROFILE_DEVICES_RELATIONSHIP,
+			description: 'Get a devices relationship with profiles',
+			group: ['Profiles'],
+			action: 'Get Devices Relationship with Profiles',
+		},
 ];
 

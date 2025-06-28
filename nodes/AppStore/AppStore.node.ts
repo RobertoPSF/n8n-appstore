@@ -13,7 +13,8 @@ import {
 	USER_INVITATIONS_METHODS,
 	USER_METHODS,
 	PROVISIONING_BUNDLE_ID_METHODS,
-	PROVISIONING_CERTIFICATES_METHODS
+	PROVISIONING_CERTIFICATES_METHODS,
+	PROVISIONING_PROFILES_METHODS
 } from './utils/constants/methods_constants';
 
 import { node_register_device } from './operations/provisioning/devices/register';
@@ -58,6 +59,15 @@ import { ALL_FIELDS } from './fields/all_fields';
 import { node_list_passtype_ids_for_a_certificate } from './operations/provisioning/certificates/list_passtype_id_for_a_certificate';
 import { node_get_passtype_id_for_certificate_relation } from './operations/provisioning/certificates/get_passtype_id_for_certificate_relation';
 import { node_revoke_certificate } from './operations/provisioning/certificates/revoke_certificate';
+import { node_list_and_download_profiles } from './operations/provisioning/profiles/list_and_download_profiles';
+import { node_read_and_download_profile_info } from './operations/provisioning/profiles/read_and_download_profile_info';
+import { node_read_bundleid_of_profile } from './operations/provisioning/profiles/read_bundleid_of_profile';
+import { node_get_profile_bundleid_relation } from './operations/provisioning/profiles/get_profile_bundleid_relation';
+import { node_create_profile } from './operations/provisioning/profiles/create';
+import { node_list_profile_certificates } from './operations/provisioning/profiles/list_profile_certificates';
+import { node_get_profile_certificate_relationship } from './operations/provisioning/profiles/get_profile_certificate_relationship';
+import { node_list_profile_devices } from './operations/provisioning/profiles/list_profile_devices';
+import { node_get_profile_devices_relationship } from './operations/provisioning/profiles/get_profile_devices_relationship';
 
 interface IAppStoreApiCredentials extends ICredentialDataDecryptedObject {
 	issuerId: string;
@@ -279,6 +289,19 @@ export class AppStore implements INodeType {
 		if (operation === DEVICE_METHODS.REGISTER_DEVICE) returnData.push(await node_register_device(this, jwtToken));
 		if (operation === DEVICE_METHODS.LIST_DEVICES)    returnData       = await node_list_devices(this, jwtToken);
 		if (operation === DEVICE_METHODS.READ_DEVICE) returnData.push(await node_get_device_by_id(this, jwtToken));
+
+
+		// profiles
+		if (operation === PROVISIONING_PROFILES_METHODS.LIST_AND_DOWNLOAD_PROFILES) returnData = await node_list_and_download_profiles(this, jwtToken);
+		if (operation === PROVISIONING_PROFILES_METHODS.READ_AND_DOWNLOAD_PROFILE_INFORMATION) returnData.push(await node_read_and_download_profile_info(this, jwtToken));
+		if (operation === PROVISIONING_PROFILES_METHODS.READ_BUNDLE_ID_IN_PROFILE) returnData.push(await node_read_bundleid_of_profile(this, jwtToken));
+		if (operation === PROVISIONING_PROFILES_METHODS.GET_PROFILE_BUNDLEID_RELATIONSHIP) returnData.push(await node_get_profile_bundleid_relation(this, jwtToken));
+		
+		if (operation === PROVISIONING_PROFILES_METHODS.CREATE_PROFILE) returnData.push(await node_create_profile(this, jwtToken));
+		if (operation === PROVISIONING_PROFILES_METHODS.LIST_PROFILE_CERTIFICATES) returnData = await node_list_profile_certificates(this, jwtToken);
+		if (operation === PROVISIONING_PROFILES_METHODS.GET_PROFILE_CERTIFICATES_RELATIONSHIP) returnData = await node_get_profile_certificate_relationship(this, jwtToken);
+		if (operation === PROVISIONING_PROFILES_METHODS.LIST_PROFILE_DEVICES) returnData = await node_list_profile_devices(this, jwtToken);
+		if (operation === PROVISIONING_PROFILES_METHODS.GET_PROFILE_DEVICES_RELATIONSHIP) returnData = await node_get_profile_devices_relationship(this, jwtToken);
 
 		return [this.helpers.returnJsonArray(returnData)];
 	}
