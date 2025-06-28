@@ -285,7 +285,19 @@ export const DEVICES_OPERATIONS = [
         group: ['Devices'],
         action: 'List Devices',
 	},
-    { name: 'Read Device Information', value: DEVICE_METHODS.READ_DEVICE, description: 'Read information about a registered device', group: ['Devices'], action: 'Read Device Information' }, 
+    { 
+        name: 'Read Device Information', 
+        value: DEVICE_METHODS.READ_DEVICE, 
+        description: 'Read information about a registered device', 
+        group: ['Devices'], 
+        action: 'Read Device Information' 
+    }, 
+    { name: 'Modify a Registered Device', 
+      value: DEVICE_METHODS.MODIFY_DEVICE,
+      description: 'Modify a registered device by ID',
+      group: ['Devices'],
+      action: 'Modify a Registered Device'
+    },
 
 ];
 

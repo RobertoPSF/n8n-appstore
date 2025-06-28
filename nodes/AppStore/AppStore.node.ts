@@ -17,6 +17,7 @@ import {
 	PROVISIONING_PROFILES_METHODS
 } from './utils/constants/methods_constants';
 
+import { node_modify_device } from './operations/provisioning/devices/modify';
 import { node_register_device } from './operations/provisioning/devices/register';
 import { node_list_devices } from './operations/provisioning/devices/list';
 import { node_get_device_by_id } from './operations/provisioning/devices/get_by_id';
@@ -289,6 +290,7 @@ export class AppStore implements INodeType {
 		if (operation === DEVICE_METHODS.REGISTER_DEVICE) returnData.push(await node_register_device(this, jwtToken));
 		if (operation === DEVICE_METHODS.LIST_DEVICES)    returnData       = await node_list_devices(this, jwtToken);
 		if (operation === DEVICE_METHODS.READ_DEVICE) returnData.push(await node_get_device_by_id(this, jwtToken));
+		if (operation === DEVICE_METHODS.MODIFY_DEVICE) {returnData.push(await node_modify_device(this, jwtToken));}
 
 
 		// profiles

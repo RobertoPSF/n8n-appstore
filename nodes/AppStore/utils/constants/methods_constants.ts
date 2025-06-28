@@ -103,4 +103,5 @@ export const DEVICE_METHODS = {
 	REGISTER_DEVICE: 'registerDevice',
 	LIST_DEVICES: 'listDevices',
     READ_DEVICE: 'readDevice',
+    MODIFY_DEVICE:   'modifyDevice',
 };
