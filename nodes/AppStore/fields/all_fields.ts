@@ -29,6 +29,9 @@ import { GET_DEVICE_FIELDS } from "./provisioning/devices/get_by_id_field";
 import { MODIFY_DEVICE_FIELDS } from "./provisioning/devices/modify_field";
 import { MERCHANT_ID_FIELD } from "./provisioning/merchant_ids/merchant_id_fields";
 import { PASSTYPE_ID_FIELD } from "./provisioning/passtype_id/passtype_id_fields";
+import { LIST_PASS_TYPE_IDS_FIELDS } from "./provisioning/passtype_id/list_field";
+import { GET_CERT_PTI_REL_FIELDS } from "./provisioning/passtype_id/get_relation_field";
+import { LIST_ALL_PTI_FIELDS } from "./provisioning/passtype_id/list_pass_type_id_field";
 
 export const ALL_FIELDS = [
     USER_ID_FIELD,
@@ -44,6 +47,9 @@ export const ALL_FIELDS = [
     ...LIST_DEVICES_FIELDS,
     ...GET_DEVICE_FIELDS,
     ...MODIFY_DEVICE_FIELDS,
+    ...GET_CERT_PTI_REL_FIELDS, 
+    ...LIST_PASS_TYPE_IDS_FIELDS,
+    ...LIST_ALL_PTI_FIELDS,
     LIMIT(200, 'Maximum number of devices to return (max 200)', [DEVICE_METHODS.LIST_DEVICES]),
     INCLUDE_VISIBLE_APPS_FIELD,
     USERS_FIELDS,

@@ -450,4 +450,26 @@ export const PROVISIONING_PASSTYPE_IDS_OPERATIONS = [
 		group: ['Pass Type IDs'],
 		action: 'Delete Pass Type ID',
 	},
+
+    { 
+        name: 'List PassTypeID Ids by Certificate', 
+        value: PROVISIONING_PASSTYPE_IDS_METHODS.LIST_BY_CERT,
+        description: 'List PassTypeID Ids by Certificate',
+        group: ['Pass Type IDs'],
+        action: 'List PassTypeID Ids by Certificate'
+    },
+    {
+		name : 'Get Certificate PassTypeID Relationship',
+		value: PROVISIONING_PASSTYPE_IDS_METHODS.GET_RELATION_BY_CERT,
+        description: 'Get the relationship between a certificate and a PassTypeID',
+        group: ['Pass Type IDs'],
+        action: 'Get Certificate PassTypeID Relationship',
+	},
+    { 
+        name: 'List Pass Type Ids',
+        value: PROVISIONING_PASSTYPE_IDS_METHODS.LIST_ALL_PASS_TYPE_IDS,
+        description: 'List all Pass Type Ids',
+        group: ['Pass Type IDs'],
+        action: 'List Pass Type Ids'
+    }, 
 ]

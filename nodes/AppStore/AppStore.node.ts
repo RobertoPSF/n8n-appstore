@@ -19,6 +19,10 @@ import {
 	PROVISIONING_PASSTYPE_IDS_METHODS,
 } from './utils/constants/methods_constants';
 
+
+import { node_get_pass_type_relation } from './operations/provisioning/passtype_id/get_relation';
+import { node_list_all_pass_type_ids } from './operations/provisioning/passtype_id/list_pass_type_id';
+import { node_list_pass_type_ids_by_cert } from './operations/provisioning/passtype_id/list';
 import { node_modify_device } from './operations/provisioning/devices/modify';
 import { node_register_device } from './operations/provisioning/devices/register';
 import { node_list_devices } from './operations/provisioning/devices/list';
@@ -360,6 +364,9 @@ export class AppStore implements INodeType {
 		if (operation === PROVISIONING_PASSTYPE_IDS_METHODS.DELETE_PASSTYPEID) returnData.push(await node_delete_passtype_id(this, jwtToken));
 		if (operation === PROVISIONING_PASSTYPE_IDS_METHODS.LIST_CERTIFICATES_FOR_PASSTYPEID) returnData = await node_list_all_certificates_for_passtype_id(this, jwtToken);
 		if (operation === PROVISIONING_PASSTYPE_IDS_METHODS.GET_PASSTYPEID_CERTIFICATES_RELATIONSHIP) returnData = await node_get_certificates_relationships_for_passtype_ids(this, jwtToken);
+		if (operation === PROVISIONING_PASSTYPE_IDS_METHODS.LIST_BY_CERT) {returnData = await node_list_pass_type_ids_by_cert(this, jwtToken);}
+		if (operation === PROVISIONING_PASSTYPE_IDS_METHODS.GET_RELATION_BY_CERT) {returnData.push(await node_get_pass_type_relation(this, jwtToken));}
+		if (operation === PROVISIONING_PASSTYPE_IDS_METHODS.LIST_ALL_PASS_TYPE_IDS) {returnData = await node_list_all_pass_type_ids(this, jwtToken);}
 
 		return [this.helpers.returnJsonArray(returnData)];
 	}

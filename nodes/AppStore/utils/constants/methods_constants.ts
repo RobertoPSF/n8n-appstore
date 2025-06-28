@@ -97,6 +97,9 @@ export const PROVISIONING_PASSTYPE_IDS_METHODS = {
     MODIFY_PASSTYPEID: "modify_passtypeid",
     CREATE_PASSTYPEID: "create_passtypeid",
     DELETE_PASSTYPEID: "delete_passtypeid",
+    LIST_BY_CERT: 'listPassTypeIdsByCert',
+    GET_RELATION_BY_CERT: 'getCertPassTypeIdRelation',
+    LIST_ALL_PASS_TYPE_IDS : 'listAllPassTypeIds',
 }
 
 export const DEVICE_METHODS = {
@@ -104,4 +107,10 @@ export const DEVICE_METHODS = {
 	LIST_DEVICES: 'listDevices',
     READ_DEVICE: 'readDevice',
     MODIFY_DEVICE:   'modifyDevice',
+};
+
+export const PASS_TYPE_METHODS = {
+	LIST_BY_CERT: 'listPassTypeIdsByCert',
+    GET_RELATION_BY_CERT: 'getCertPassTypeIdRelation',
+    LIST_ALL_PASS_TYPE_IDS : 'listAllPassTypeIds',
 };
