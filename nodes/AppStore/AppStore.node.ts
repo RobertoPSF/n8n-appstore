@@ -13,7 +13,8 @@ import {
 	USER_INVITATIONS_METHODS,
 	USER_METHODS,
 	PROVISIONING_BUNDLE_ID_METHODS,
-	PROVISIONING_CERTIFICATES_METHODS
+	PROVISIONING_CERTIFICATES_METHODS,
+	PROVISIONING_PROFILES_METHODS
 } from './utils/constants/methods_constants';
 
 import { node_register_device } from './operations/provisioning/devices/register';
@@ -59,6 +60,10 @@ import { ALL_FIELDS } from './fields/all_fields';
 import { node_list_passtype_ids_for_a_certificate } from './operations/provisioning/certificates/list_passtype_id_for_a_certificate';
 import { node_get_passtype_id_for_certificate_relation } from './operations/provisioning/certificates/get_passtype_id_for_certificate_relation';
 import { node_revoke_certificate } from './operations/provisioning/certificates/revoke_certificate';
+import { node_list_and_download_profiles } from './operations/provisioning/profiles/list_and_download_profiles';
+import { node_read_and_download_profile_info } from './operations/provisioning/profiles/read_and_download_profile_info';
+import { node_read_bundleid_of_profile } from './operations/provisioning/profiles/read_bundleid_of_profile';
+import { node_get_profile_bundleid_relation } from './operations/provisioning/profiles/get_profile_bundleid_relation';
 
 interface IAppStoreApiCredentials extends ICredentialDataDecryptedObject {
 	issuerId: string;
@@ -280,6 +285,12 @@ export class AppStore implements INodeType {
 		if (operation === DEVICE_METHODS.REGISTER_DEVICE) returnData.push(await node_register_device(this, jwtToken));
 		if (operation === DEVICE_METHODS.LIST_DEVICES)    returnData       = await node_list_devices(this, jwtToken);
 
+
+		// profiles
+		if (operation === PROVISIONING_PROFILES_METHODS.LIST_AND_DOWNLOAD_PROFILES) returnData = await node_list_and_download_profiles(this, jwtToken);
+		if (operation === PROVISIONING_PROFILES_METHODS.READ_AND_DOWNLOAD_PROFILE_INFORMATION) returnData.push(await node_read_and_download_profile_info(this, jwtToken));
+		if (operation === PROVISIONING_PROFILES_METHODS.READ_BUNDLE_ID_IN_PROFILE) returnData.push(await node_read_bundleid_of_profile(this, jwtToken));
+		if (operation === PROVISIONING_PROFILES_METHODS.GET_PROFILE_BUNDLEID_RELATIONSHIP) returnData.push(await node_get_profile_bundleid_relation(this, jwtToken));
 		return [this.helpers.returnJsonArray(returnData)];
 	}
 }
