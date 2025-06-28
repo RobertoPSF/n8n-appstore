@@ -284,20 +284,20 @@ export const DEVICES_OPERATIONS = [
 ];
 
 export const PROVISIONING_PROFILES_OPERATIONS = [
-    // {
-    //     name: 'Create a Profile',
-    //     value: PROVISIONING_PROFILES_METHODS.CREATE_PROFILE,
-    //     description: 'Create a new provisioning profile',
-    //     group: ['Profiles'],
-    //     action: 'Create Profile',
-    // },
-    // {
-    //     name: 'Delete a Profile',
-    //     value: PROVISIONING_PROFILES_METHODS.DELETE_PROFILE,
-    //     description: 'Delete an existing provisioning profile',
-    //     group: ['Profiles'],
-    //     action: 'Delete Profile',
-    // },
+    {
+        name: 'Create a Profile',
+        value: PROVISIONING_PROFILES_METHODS.CREATE_PROFILE,
+        description: 'Create a new provisioning profile',
+        group: ['Profiles'],
+        action: 'Create Profile',
+    },
+    {
+        name: 'Delete a Profile',
+        value: PROVISIONING_PROFILES_METHODS.DELETE_PROFILE,
+        description: 'Delete an existing provisioning profile',
+        group: ['Profiles'],
+        action: 'Delete Profile',
+    },
     {
         name: 'List and Download Profiles',
         value: PROVISIONING_PROFILES_METHODS.LIST_AND_DOWNLOAD_PROFILES,
@@ -325,6 +325,34 @@ export const PROVISIONING_PROFILES_OPERATIONS = [
 			description: 'Get a bundle ID relationship with profiles',
 			group: ['Bundle ID'],
 			action: 'Get Bundle ID Relationship with Profiles',
+		},
+		{
+			name: 'List Certificates for a Profile',
+			value: PROVISIONING_PROFILES_METHODS.LIST_PROFILE_CERTIFICATES,
+			description: 'List all certificates for a profile',
+			group: ['Profiles'],
+			action: 'List Certificates for a Profile',
+		},
+		{
+			name: 'Get Certificates Relationship with Profiles',
+			value: PROVISIONING_PROFILES_METHODS.GET_PROFILE_CERTIFICATES_RELATIONSHIP,
+			description: 'Get a certificates relationship with profiles',
+			group: ['Profiles'],
+			action: 'Get Certificates Relationship with Profiles',
+		},
+		{
+			name: 'List Devices for a Profile',
+			value: PROVISIONING_PROFILES_METHODS.LIST_PROFILE_DEVICES,
+			description: 'List all devices for a profile',
+			group: ['Profiles'],
+			action: 'List Devices for a Profile',
+		},
+		{
+			name: 'Get Devices Relationship with Profiles',
+			value: PROVISIONING_PROFILES_METHODS.GET_PROFILE_DEVICES_RELATIONSHIP,
+			description: 'Get a devices relationship with profiles',
+			group: ['Profiles'],
+			action: 'Get Devices Relationship with Profiles',
 		},
 ];
 
