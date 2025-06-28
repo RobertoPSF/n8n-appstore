@@ -42,7 +42,7 @@ import { LIMIT } from './fields/users/limit_field';
 import { PROVISIONING_BUNDLE_ID_CAPABILITIES_OPERATIONS, PROVISIONING_BUNDLE_ID_OPERATIONS, SANDBOX_TESTERS_OPERATIONS, USERS_OPERATIONS, USER_INVITATIONS_OPERATIONS } from './utils/constants/operations_constants';
 import { node_remove_visible_apps } from './operations/user/remove_visible_apps';
 import { node_list_sandbox_testers } from './operations/sandbox_testers/list';
-import { CAPABILITY_ID_FIELD, ENABLE_CAPABILITY_BUNDLE_ID_REL_FIELD, CAPABILITY_SETTINGS_FIELD, CAPABILITY_TYPE_FIELD } from './fields/provisioning/bundle_id_capabilities_fields';
+import { CAPABILITY_ID_FIELD, ENABLE_CAPABILITY_BUNDLE_ID_REL_FIELD, CAPABILITY_SETTINGS_FIELD, CAPABILITY_TYPE_FIELD } from './fields/provisioning/bundle_id_capabilities/bundle_id_capabilities_fields';
 import { TERRITORY_FIELD } from './fields/sandbox_testers/territory';
 import { SANDBOX_USER_ID_FIELD } from './fields/sandbox_testers/sandbox_tester_id_field';
 import { SUBSCRIPTION_RENEWAL_RATE_FIELD } from './fields/sandbox_testers/subscription_renewal_rate_field';
@@ -60,7 +60,11 @@ import { modify_a_bundle_id_capability } from './operations/provisioning/bundle_
 import { node_cancel_user_invitation } from './operations/user_invitations/cancel_invitation';
 import { SANDBOX_TESTER_IDS_FIELDS } from './fields/sandbox_testers/sandbox_tester_ids_fields';
 import { node_register_a_bundle_id } from './operations/provisioning/bundle_id/register_a_bundle_id';
-import { BUNDLE_ID_IDENTIFIER_FIELD, BUNDLE_ID_NAME_FIELD, BUNDLE_ID_PLATFORM_FIELD, BUNDLE_ID_SEED_ID_FIELD } from './fields/provisioning/register_bundle_id_fields';
+import { BUNDLE_ID_IDENTIFIER_FIELD, BUNDLE_ID_NAME_FIELD, BUNDLE_ID_PLATFORM_FIELD, BUNDLE_ID_SEED_ID_FIELD } from './fields/provisioning/bundle_id/register_bundle_id_fields';
+import { node_read_bundle_id_information } from './operations/provisioning/bundle_id/read_bundle_id_information';
+import { node_delete_bundle_id } from './operations/provisioning/bundle_id/delete_bundle_id';
+import { node_list_bundle_ids } from './operations/provisioning/bundle_id/list_bundle_ids';
+import { BUNDLE_ID_FIELD } from './fields/provisioning/bundle_id/bundle_id_get_by_id_fields';
 
 interface IAppStoreApiCredentials extends ICredentialDataDecryptedObject {
 	issuerId: string;
@@ -207,7 +211,8 @@ export class AppStore implements INodeType {
 			BUNDLE_ID_IDENTIFIER_FIELD,
 			BUNDLE_ID_PLATFORM_FIELD,
 			BUNDLE_ID_NAME_FIELD,
-			BUNDLE_ID_SEED_ID_FIELD
+			BUNDLE_ID_SEED_ID_FIELD,
+			BUNDLE_ID_FIELD
 		],
 	};
 
@@ -250,7 +255,10 @@ export class AppStore implements INodeType {
 		if (operation === PROVISIONING_BUNDLE_ID_CAPABILITIES_METHODS.MODIFY_CAPABILITY) returnData.push(await modify_a_bundle_id_capability(this, jwtToken));
 
 		// provisioning bundle id
+		if (operation === PROVISIONING_BUNDLE_ID_METHODS.LIST_BUNDLE_IDS) returnData = await node_list_bundle_ids(this, jwtToken);
 		if (operation === PROVISIONING_BUNDLE_ID_METHODS.REGISTER_NEW_BUNDLE_ID) returnData.push(await node_register_a_bundle_id(this, jwtToken));
+		if (operation === PROVISIONING_BUNDLE_ID_METHODS.READ_BUNDLE_ID_INFORMATION) returnData.push(await node_read_bundle_id_information(this, jwtToken));
+		if (operation === PROVISIONING_BUNDLE_ID_METHODS.DELETE_BUNDLE_ID) returnData.push(await node_delete_bundle_id(this, jwtToken));
 
 		return [this.helpers.returnJsonArray(returnData)];
 	}

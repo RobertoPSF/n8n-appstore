@@ -1,6 +1,6 @@
 import { NodePropertyTypes } from "n8n-workflow";
-import { PROVISIONING_BUNDLE_ID_CAPABILITIES_METHODS } from "../../utils/constants/methods_constants";
-import { CAPABILITIES_TYPES } from "../../utils/constants/capabilities_types";
+import { PROVISIONING_BUNDLE_ID_CAPABILITIES_METHODS } from "../../../utils/constants/methods_constants";
+import { CAPABILITIES_TYPES } from "../../../utils/constants/capabilities_types";
 
 export let CAPABILITY_ID_FIELD = {
     displayName: 'Capability ID',
