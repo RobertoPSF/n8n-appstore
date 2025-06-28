@@ -39,3 +39,9 @@ export const ROUTE_PROFILE_CERTIFICATES = (profileId: string) => `/v1/profiles/$
 export const ROUTE_PROFILE_CERTIFICATES_RELATIONSHIPS = (profileId: string) => `/v1/profiles/${profileId}/relationships/certificates`;
 export const ROUTE_PROFILE_DEVICES = (profileId: string) => `/v1/profiles/${profileId}/devices`;
 export const ROUTE_PROFILE_DEVICES_RELATIONSHIPS = (profileId: string) => `/v1/profiles/${profileId}/relationships/devices`;
+
+//merchant id
+export const ROUTE_MERCHANT_ID = '/v1/merchantIds';
+export const ROUTE_MERCHANT_ID_BY_ID = (merchantId: string) => `/v1/merchantIds/${merchantId}`;
+export const ROUTE_MERCHANT_ID_CERTIFICATES = (merchantId: string) => `/v1/merchantIds/${merchantId}/certificates`;
+export const ROUTE_MERCHANT_ID_CERTIFICATES_RELATIONSHIPS = (merchantId: string) => `/v1/merchantIds/${merchantId}/relationships/certificates`;

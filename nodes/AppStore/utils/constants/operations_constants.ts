@@ -6,7 +6,8 @@ import {
     DEVICE_METHODS,
     PROVISIONING_BUNDLE_ID_METHODS,
     PROVISIONING_CERTIFICATES_METHODS,
-    PROVISIONING_PROFILES_METHODS
+    PROVISIONING_PROFILES_METHODS,
+		PROVISIONING_MERCHANT_IDS_METHODS
 } from "./methods_constants";
 
 export let USERS_OPERATIONS = [
@@ -285,14 +286,14 @@ export const DEVICES_OPERATIONS = [
         group: ['Devices'],
         action: 'List Devices',
 	},
-    { 
-        name: 'Read Device Information', 
-        value: DEVICE_METHODS.READ_DEVICE, 
-        description: 'Read information about a registered device', 
-        group: ['Devices'], 
-        action: 'Read Device Information' 
-    }, 
-    { name: 'Modify a Registered Device', 
+    {
+        name: 'Read Device Information',
+        value: DEVICE_METHODS.READ_DEVICE,
+        description: 'Read information about a registered device',
+        group: ['Devices'],
+        action: 'Read Device Information'
+    },
+    { name: 'Modify a Registered Device',
       value: DEVICE_METHODS.MODIFY_DEVICE,
       description: 'Modify a registered device by ID',
       group: ['Devices'],
@@ -374,3 +375,41 @@ export const PROVISIONING_PROFILES_OPERATIONS = [
 		},
 ];
 
+export const PROVISIONING_MERCHANT_IDS_OPERATIONS = [
+	{
+		name: 'List Merchant IDs',
+		value: PROVISIONING_MERCHANT_IDS_METHODS.LIST_MERCHANT_IDS,
+		description: 'List all merchant IDs',
+		group: ['Merchant IDs'],
+		action: 'List Merchant IDs',
+	},
+	{
+		name: 'Read Merchant ID Details',
+		value: PROVISIONING_MERCHANT_IDS_METHODS.READ_MERCHANT_ID_DETAILS,
+		description: 'Read details about a merchant ID',
+		group: ['Merchant IDs'],
+		action: 'Read Merchant ID Details',
+	},
+	{
+		name: 'List Certificates for a Merchant ID',
+		value: PROVISIONING_MERCHANT_IDS_METHODS.LIST_CERTIFICATES_FOR_MERCHANT_ID,
+		description: 'List all certificates for a merchant ID',
+		group: ['Merchant IDs'],
+		action: 'List Certificates for a Merchant ID',
+	},
+	{
+		name: 'Get Certificates Relationship for a Merchant ID',
+		value: PROVISIONING_MERCHANT_IDS_METHODS.GET_MERCHANTID_CERTIFICATES_RELATIONSHIP,
+		description: 'Get a certificates relationship for a merchant ID',
+		group: ['Merchant IDs'],
+		action: 'Get Certificates Relationship for a Merchant ID',
+	},
+	{
+		name: 'Delete Merchant ID',
+		value: PROVISIONING_MERCHANT_IDS_METHODS.DELETE_MERCHANT_ID,
+		description: 'Delete a merchant ID',
+		group: ['Merchant IDs'],
+		action: 'Delete Merchant ID',
+	},
+
+]

@@ -27,6 +27,7 @@ import { USER_ID_FIELD } from "./users/user_get_by_id_fields";
 import { USERS_FIELDS } from "./users/users_fields";
 import { GET_DEVICE_FIELDS } from "./provisioning/devices/get_by_id_field";
 import { MODIFY_DEVICE_FIELDS } from "./provisioning/devices/modify_field";
+import { MERCHANT_ID_FIELD } from "./provisioning/merchant_ids/merchant_id_fields";
 
 export const ALL_FIELDS = [
     USER_ID_FIELD,
@@ -75,5 +76,6 @@ export const ALL_FIELDS = [
     PROFILE_TYPE_FIELD,
     PROFILE_CERTIFICATES_IDS_FIELDS,
     PROFILE_DEVICES_IDS_FIELDS,
-		PROFILE_ID_FIELD
+		PROFILE_ID_FIELD,
+		MERCHANT_ID_FIELD
 ];
