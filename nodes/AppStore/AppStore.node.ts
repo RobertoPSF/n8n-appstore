@@ -81,6 +81,7 @@ import { node_list_all_certificates_for_passtype_id } from './operations/provisi
 import { node_get_certificates_relationships_for_passtype_ids } from './operations/provisioning/passtype_id/get_certificates_relationships_for_passtype_ids';
 import { node_delete_passtype_id } from './operations/provisioning/passtype_id/delete_passtype_id';
 import { node_modify_bundle_id } from './operations/provisioning/bundle_id/modify_a_bundle_id';
+import { node_create_passtype_id } from './operations/provisioning/passtype_id/create_passtype-id';
 
 interface IAppStoreApiCredentials extends ICredentialDataDecryptedObject {
 	issuerId: string;
@@ -360,7 +361,7 @@ export class AppStore implements INodeType {
 		if (operation === PROVISIONING_PASSTYPE_IDS_METHODS.DELETE_PASSTYPEID) returnData.push(await node_delete_passtype_id(this, jwtToken));
 		if (operation === PROVISIONING_PASSTYPE_IDS_METHODS.LIST_CERTIFICATES_FOR_PASSTYPEID) returnData = await node_list_all_certificates_for_passtype_id(this, jwtToken);
 		if (operation === PROVISIONING_PASSTYPE_IDS_METHODS.GET_PASSTYPEID_CERTIFICATES_RELATIONSHIP) returnData = await node_get_certificates_relationships_for_passtype_ids(this, jwtToken);
-
+		if (operation === PROVISIONING_PASSTYPE_IDS_METHODS.CREATE_PASSTYPEID) returnData.push(await node_create_passtype_id(this, jwtToken));
 		return [this.helpers.returnJsonArray(returnData)];
 	}
 }

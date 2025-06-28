@@ -444,6 +444,13 @@ export const PROVISIONING_PASSTYPE_IDS_OPERATIONS = [
 		action: 'Get Certificates Relationship for a Pass Type ID',
 	},
 	{
+		name: 'Create a Pass Type ID',
+		value: PROVISIONING_PASSTYPE_IDS_METHODS.CREATE_PASSTYPEID,
+		description: 'Create a new pass type ID',
+		group: ['Pass Type IDs'],
+		action: 'Create a Pass Type ID',
+	},
+	{
 		name: 'Delete Pass Type ID',
 		value: PROVISIONING_PASSTYPE_IDS_METHODS.DELETE_PASSTYPEID,
 		description: 'Delete a pass type ID',
