@@ -144,7 +144,13 @@ export const PROVISIONING_BUNDLE_ID_OPERATIONS = [
         value: PROVISIONING_BUNDLE_ID_METHODS.REGISTER_NEW_BUNDLE_ID,
         description: 'Register a new bundle ID',
         group: ['Bundle ID'],
-    }
+    },
+		{
+			name: 'List Bundle IDs',
+			value: PROVISIONING_BUNDLE_ID_METHODS.LIST_BUNDLE_IDS,
+			description: 'List all bundle IDs',
+			group: ['Bundle ID'],
+		}
 ]
 
 export const PROVISIONING_BUNDLE_ID_CAPABILITIES_OPERATIONS = [
