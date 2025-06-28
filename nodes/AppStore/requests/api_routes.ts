@@ -16,3 +16,6 @@ export const ROUTE_BUNDLE_ID_BY_ID = (bundleId: string) => `/v1/bundleIds/${bund
 export const ROUTE_BUNDLE_ID_APP_RELATIONSHIPS = (bundleId: string) => `/v1/bundleIds/${bundleId}/app`;
 export const ROUTE_BUNDLE_ID_PROFILES = (bundleId: string) => `/v1/bundleIds/${bundleId}/profiles`;
 export const ROUTE_BUNDLE_ID_BUNDLE_ID_CAPABILITIES = (bundleId: string) => `/v1/bundleIds/${bundleId}/bundleIdCapabilities`;
+export const ROUTE_BUNDLE_ID_RELATIONSHIPS_APPS = (bundleId: string) => `/v1/bundleIds/${bundleId}/relationships/app`;
+export const ROUTE_BUNDLE_ID_BUNDLE_ID_CAPABILITIES_RELATIONSHIPS = (bundleId: string) => `/v1/bundleIds/${bundleId}/relationships/bundleIdCapabilities`;
+export const ROUTE_BUNDLE_ID_PROFILES_RELATIONSHIPS = (bundleId: string) => `/v1/bundleIds/${bundleId}/relationships/profiles`;

@@ -65,6 +65,10 @@ import { node_read_bundle_id_information } from './operations/provisioning/bundl
 import { node_delete_bundle_id } from './operations/provisioning/bundle_id/delete_bundle_id';
 import { node_list_bundle_ids } from './operations/provisioning/bundle_id/list_bundle_ids';
 import { BUNDLE_ID_FIELD } from './fields/provisioning/bundle_id/bundle_id_get_by_id_fields';
+import { node_list_capabilities_of_a_bundle_id } from './operations/provisioning/bundle_id/list_capabilities_of_a_bundle_id';
+import { node_get_bundle_id_relations_with_apps } from './operations/provisioning/bundle_id/get_bundle_id_relations_with_apps';
+import { node_get_bundle_id_bundle_capabilities_relation } from './operations/provisioning/bundle_id/get_bundle_id_bundle_capabilities_relation';
+import { node_get_bundle_id_relationship_profile } from './operations/provisioning/bundle_id/get_bundle_id_relationship_profile';
 
 interface IAppStoreApiCredentials extends ICredentialDataDecryptedObject {
 	issuerId: string;
@@ -99,11 +103,11 @@ export class AppStore implements INodeType {
 			  type: 'options',
 					noDataExpression: true,
 			  options: [
-				{ name: 'Users', value: 'users' },
-				{ name: 'User Invitations', value: 'userInvitations' },
-				{ name: 'Sandbox Tester', value: 'sandboxTesters' },
 				{ name: 'Bundle ID', value: 'bundleId' },
 				{ name: 'Bundle ID Capabilities', value: 'bundleIdCapabilities' },
+				{ name: 'Sandbox Tester', value: 'sandboxTesters' },
+				{ name: 'User Invitations', value: 'userInvitations' },
+				{ name: 'Users', value: 'users' },
 			  ],
 			  default: 'users',
 			},
@@ -260,6 +264,10 @@ export class AppStore implements INodeType {
 		if (operation === PROVISIONING_BUNDLE_ID_METHODS.READ_BUNDLE_ID_INFORMATION) returnData.push(await node_read_bundle_id_information(this, jwtToken));
 		if (operation === PROVISIONING_BUNDLE_ID_METHODS.DELETE_BUNDLE_ID) returnData.push(await node_delete_bundle_id(this, jwtToken));
 
+		if (operation === PROVISIONING_BUNDLE_ID_METHODS.LIST_ALL_CAPABILITIES_FOR_BUNDLE_ID) returnData = await node_list_capabilities_of_a_bundle_id(this, jwtToken);
+		if (operation === PROVISIONING_BUNDLE_ID_METHODS.GET_BUNDLEID_APP_RELATIONSHIP) returnData = await node_get_bundle_id_relations_with_apps(this, jwtToken);
+		if (operation === PROVISIONING_BUNDLE_ID_METHODS.GET_BUNDLEID_CAPABILITIES_RELATIONSHIP) returnData = await node_get_bundle_id_bundle_capabilities_relation(this, jwtToken);
+		if (operation === PROVISIONING_BUNDLE_ID_METHODS.GET_BUNDLEID_PROFILES_RELATIONSHIP) returnData = await node_get_bundle_id_relationship_profile(this, jwtToken);
 		return [this.helpers.returnJsonArray(returnData)];
 	}
 }

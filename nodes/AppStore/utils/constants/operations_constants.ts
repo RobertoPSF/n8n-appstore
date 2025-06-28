@@ -17,21 +17,21 @@ export let USERS_OPERATIONS = [
     {
         name: 'Read User Information',
         value: USER_METHODS.READ_USER_INFORMATION,
-        description: 'Get a user by their Id',
+        description: 'Get a user by their ID',
         group: ['Users'],
         action: 'Read User Information',
     },
     {
         name: 'Modify a User Account',
         value: USER_METHODS.MODIFY_A_USER_ACCOUNT,
-        description: 'Modify a user account',
+        description: 'Modify a user account by ID',
         group: ['Users'],
         action: 'Modify a User Account',
     },
     {
         name: 'Remove a User Account',
         value: USER_METHODS.REMOVE_A_USER_ACCOUNT,
-        description: 'Remove a user account',
+        description: 'Remove a user account by ID',
         group: ['Users'],
         action: 'Remove a User Account',
     },
@@ -42,16 +42,16 @@ export let USERS_OPERATIONS = [
         group: ['Users'],
     },
     {
-        name: 'Get All Visible App Resource Ids for a User',
+        name: 'Get All Visible App Resource IDs for a User',
         value: USER_METHODS.GET_ALL_VISIBLE_APP_RESOURCE_IDS_FOR_A_USER,
-        description: 'Get all visible app resource Ids for a user',
+        description: 'Get all visible app resource IDs for a user by ID',
         group: ['Users'],
         action: 'List Visible Apps for User',
     },
     {
         name: 'Add Visible Apps to a User',
         value: USER_METHODS.ADD_VISIBLE_APPS_TO_A_USER,
-        description: 'Add visible apps to a user',
+        description: 'Add visible apps to a user by ID',
         group: ['Users'],
         action: 'Add Visible Apps to a User',
     },
@@ -63,7 +63,7 @@ export let USERS_OPERATIONS = [
         action: 'Replace Visible Apps for a User',
     },
     {
-        name: 'Remove Visible Apps from a User',
+        name: 'Remove Visible Apps From a User Account',
         value: USER_METHODS.REMOVE_VISIBLE_APPS_FROM_A_USER,
         description: 'Useful if you want to revoke user access to some app',
         group: ['Users'],
@@ -82,14 +82,14 @@ export const USER_INVITATIONS_OPERATIONS = [
     {
         name: 'Read User Invitation Information',
         value: USER_INVITATIONS_METHODS.READ_USER_INVITATION_INFORMATION,
-        description: 'Get information about a pending invitation to join your team.',
+        description: 'Get information about a pending invitation to join your team',
         group: ['User Invitations'],
         action: 'Read User Invitation Information',
     },
     {
         name: 'Invite a User',
         value: USER_INVITATIONS_METHODS.INVITE_A_USER,
-        description: 'Invite a user with assigned user roles to join your team.',
+        description: 'Invite a user with assigned user roles to join your team',
         group: ['User Invitations'],
         action: 'Invite a User',
     },
@@ -102,7 +102,7 @@ export const USER_INVITATIONS_OPERATIONS = [
     },
 
     {
-        name: 'List visible app relationships for invited user',
+        name: 'List Visible App Relationships for Invited User',
         value: USER_INVITATIONS_METHODS.LIST_VISIBLE_APP_RELATIONSHIPS_FOR_INVITED_USER,
         description: 'List app relationship links for a user invitation',
     },
@@ -119,21 +119,21 @@ export const SANDBOX_TESTERS_OPERATIONS = [
     {
         name: 'List Sandbox Testers',
         value: SANDBOX_TESTERS_METHODS.LIST_SANDBOX_TESTERS,
-        description: 'Get a list of Sandbox Testers for your team.',
+        description: 'Get a list of Sandbox Testers for your team',
         group: ['Sandbox Testers'],
         action: 'List Sandbox Testers',
     },
     {
         name: 'Modify a Sandbox Tester',
         value: SANDBOX_TESTERS_METHODS.MODIFY_A_SANDBOX_TESTER,
-        description: 'Change the subscription renewal time rate, set interrupted purchases or change territory of Sandbox Apple Account.',
+        description: 'Change the subscription renewal time rate, set interrupted purchases or change territory of Sandbox Apple Account',
         group: ['Sandbox Testers'],
         action: 'Modify a Sandbox Tester',
     },
     {
         name: 'Clear Purchase History for a Sandbox Tester',
         value: SANDBOX_TESTERS_METHODS.CLEAR_PURCHASE_HISTORY_FOR_A_SANDBOX_TESTER,
-        description: 'Remove purchase history from a Sandbox Apple Account.',
+        description: 'Remove purchase history from a Sandbox Apple Account',
         group: ['Sandbox Testers'],
     }
 ];
@@ -181,27 +181,48 @@ export const PROVISIONING_BUNDLE_ID_OPERATIONS = [
 			group: ['Bundle ID'],
 			action: 'List All Capabilities for a Bundle ID',
 		},
+		{
+			name: 'Get Bundle ID Relationship with Apps',
+			value: PROVISIONING_BUNDLE_ID_METHODS.GET_BUNDLEID_APP_RELATIONSHIP,
+			description: 'Get a bundle ID relationship with apps',
+			group: ['Bundle ID'],
+			action: 'Get Bundle ID Relationship with Apps',
+		},
+		{
+			name: 'Get Bundle ID Relationship with Capabilities',
+			value: PROVISIONING_BUNDLE_ID_METHODS.GET_BUNDLEID_CAPABILITIES_RELATIONSHIP,
+			description: 'Get a bundle ID relationship with capabilities',
+			group: ['Bundle ID'],
+			action: 'Get Bundle ID Relationship with Capabilities',
+		},
+		{
+			name: 'Get Bundle ID Relationship with Profiles',
+			value: PROVISIONING_BUNDLE_ID_METHODS.GET_BUNDLEID_PROFILES_RELATIONSHIP,
+			description: 'Get a bundle ID relationship with profiles',
+			group: ['Bundle ID'],
+			action: 'Get Bundle ID Relationship with Profiles',
+		},
 ]
 
 export const PROVISIONING_BUNDLE_ID_CAPABILITIES_OPERATIONS = [
     {
         name: 'Disable a Capability',
         value: PROVISIONING_BUNDLE_ID_CAPABILITIES_METHODS.DISABLE_CAPABILITY,
-        description: 'Disable a capability',
+        description: 'Disable a capability of a bundle ID',
         group: ['Bundle ID Capabilities'],
         action: 'Disable a Capability',
     },
     {
         name: 'Enable a Capability',
         value: PROVISIONING_BUNDLE_ID_CAPABILITIES_METHODS.ENABLE_CAPABILITY,
-        description: 'Enable a capability',
+        description: 'Enable a capability of a bundle ID',
         group: ['Bundle ID Capabilities'],
         action: 'Enable a Capability',
     },
     {
         name: 'Modify a Capability',
         value: PROVISIONING_BUNDLE_ID_CAPABILITIES_METHODS.MODIFY_CAPABILITY,
-        description: 'Modify a capability',
+        description: 'Modify a capability of a bundle ID',
         group: ['Bundle ID Capabilities'],
         action: 'Modify a Capability',
     }
