@@ -28,6 +28,7 @@ export const ROUTE_CERTIFICATES = '/v1/certificates';
 export const ROUTE_CERTIFICATE_BY_ID = (certificateId: string) => `/v1/certificates/${certificateId}`;
 export const ROUTE_CERTIFICATE_PASSTYPE_ID = (certificateId: string) => `/v1/certificates/${certificateId}/passTypeId`;
 export const ROUTE_CERTIFICATE_PASSTYPE_IDS_RELATIONSHIPS = (certificateId: string) => `/v1/certificates/${certificateId}/relationships/passTypeId`;
+
 export const ROUTE_DEVICES = '/v1/devices';
 
 export const ROUTE_PROFILE = '/v1/profiles';

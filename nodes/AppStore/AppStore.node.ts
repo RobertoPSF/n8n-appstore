@@ -58,6 +58,7 @@ import { node_read_certificate_information } from './operations/provisioning/cer
 import { ALL_FIELDS } from './fields/all_fields';
 import { node_list_passtype_ids_for_a_certificate } from './operations/provisioning/certificates/list_passtype_id_for_a_certificate';
 import { node_get_passtype_id_for_certificate_relation } from './operations/provisioning/certificates/get_passtype_id_for_certificate_relation';
+import { node_revoke_certificate } from './operations/provisioning/certificates/revoke_certificate';
 
 interface IAppStoreApiCredentials extends ICredentialDataDecryptedObject {
 	issuerId: string;
@@ -273,6 +274,8 @@ export class AppStore implements INodeType {
 		if (operation === PROVISIONING_CERTIFICATES_METHODS.READ_AND_DOWNLOAD_CERTIFICATE_INFORMATION) returnData.push(await node_read_certificate_information(this, jwtToken));
 		if (operation === PROVISIONING_CERTIFICATES_METHODS.LIST_PASSTYPEID_IDS_FOR_CERTIFICATE) returnData = await node_list_passtype_ids_for_a_certificate(this, jwtToken);
 		if (operation === PROVISIONING_CERTIFICATES_METHODS.GET_CERTIFICATE_PASSTYPEID_RELATIONSHIP) returnData = await node_get_passtype_id_for_certificate_relation(this, jwtToken);
+		if (operation === PROVISIONING_CERTIFICATES_METHODS.REVOKE_CERTIFICATE) returnData.push(await node_revoke_certificate(this, jwtToken));
+
 		// device
 		if (operation === DEVICE_METHODS.REGISTER_DEVICE) returnData.push(await node_register_device(this, jwtToken));
 		if (operation === DEVICE_METHODS.LIST_DEVICES)    returnData       = await node_list_devices(this, jwtToken);

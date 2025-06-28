@@ -259,6 +259,13 @@ export const PROVISIONING_CERTIFICATES_OPERATIONS = [
 		description: 'Get a pass type ID relationship for a certificate',
 		group: ['Certificates'],
 		action: 'Get Pass Type ID Relationship for a Certificate',
+	},
+	{
+		name: 'Revoke a Certificate',
+		value: PROVISIONING_CERTIFICATES_METHODS.REVOKE_CERTIFICATE,
+		description: 'Revoke a certificate by ID',
+		group: ['Certificates'],
+		action: 'Revoke a Certificate',
 	}
 ]
 
