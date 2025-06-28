@@ -20,7 +20,8 @@ import {
 	PROVISIONING_BUNDLE_ID_CAPABILITIES_METHODS,
 	USER_INVITATIONS_METHODS,
 	USER_METHODS,
-	PROVISIONING_BUNDLE_ID_METHODS
+	PROVISIONING_BUNDLE_ID_METHODS,
+	PROVISIONING_CERTIFICATES_METHODS
 } from './utils/constants/methods_constants';
 
 import { generateAppStoreJwt } from './utils/token_generate';
@@ -39,7 +40,7 @@ import { INCLUDE_VISIBLE_APPS_FIELD } from './fields/users/include_visible_apps_
 import { USERS_FIELDS } from './fields/users/users_fields';
 import { APPS_FIELDS } from './fields/users/apps_fields';
 import { LIMIT } from './fields/users/limit_field';
-import { PROVISIONING_BUNDLE_ID_CAPABILITIES_OPERATIONS, PROVISIONING_BUNDLE_ID_OPERATIONS, SANDBOX_TESTERS_OPERATIONS, USERS_OPERATIONS, USER_INVITATIONS_OPERATIONS } from './utils/constants/operations_constants';
+import { PROVISIONING_BUNDLE_ID_CAPABILITIES_OPERATIONS, PROVISIONING_BUNDLE_ID_OPERATIONS, PROVISIONING_CERTIFICATES_OPERATIONS, SANDBOX_TESTERS_OPERATIONS, USERS_OPERATIONS, USER_INVITATIONS_OPERATIONS } from './utils/constants/operations_constants';
 import { node_remove_visible_apps } from './operations/user/remove_visible_apps';
 import { node_list_sandbox_testers } from './operations/sandbox_testers/list';
 import { CAPABILITY_ID_FIELD, ENABLE_CAPABILITY_BUNDLE_ID_REL_FIELD, CAPABILITY_SETTINGS_FIELD, CAPABILITY_TYPE_FIELD } from './fields/provisioning/bundle_id_capabilities/bundle_id_capabilities_fields';
@@ -69,6 +70,9 @@ import { node_list_capabilities_of_a_bundle_id } from './operations/provisioning
 import { node_get_bundle_id_relations_with_apps } from './operations/provisioning/bundle_id/get_bundle_id_relations_with_apps';
 import { node_get_bundle_id_bundle_capabilities_relation } from './operations/provisioning/bundle_id/get_bundle_id_bundle_capabilities_relation';
 import { node_get_bundle_id_relationship_profile } from './operations/provisioning/bundle_id/get_bundle_id_relationship_profile';
+import { CERTIFICATE_ID_FIELD } from './fields/provisioning/certificates/get_certificate_by_id_fields';
+import { node_list_certificates } from './operations/provisioning/certificates/list_certificates';
+import { node_read_certificate_information } from './operations/provisioning/certificates/read_certificate_information';
 
 interface IAppStoreApiCredentials extends ICredentialDataDecryptedObject {
 	issuerId: string;
@@ -105,6 +109,7 @@ export class AppStore implements INodeType {
 			  options: [
 				{ name: 'Bundle ID', value: 'bundleId' },
 				{ name: 'Bundle ID Capabilities', value: 'bundleIdCapabilities' },
+				{ name: 'Certificates', value: 'certificates' },
 				{ name: 'Sandbox Tester', value: 'sandboxTesters' },
 				{ name: 'User Invitations', value: 'userInvitations' },
 				{ name: 'Users', value: 'users' },
@@ -181,6 +186,21 @@ export class AppStore implements INodeType {
 				groups: [{ name: 'Bundle ID' }],
 			  },
 			},
+			{
+			  displayName: 'Operation',
+			  name: 'operation',
+			  type: 'options',
+					noDataExpression: true,
+			  displayOptions: {
+				show: { resource: ['certificates'] },
+			  },
+			  options: PROVISIONING_CERTIFICATES_OPERATIONS,
+			  default: '',
+			  typeOptions: {
+				groups: [{ name: 'Certificates' }],
+			  },
+			},
+
 			USER_ID_FIELD,
 			MODIFY_USER_ROLES_FIELD,
 			MODIFY_USER_ALL_APPS_VISIBLE_SWITCH,
@@ -216,7 +236,8 @@ export class AppStore implements INodeType {
 			BUNDLE_ID_PLATFORM_FIELD,
 			BUNDLE_ID_NAME_FIELD,
 			BUNDLE_ID_SEED_ID_FIELD,
-			BUNDLE_ID_FIELD
+			BUNDLE_ID_FIELD,
+			CERTIFICATE_ID_FIELD
 		],
 	};
 
@@ -268,6 +289,11 @@ export class AppStore implements INodeType {
 		if (operation === PROVISIONING_BUNDLE_ID_METHODS.GET_BUNDLEID_APP_RELATIONSHIP) returnData = await node_get_bundle_id_relations_with_apps(this, jwtToken);
 		if (operation === PROVISIONING_BUNDLE_ID_METHODS.GET_BUNDLEID_CAPABILITIES_RELATIONSHIP) returnData = await node_get_bundle_id_bundle_capabilities_relation(this, jwtToken);
 		if (operation === PROVISIONING_BUNDLE_ID_METHODS.GET_BUNDLEID_PROFILES_RELATIONSHIP) returnData = await node_get_bundle_id_relationship_profile(this, jwtToken);
+
+		// provisioning certificates
+		if (operation === PROVISIONING_CERTIFICATES_METHODS.LIST_AND_DOWNLOAD_CERTIFICATES) returnData = await node_list_certificates(this, jwtToken);
+		if (operation === PROVISIONING_CERTIFICATES_METHODS.READ_AND_DOWNLOAD_CERTIFICATE_INFORMATION) returnData.push(await node_read_certificate_information(this, jwtToken));
+
 		return [this.helpers.returnJsonArray(returnData)];
 	}
 }

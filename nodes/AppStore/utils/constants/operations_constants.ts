@@ -3,7 +3,8 @@ import {
     USER_INVITATIONS_METHODS,
     USER_METHODS,
     SANDBOX_TESTERS_METHODS,
-		PROVISIONING_BUNDLE_ID_METHODS
+		PROVISIONING_BUNDLE_ID_METHODS,
+		PROVISIONING_CERTIFICATES_METHODS
 } from "./methods_constants";
 
 export let USERS_OPERATIONS = [
@@ -227,3 +228,20 @@ export const PROVISIONING_BUNDLE_ID_CAPABILITIES_OPERATIONS = [
         action: 'Modify a Capability',
     }
 ];
+
+export const PROVISIONING_CERTIFICATES_OPERATIONS = [
+	{
+		name: 'List Certificates',
+		value: PROVISIONING_CERTIFICATES_METHODS.LIST_AND_DOWNLOAD_CERTIFICATES,
+		description: 'List all certificates',
+		group: ['Certificates'],
+		action: 'List Certificates',
+	},
+	{
+		name: 'Read Certificate Information',
+		value: PROVISIONING_CERTIFICATES_METHODS.READ_AND_DOWNLOAD_CERTIFICATE_INFORMATION,
+		description: 'Read a certificate information',
+		group: ['Certificates'],
+		action: 'Read Certificate Information',
+	},
+]
