@@ -3,9 +3,10 @@ import {
     USER_INVITATIONS_METHODS,
     USER_METHODS,
     SANDBOX_TESTERS_METHODS,
-	PROVISIONING_BUNDLE_ID_METHODS,
-	PROVISIONING_CERTIFICATES_METHODS,
-    DEVICE_METHODS
+    DEVICE_METHODS,
+    PROVISIONING_BUNDLE_ID_METHODS,
+    PROVISIONING_CERTIFICATES_METHODS,
+    PROVISIONING_PROFILES_METHODS
 } from "./methods_constants";
 
 export let USERS_OPERATIONS = [
@@ -260,3 +261,42 @@ export const DEVICES_OPERATIONS = [
 		description: 'List registered devices',
 	},
 ];
+
+export const PROVISIONING_PROFILES_OPERATIONS = [
+    {
+        name: 'Create a Profile',
+        value: PROVISIONING_PROFILES_METHODS.CREATE_PROFILE,
+        description: 'Create a new provisioning profile',
+        group: ['Profiles'],
+        action: 'Create Profile',
+    },
+    {
+        name: 'Delete a Profile',
+        value: PROVISIONING_PROFILES_METHODS.DELETE_PROFILE,
+        description: 'Delete an existing provisioning profile',
+        group: ['Profiles'],
+        action: 'Delete Profile',
+    },
+    {
+        name: 'List and Download Profiles',
+        value: PROVISIONING_PROFILES_METHODS.LIST_AND_DOWNLOAD_PROFILES,
+        description: 'List all provisioning profiles and optionally download their binary data',
+        group: ['Profiles'],
+        action: 'List Profiles',
+    },
+    {
+        name: 'Read and Download Profile Information',
+        value: PROVISIONING_PROFILES_METHODS.READ_AND_DOWNLOAD_PROFILE_INFORMATION,
+        description: 'Read metadata for a single provisioning profile and optionally download its binary data',
+        group: ['Profiles'],
+        action: 'Read Profile Information',
+    },
+    {
+        name: 'Read the Bundle ID in a Profile',
+        value: PROVISIONING_PROFILES_METHODS.READ_BUNDLE_ID_IN_PROFILE,
+        description: 'Fetch the Bundle ID relationship or resource for a given provisioning profile',
+        group: ['Profiles'],
+        action: 'Read Bundle ID',
+    },
+];
+  

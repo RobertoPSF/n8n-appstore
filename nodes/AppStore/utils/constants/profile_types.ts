@@ -1,0 +1,8 @@
+export const PROFILE_TYPES = [
+    "IOS_APP_DEVELOPMENT",
+    "IOS_APP_ADHOC",
+    "IOS_APP_INHOUSE",
+    "IOS_APP_STORE",
+    "MAC_APP_DEVELOPMENT",
+    "MAC_APP_STORE"
+];
