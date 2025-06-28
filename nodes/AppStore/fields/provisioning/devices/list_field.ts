@@ -1,7 +1,6 @@
 import { INodeProperties } from 'n8n-workflow';
 import { DEVICE_METHODS } from '../../../utils/constants/methods_constants';
 
-
 export const LIST_DEVICES_FIELDS: INodeProperties[] = [
 	{
 		displayName: 'Device ID',
@@ -21,9 +20,10 @@ export const LIST_DEVICES_FIELDS: INodeProperties[] = [
 		displayName: 'Platform',
 		name: 'platform',
 		type: 'options',
+		typeOptions: { allowEmpty: true },
 		options: [
-			{ name: 'iOS', value: 'IOS' },
-			{ name: 'macOS', value: 'MAC_OS' },
+			{ name: 'iOS',       value: 'IOS' },
+			{ name: 'macOS',     value: 'MAC_OS' },
 			{ name: 'Universal', value: 'UNIVERSAL' },
 		],
 		default: '',
@@ -33,8 +33,9 @@ export const LIST_DEVICES_FIELDS: INodeProperties[] = [
 		displayName: 'Status',
 		name: 'status',
 		type: 'options',
+		typeOptions: { allowEmpty: true },
 		options: [
-			{ name: 'Enabled', value: 'ENABLED' },
+			{ name: 'Enabled',  value: 'ENABLED' },
 			{ name: 'Disabled', value: 'DISABLED' },
 		],
 		default: '',
@@ -69,17 +70,18 @@ export const LIST_DEVICES_FIELDS: INodeProperties[] = [
 		displayName: 'Ordenar por',
 		name: 'sortBy',
 		type: 'options',
+		typeOptions: { allowEmpty: true },
 		options: [
-			{ name: 'Name (A-Z)', value: 'name' },
-			{ name: 'Name (Z-A)', value: '-name' },
-			{ name: 'Platform (A-Z)', value: 'platform' },
-			{ name: 'Platform (Z-A)', value: '-platform' },
-			{ name: 'UDID (A-Z)', value: 'udid' },
-			{ name: 'UDID (Z-A)', value: '-udid' },
-			{ name: 'Status (A-Z)', value: 'status' },
-			{ name: 'Status (Z-A)', value: '-status' },
-			{ name: 'ID (A-Z)', value: 'id' },
-			{ name: 'ID (Z-A)', value: '-id' },
+			{ name: 'Name (A-Z)',       value: 'name' },
+			{ name: 'Name (Z-A)',       value: '-name' },
+			{ name: 'Platform (A-Z)',   value: 'platform' },
+			{ name: 'Platform (Z-A)',   value: '-platform' },
+			{ name: 'UDID (A-Z)',       value: 'udid' },
+			{ name: 'UDID (Z-A)',       value: '-udid' },
+			{ name: 'Status (A-Z)',     value: 'status' },
+			{ name: 'Status (Z-A)',     value: '-status' },
+			{ name: 'ID (A-Z)',         value: 'id' },
+			{ name: 'ID (Z-A)',         value: '-id' },
 		],
 		default: '',
 		displayOptions: { show: { operation: [DEVICE_METHODS.LIST_DEVICES] } },
