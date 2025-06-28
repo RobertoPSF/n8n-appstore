@@ -19,3 +19,35 @@ export const PASSTYPE_ID_FIELD = {
         },
     },
 }
+
+export const PASSTYPE_ID_IDENTIFIER_FIELD = {
+	displayName: 'Identifier',
+	name: 'identifier',
+	type: 'string' as NodePropertyTypes,
+	required: true,
+	default: '',
+	description: 'The identifier of the pass type to retrieve, remove or modify',
+displayOptions: {
+			show: {
+					operation: [
+							PROVISIONING_PASSTYPE_IDS_METHODS.CREATE_PASSTYPEID,
+					],
+			},
+	},
+}
+
+export const PASSTYPE_ID_NAME_FIELD = {
+	displayName: 'Name',
+	name: 'name',
+	type: 'string' as NodePropertyTypes,
+	required: true,
+	default: '',
+	description: 'The name of the pass type to retrieve, remove or modify',
+displayOptions: {
+			show: {
+					operation: [
+							PROVISIONING_PASSTYPE_IDS_METHODS.CREATE_PASSTYPEID,
+					],
+			},
+	},
+}

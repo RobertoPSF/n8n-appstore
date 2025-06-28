@@ -25,7 +25,7 @@ export const LIST_ALL_PTI_FIELDS: INodeProperties[] = [
 	},
 
 	{
-		displayName: 'Campos de PassTypeIds',
+		displayName: 'Campos De PassTypeIds',
 		name: 'fieldsPassTypeIds',
 		type: 'multiOptions',
 		typeOptions: { allowEmpty: true },
@@ -34,7 +34,7 @@ export const LIST_ALL_PTI_FIELDS: INodeProperties[] = [
 		displayOptions: { show: { operation: [PASS_TYPE_METHODS.LIST_ALL_PASS_TYPE_IDS] } },
 	},
 	{
-		displayName: 'Campos de Certificates',
+		displayName: 'Campos De Certificates',
 		name: 'fieldsCertificates',
 		type: 'multiOptions',
 		typeOptions: { allowEmpty: true },
@@ -54,18 +54,24 @@ export const LIST_ALL_PTI_FIELDS: INodeProperties[] = [
 		displayOptions: { show: { operation: [PASS_TYPE_METHODS.LIST_ALL_PASS_TYPE_IDS] } },
 	},
 	{
-		displayName: 'Limite geral (max 200)',
+		displayName: 'Limite Geral (Max 200)',
 		name: 'limit',
 		type: 'number',
-		typeOptions: { minValue: 1, maxValue: 200 },
-		default: 200,
+		typeOptions: {
+			minValue: 1,
+		},
+		description: 'Max number of results to return',
+		default: 50,
 		displayOptions: { show: { operation: [PASS_TYPE_METHODS.LIST_ALL_PASS_TYPE_IDS] } },
 	},
 	{
-		displayName: 'Limite de Certificates (max 50)',
+		displayName: 'Limite De Certificates (Max 50)',
 		name: 'limitCertificates',
 		type: 'number',
-		typeOptions: { minValue: 1, maxValue: 50 },
+		description: 'Max number of certificates to return',
+		typeOptions: {
+			minValue: 1,
+		},
 		default: 50,
 		displayOptions: {
 			show: {
@@ -81,14 +87,14 @@ export const LIST_ALL_PTI_FIELDS: INodeProperties[] = [
 		type: 'options',
 		typeOptions: { allowEmpty: true },
 		options: [
-			{ name: 'Name (A-Z)',       value: 'name' },
-			{ name: 'Name (Z-A)',       value: '-name' },
-			{ name: 'Identifier (A-Z)', value: 'identifier' },
-			{ name: 'Identifier (Z-A)', value: '-identifier' },
 			{ name: 'ID (A-Z)',         value: 'id' },
 			{ name: 'ID (Z-A)',         value: '-id' },
+			{ name: 'Identifier (A-Z)', value: 'identifier' },
+			{ name: 'Identifier (Z-A)', value: '-identifier' },
+			{ name: 'Name (A-Z)',       value: 'name' },
+			{ name: 'Name (Z-A)',       value: '-name' },
 		],
-		default: '',
+		default: 'name',
 		displayOptions: { show: { operation: [PASS_TYPE_METHODS.LIST_ALL_PASS_TYPE_IDS] } },
 	},
 ];

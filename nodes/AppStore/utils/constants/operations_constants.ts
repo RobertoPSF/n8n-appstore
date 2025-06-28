@@ -423,6 +423,26 @@ export const PROVISIONING_MERCHANT_IDS_OPERATIONS = [
 
 export const PROVISIONING_PASSTYPE_IDS_OPERATIONS = [
 	{
+		name: 'List PassTypeID IDs by Certificate',
+		value: PROVISIONING_PASSTYPE_IDS_METHODS.LIST_BY_CERT,
+		group: ['Pass Type IDs'],
+		action: 'List PassTypeID Ids by Certificate'
+	},
+	{
+		name : 'Get Certificate PassTypeID Relationship',
+		value: PROVISIONING_PASSTYPE_IDS_METHODS.GET_RELATION_BY_CERT,
+		description: 'Get the relationship between a certificate and a PassTypeID',
+		group: ['Pass Type IDs'],
+		action: 'Get Certificate PassTypeID Relationship',
+	},
+	{
+		name: 'List Pass Type IDs',
+		value: PROVISIONING_PASSTYPE_IDS_METHODS.LIST_ALL_PASS_TYPE_IDS,
+		description: 'List all Pass Type IDs',
+		group: ['Pass Type IDs'],
+		action: 'List Pass Type Ids'
+	},
+	{
 		name: 'Read Pass Type ID Information',
 		value: PROVISIONING_PASSTYPE_IDS_METHODS.READ_PASSTYPEID_INFORMATION,
 		description: 'Read information about a pass type ID',
@@ -442,6 +462,14 @@ export const PROVISIONING_PASSTYPE_IDS_OPERATIONS = [
 		description: 'Get a certificates relationship for a pass type ID',
 		group: ['Pass Type IDs'],
 		action: 'Get Certificates Relationship for a Pass Type ID',
+
+	},
+	{
+		name: 'Create a Pass Type ID',
+		value: PROVISIONING_PASSTYPE_IDS_METHODS.CREATE_PASSTYPEID,
+		description: 'Create a new pass type ID',
+		group: ['Pass Type IDs'],
+		action: 'Create a Pass Type ID',
 	},
 	{
 		name: 'Delete Pass Type ID',
@@ -450,26 +478,4 @@ export const PROVISIONING_PASSTYPE_IDS_OPERATIONS = [
 		group: ['Pass Type IDs'],
 		action: 'Delete Pass Type ID',
 	},
-
-    { 
-        name: 'List PassTypeID Ids by Certificate', 
-        value: PROVISIONING_PASSTYPE_IDS_METHODS.LIST_BY_CERT,
-        description: 'List PassTypeID Ids by Certificate',
-        group: ['Pass Type IDs'],
-        action: 'List PassTypeID Ids by Certificate'
-    },
-    {
-		name : 'Get Certificate PassTypeID Relationship',
-		value: PROVISIONING_PASSTYPE_IDS_METHODS.GET_RELATION_BY_CERT,
-        description: 'Get the relationship between a certificate and a PassTypeID',
-        group: ['Pass Type IDs'],
-        action: 'Get Certificate PassTypeID Relationship',
-	},
-    { 
-        name: 'List Pass Type Ids',
-        value: PROVISIONING_PASSTYPE_IDS_METHODS.LIST_ALL_PASS_TYPE_IDS,
-        description: 'List all Pass Type Ids',
-        group: ['Pass Type IDs'],
-        action: 'List Pass Type Ids'
-    }, 
 ]
