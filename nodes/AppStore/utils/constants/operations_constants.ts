@@ -167,6 +167,20 @@ export const PROVISIONING_BUNDLE_ID_OPERATIONS = [
 			group: ['Bundle ID'],
 			action: 'Delete Bundle ID',
 		},
+		{
+			name: 'List Profiles for a Bundle ID',
+			value: PROVISIONING_BUNDLE_ID_METHODS.LIST_ALL_PROFILES_FOR_BUNDLE_ID,
+			description: 'List all profiles for a bundle ID',
+			group: ['Bundle ID'],
+			action: 'List All Profiles for a Bundle ID',
+		},
+		{
+			name: 'List Capabilities for a Bundle ID',
+			value: PROVISIONING_BUNDLE_ID_METHODS.LIST_ALL_CAPABILITIES_FOR_BUNDLE_ID,
+			description: 'List all capabilities for a bundle ID',
+			group: ['Bundle ID'],
+			action: 'List All Capabilities for a Bundle ID',
+		},
 ]
 
 export const PROVISIONING_BUNDLE_ID_CAPABILITIES_OPERATIONS = [

@@ -13,3 +13,6 @@ export const ROUTE_USER_INVITATION_VISIBLE_APPS = (id: string) => `/v1/userInvit
 export const ROUTE_USER_INVITATION_VISIBLE_APP_RELATIONSHIPS = (id: string) => `/v1/userInvitations/${id}/relationships/visibleApps`;
 export const ROUTE_BUNDLE_ID = '/v1/bundleIds';
 export const ROUTE_BUNDLE_ID_BY_ID = (bundleId: string) => `/v1/bundleIds/${bundleId}`;
+export const ROUTE_BUNDLE_ID_APP_RELATIONSHIPS = (bundleId: string) => `/v1/bundleIds/${bundleId}/app`;
+export const ROUTE_BUNDLE_ID_PROFILES = (bundleId: string) => `/v1/bundleIds/${bundleId}/profiles`;
+export const ROUTE_BUNDLE_ID_BUNDLE_ID_CAPABILITIES = (bundleId: string) => `/v1/bundleIds/${bundleId}/bundleIdCapabilities`;
