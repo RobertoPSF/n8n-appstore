@@ -48,7 +48,8 @@ export let BUNDLE_ID_NAME_FIELD = {
     displayOptions: {
         show: {
             operation: [
-                PROVISIONING_BUNDLE_ID_METHODS.REGISTER_NEW_BUNDLE_ID
+                PROVISIONING_BUNDLE_ID_METHODS.REGISTER_NEW_BUNDLE_ID,
+				PROVISIONING_BUNDLE_ID_METHODS.MODIFY_BUNDLE_ID
             ],
         },
     },

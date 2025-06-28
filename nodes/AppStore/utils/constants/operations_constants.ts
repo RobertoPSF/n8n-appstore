@@ -207,6 +207,13 @@ export const PROVISIONING_BUNDLE_ID_OPERATIONS = [
 			group: ['Bundle ID'],
 			action: 'Get Bundle ID Relationship with Profiles',
 		},
+        {
+            name: "Modify a Bundle ID",
+            value: PROVISIONING_BUNDLE_ID_METHODS.MODIFY_BUNDLE_ID,
+            description: 'Update a specific bundle ID’s name',
+            group: ['Bundle ID'],
+            action: 'Modify a Bundle ID'
+        }
 ]
 
 export const PROVISIONING_BUNDLE_ID_CAPABILITIES_OPERATIONS = [

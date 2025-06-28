@@ -80,6 +80,7 @@ import { node_read_passtype_id_information } from './operations/provisioning/pas
 import { node_list_all_certificates_for_passtype_id } from './operations/provisioning/passtype_id/list_all_certificates_for_passtype_id';
 import { node_get_certificates_relationships_for_passtype_ids } from './operations/provisioning/passtype_id/get_certificates_relationships_for_passtype_ids';
 import { node_delete_passtype_id } from './operations/provisioning/passtype_id/delete_passtype_id';
+import { node_modify_bundle_id } from './operations/provisioning/bundle_id/modify_a_bundle_id';
 
 interface IAppStoreApiCredentials extends ICredentialDataDecryptedObject {
 	issuerId: string;
@@ -314,6 +315,7 @@ export class AppStore implements INodeType {
 		if (operation === PROVISIONING_BUNDLE_ID_METHODS.REGISTER_NEW_BUNDLE_ID) returnData.push(await node_register_a_bundle_id(this, jwtToken));
 		if (operation === PROVISIONING_BUNDLE_ID_METHODS.READ_BUNDLE_ID_INFORMATION) returnData.push(await node_read_bundle_id_information(this, jwtToken));
 		if (operation === PROVISIONING_BUNDLE_ID_METHODS.DELETE_BUNDLE_ID) returnData.push(await node_delete_bundle_id(this, jwtToken));
+		if (operation === PROVISIONING_BUNDLE_ID_METHODS.MODIFY_BUNDLE_ID) returnData.push(await node_modify_bundle_id(this, jwtToken));
 
 		if (operation === PROVISIONING_BUNDLE_ID_METHODS.LIST_ALL_CAPABILITIES_FOR_BUNDLE_ID) returnData = await node_list_capabilities_of_a_bundle_id(this, jwtToken);
 		if (operation === PROVISIONING_BUNDLE_ID_METHODS.GET_BUNDLEID_APP_RELATIONSHIP) returnData = await node_get_bundle_id_relations_with_apps(this, jwtToken);
