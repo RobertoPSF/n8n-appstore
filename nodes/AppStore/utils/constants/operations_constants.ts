@@ -2,7 +2,8 @@ import {
     PROVISIONING_BUNDLE_ID_CAPABILITIES_METHODS,
     USER_INVITATIONS_METHODS,
     USER_METHODS,
-    SANDBOX_TESTERS_METHODS
+    SANDBOX_TESTERS_METHODS,
+		PROVISIONING_BUNDLE_ID_METHODS
 } from "./methods_constants";
 
 export let USERS_OPERATIONS = [
@@ -136,6 +137,15 @@ export const SANDBOX_TESTERS_OPERATIONS = [
         group: ['Sandbox Testers'],
     }
 ];
+
+export const PROVISIONING_BUNDLE_ID_OPERATIONS = [
+    {
+        name: 'Register a Bundle ID',
+        value: PROVISIONING_BUNDLE_ID_METHODS.REGISTER_NEW_BUNDLE_ID,
+        description: 'Register a new bundle ID',
+        group: ['Bundle ID'],
+    }
+]
 
 export const PROVISIONING_BUNDLE_ID_CAPABILITIES_OPERATIONS = [
     {

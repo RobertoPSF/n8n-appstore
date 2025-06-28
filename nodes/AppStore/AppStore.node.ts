@@ -19,7 +19,8 @@ import {
 	SANDBOX_TESTERS_METHODS,
 	PROVISIONING_BUNDLE_ID_CAPABILITIES_METHODS,
 	USER_INVITATIONS_METHODS,
-	USER_METHODS
+	USER_METHODS,
+	PROVISIONING_BUNDLE_ID_METHODS
 } from './utils/constants/methods_constants';
 
 import { generateAppStoreJwt } from './utils/token_generate';
@@ -38,7 +39,7 @@ import { INCLUDE_VISIBLE_APPS_FIELD } from './fields/users/include_visible_apps_
 import { USERS_FIELDS } from './fields/users/users_fields';
 import { APPS_FIELDS } from './fields/users/apps_fields';
 import { LIMIT } from './fields/users/limit_field';
-import { PROVISIONING_BUNDLE_ID_CAPABILITIES_OPERATIONS, SANDBOX_TESTERS_OPERATIONS, USERS_OPERATIONS, USER_INVITATIONS_OPERATIONS } from './utils/constants/operations_constants';
+import { PROVISIONING_BUNDLE_ID_CAPABILITIES_OPERATIONS, PROVISIONING_BUNDLE_ID_OPERATIONS, SANDBOX_TESTERS_OPERATIONS, USERS_OPERATIONS, USER_INVITATIONS_OPERATIONS } from './utils/constants/operations_constants';
 import { node_remove_visible_apps } from './operations/user/remove_visible_apps';
 import { node_list_sandbox_testers } from './operations/sandbox_testers/list';
 import { CAPABILITY_ID_FIELD, ENABLE_CAPABILITY_BUNDLE_ID_REL_FIELD, CAPABILITY_SETTINGS_FIELD, CAPABILITY_TYPE_FIELD } from './fields/provisioning/bundle_id_capabilities_fields';
@@ -58,6 +59,8 @@ import { enable_a_bundle_id_capability } from './operations/provisioning/bundle_
 import { modify_a_bundle_id_capability } from './operations/provisioning/bundle_id_capabilities/modify_a_capability';
 import { node_cancel_user_invitation } from './operations/user_invitations/cancel_invitation';
 import { SANDBOX_TESTER_IDS_FIELDS } from './fields/sandbox_testers/sandbox_tester_ids_fields';
+import { node_register_a_bundle_id } from './operations/provisioning/bundle_id/register_a_bundle_id';
+import { BUNDLE_ID_IDENTIFIER_FIELD, BUNDLE_ID_NAME_FIELD, BUNDLE_ID_PLATFORM_FIELD, BUNDLE_ID_SEED_ID_FIELD } from './fields/provisioning/register_bundle_id_fields';
 
 interface IAppStoreApiCredentials extends ICredentialDataDecryptedObject {
 	issuerId: string;
@@ -95,6 +98,7 @@ export class AppStore implements INodeType {
 				{ name: 'Users', value: 'users' },
 				{ name: 'User Invitations', value: 'userInvitations' },
 				{ name: 'Sandbox Tester', value: 'sandboxTesters' },
+				{ name: 'Bundle ID', value: 'bundleId' },
 				{ name: 'Bundle ID Capabilities', value: 'bundleIdCapabilities' },
 			  ],
 			  default: 'users',
@@ -155,6 +159,20 @@ export class AppStore implements INodeType {
 				groups: [{ name: 'Bundle ID Capabilities' }],
 			  },
 			},
+			{
+			  displayName: 'Operation',
+			  name: 'operation',
+			  type: 'options',
+					noDataExpression: true,
+			  displayOptions: {
+				show: { resource: ['bundleId'] },
+			  },
+			  options: PROVISIONING_BUNDLE_ID_OPERATIONS,
+			  default: '',
+			  typeOptions: {
+				groups: [{ name: 'Bundle ID' }],
+			  },
+			},
 			USER_ID_FIELD,
 			MODIFY_USER_ROLES_FIELD,
 			MODIFY_USER_ALL_APPS_VISIBLE_SWITCH,
@@ -185,7 +203,11 @@ export class AppStore implements INodeType {
 			INVITE_USER_LAST_NAME_FIELD,
 			INVITE_USER_ALL_APPS_VISIBLE_SWITCH,
 			INVITE_USER_PROVISIONING_ALLOWED_SWITCH,
-			SANDBOX_TESTER_IDS_FIELDS
+			SANDBOX_TESTER_IDS_FIELDS,
+			BUNDLE_ID_IDENTIFIER_FIELD,
+			BUNDLE_ID_PLATFORM_FIELD,
+			BUNDLE_ID_NAME_FIELD,
+			BUNDLE_ID_SEED_ID_FIELD
 		],
 	};
 
@@ -226,6 +248,9 @@ export class AppStore implements INodeType {
 		if (operation === PROVISIONING_BUNDLE_ID_CAPABILITIES_METHODS.DISABLE_CAPABILITY) returnData.push(await disable_a_bundle_id_capability(this, jwtToken));
 		if (operation === PROVISIONING_BUNDLE_ID_CAPABILITIES_METHODS.ENABLE_CAPABILITY) returnData.push(await enable_a_bundle_id_capability(this, jwtToken));
 		if (operation === PROVISIONING_BUNDLE_ID_CAPABILITIES_METHODS.MODIFY_CAPABILITY) returnData.push(await modify_a_bundle_id_capability(this, jwtToken));
+
+		// provisioning bundle id
+		if (operation === PROVISIONING_BUNDLE_ID_METHODS.REGISTER_NEW_BUNDLE_ID) returnData.push(await node_register_a_bundle_id(this, jwtToken));
 
 		return [this.helpers.returnJsonArray(returnData)];
 	}
