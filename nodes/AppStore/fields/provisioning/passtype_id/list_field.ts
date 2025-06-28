@@ -11,7 +11,7 @@ export const LIST_PASS_TYPE_IDS_FIELDS: INodeProperties[] = [
 		displayOptions: { show: { operation: [PASS_TYPE_METHODS.LIST_BY_CERT] } },
 	},
 	{
-		displayName: 'Campos de Certificates',
+		displayName: 'Campos De Certificates',
 		name: 'fieldsCertificates',
 		type: 'multiOptions',
 		typeOptions: { allowEmpty: true },
@@ -23,7 +23,7 @@ export const LIST_PASS_TYPE_IDS_FIELDS: INodeProperties[] = [
 		displayOptions: { show: { operation: [PASS_TYPE_METHODS.LIST_BY_CERT] } },
 	},
 	{
-		displayName: 'Campos de PassTypeIds',
+		displayName: 'Campos De PassTypeIds',
 		name: 'fieldsPassTypeIds',
 		type: 'multiOptions',
 		typeOptions: { allowEmpty: true },
@@ -40,7 +40,7 @@ export const LIST_PASS_TYPE_IDS_FIELDS: INodeProperties[] = [
 		displayOptions: { show: { operation: [PASS_TYPE_METHODS.LIST_BY_CERT] } },
 	},
 	{
-		displayName: 'Limite de Certificates (max 50)',
+		displayName: 'Limite De Certificates (Max 50)',
 		name: 'limitCertificates',
 		type: 'number',
 		typeOptions: { minValue: 1, maxValue: 50 },
