@@ -32,3 +32,6 @@ export const ROUTE_CERTIFICATE_PASSTYPE_IDS_RELATIONSHIPS = (certificateId: stri
 export const ROUTE_DEVICES = '/v1/devices';
 
 export const ROUTE_PROFILE = '/v1/profiles';
+export const ROUTE_PROFILE_BY_ID = (profileId: string) => `/v1/profiles/${profileId}`;
+export const ROUTE_PROFILE_BUNDLE_ID = (profileId: string) => `/v1/profiles/${profileId}/bundleId`;
+export const ROUTE_PROFILE_BUNDLE_ID_RELATIONSHIPS = (profileId: string) => `/v1/profiles/${profileId}/relationships/bundleId`;

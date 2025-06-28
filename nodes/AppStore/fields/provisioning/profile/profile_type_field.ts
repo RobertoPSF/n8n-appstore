@@ -3,7 +3,7 @@ import { PROFILE_TYPES } from "../../../utils/constants/profile_types";
 import { PROVISIONING_PROFILES_METHODS } from "../../../utils/constants/methods_constants";
 
 export let PROFILE_TYPE_FIELD = {
-    displayName: 'Profile type',
+    displayName: 'Profile Type',
     name: 'profileType',
     type: 'options' as NodePropertyTypes,
     options: PROFILE_TYPES.map(name => {

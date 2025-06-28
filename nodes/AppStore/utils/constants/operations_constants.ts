@@ -284,20 +284,20 @@ export const DEVICES_OPERATIONS = [
 ];
 
 export const PROVISIONING_PROFILES_OPERATIONS = [
-    {
-        name: 'Create a Profile',
-        value: PROVISIONING_PROFILES_METHODS.CREATE_PROFILE,
-        description: 'Create a new provisioning profile',
-        group: ['Profiles'],
-        action: 'Create Profile',
-    },
-    {
-        name: 'Delete a Profile',
-        value: PROVISIONING_PROFILES_METHODS.DELETE_PROFILE,
-        description: 'Delete an existing provisioning profile',
-        group: ['Profiles'],
-        action: 'Delete Profile',
-    },
+    // {
+    //     name: 'Create a Profile',
+    //     value: PROVISIONING_PROFILES_METHODS.CREATE_PROFILE,
+    //     description: 'Create a new provisioning profile',
+    //     group: ['Profiles'],
+    //     action: 'Create Profile',
+    // },
+    // {
+    //     name: 'Delete a Profile',
+    //     value: PROVISIONING_PROFILES_METHODS.DELETE_PROFILE,
+    //     description: 'Delete an existing provisioning profile',
+    //     group: ['Profiles'],
+    //     action: 'Delete Profile',
+    // },
     {
         name: 'List and Download Profiles',
         value: PROVISIONING_PROFILES_METHODS.LIST_AND_DOWNLOAD_PROFILES,
@@ -319,5 +319,12 @@ export const PROVISIONING_PROFILES_OPERATIONS = [
         group: ['Profiles'],
         action: 'Read Bundle ID',
     },
+		{
+			name: 'Get Bundle ID Relationship with Profiles',
+			value: PROVISIONING_BUNDLE_ID_METHODS.GET_BUNDLEID_PROFILES_RELATIONSHIP,
+			description: 'Get a bundle ID relationship with profiles',
+			group: ['Bundle ID'],
+			action: 'Get Bundle ID Relationship with Profiles',
+		},
 ];
 
