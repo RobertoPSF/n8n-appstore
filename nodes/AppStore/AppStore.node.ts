@@ -16,6 +16,7 @@ import {
 	PROVISIONING_CERTIFICATES_METHODS,
 	PROVISIONING_PROFILES_METHODS,
 	PROVISIONING_MERCHANT_IDS_METHODS,
+	PROVISIONING_PASSTYPE_IDS_METHODS,
 } from './utils/constants/methods_constants';
 
 import { node_modify_device } from './operations/provisioning/devices/modify';
@@ -23,7 +24,7 @@ import { node_register_device } from './operations/provisioning/devices/register
 import { node_list_devices } from './operations/provisioning/devices/list';
 import { node_get_device_by_id } from './operations/provisioning/devices/get_by_id';
 import { DEVICE_METHODS } from './utils/constants/methods_constants';
-import { DEVICES_OPERATIONS, PROVISIONING_MERCHANT_IDS_OPERATIONS, PROVISIONING_PROFILES_OPERATIONS } from './utils/constants/operations_constants';
+import { DEVICES_OPERATIONS, PROVISIONING_MERCHANT_IDS_OPERATIONS, PROVISIONING_PASSTYPE_IDS_OPERATIONS, PROVISIONING_PROFILES_OPERATIONS } from './utils/constants/operations_constants';
 import { generateAppStoreJwt } from './utils/token_generate';
 import { node_modify_user } from './operations/user/modify';
 import { node_list_user } from './operations/user/list';
@@ -75,6 +76,10 @@ import { node_list_certificates_for_merchant_id } from './operations/provisionin
 import { node_delete_merchant_id } from './operations/provisioning/merchant_id/delete_merchant_id';
 import { node_read_merchant_id_details } from './operations/provisioning/merchant_id/read_merchant_id_details';
 import { node_list_merchant_id } from './operations/provisioning/merchant_id/list_merchant_id';
+import { node_read_passtype_id_information } from './operations/provisioning/passtype_id/read_passtype_id_information';
+import { node_list_all_certificates_for_passtype_id } from './operations/provisioning/passtype_id/list_all_certificates_for_passtype_id';
+import { node_get_certificates_relationships_for_passtype_ids } from './operations/provisioning/passtype_id/get_certificates_relationships_for_passtype_ids';
+import { node_delete_passtype_id } from './operations/provisioning/passtype_id/delete_passtype_id';
 
 interface IAppStoreApiCredentials extends ICredentialDataDecryptedObject {
 	issuerId: string;
@@ -114,6 +119,7 @@ export class AppStore implements INodeType {
 				{ name: 'Certificates', value: 'certificates' },
 				{ name: 'Devices', value: 'devices' },
 				{ name: 'Merchant IDs', value: 'merchantIds' },
+				{ name: 'Pass Type IDs', value: 'passTypeIds' },
 				{ name: 'Profiles', value: 'profiles' },
 				{ name: 'Sandbox Tester', value: 'sandboxTesters' },
 				{ name: 'User Invitations', value: 'userInvitations' },
@@ -247,6 +253,20 @@ export class AppStore implements INodeType {
 					groups: [{ name: 'Merchant IDs' }],
 				},
 			},
+			{
+				displayName: 'Operation',
+				name: 'operation',
+				type: 'options',
+					noDataExpression: true,
+				displayOptions: {
+					show: { resource: ['passTypeIds'] },
+				},
+				options: PROVISIONING_PASSTYPE_IDS_OPERATIONS,
+				default: '',
+				typeOptions: {
+					groups: [{ name: 'Pass Type IDs' }],
+				},
+			},
 			...ALL_FIELDS
 		],
 	};
@@ -332,6 +352,12 @@ export class AppStore implements INodeType {
 		if (operation === PROVISIONING_MERCHANT_IDS_METHODS.DELETE_MERCHANT_ID) returnData.push(await node_delete_merchant_id(this, jwtToken));
 		if (operation === PROVISIONING_MERCHANT_IDS_METHODS.LIST_CERTIFICATES_FOR_MERCHANT_ID) returnData = await node_list_certificates_for_merchant_id(this, jwtToken);
 		if (operation === PROVISIONING_MERCHANT_IDS_METHODS.GET_MERCHANTID_CERTIFICATES_RELATIONSHIP) returnData = await node_list_certificates_relationships_for_merchant_id(this, jwtToken);
+
+		// pass type id
+		if (operation === PROVISIONING_PASSTYPE_IDS_METHODS.READ_PASSTYPEID_INFORMATION) returnData.push(await node_read_passtype_id_information(this, jwtToken));
+		if (operation === PROVISIONING_PASSTYPE_IDS_METHODS.DELETE_PASSTYPEID) returnData.push(await node_delete_passtype_id(this, jwtToken));
+		if (operation === PROVISIONING_PASSTYPE_IDS_METHODS.LIST_CERTIFICATES_FOR_PASSTYPEID) returnData = await node_list_all_certificates_for_passtype_id(this, jwtToken);
+		if (operation === PROVISIONING_PASSTYPE_IDS_METHODS.GET_PASSTYPEID_CERTIFICATES_RELATIONSHIP) returnData = await node_get_certificates_relationships_for_passtype_ids(this, jwtToken);
 
 		return [this.helpers.returnJsonArray(returnData)];
 	}

@@ -45,3 +45,8 @@ export const ROUTE_MERCHANT_ID = '/v1/merchantIds';
 export const ROUTE_MERCHANT_ID_BY_ID = (merchantId: string) => `/v1/merchantIds/${merchantId}`;
 export const ROUTE_MERCHANT_ID_CERTIFICATES = (merchantId: string) => `/v1/merchantIds/${merchantId}/certificates`;
 export const ROUTE_MERCHANT_ID_CERTIFICATES_RELATIONSHIPS = (merchantId: string) => `/v1/merchantIds/${merchantId}/relationships/certificates`;
+
+//pass type id
+export const ROUTE_READ_PASS_TYPE_ID_BY_ID = (passTypeId: string) => `/v1/passTypeIds/${passTypeId}`;
+export const ROUTE_READ_ALL_CERTIFICATES_FOR_PASS_TYPE_ID = (passTypeId: string) => `/v1/passTypeIds/${passTypeId}/certificates`;
+export const ROUTE_CERTIFICATES_RELATIONSHIPS_FOR_PASS_TYPE_ID = (passTypeId: string) => `/v1/passTypeIds/${passTypeId}/relationships/certificates`;

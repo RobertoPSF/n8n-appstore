@@ -7,7 +7,8 @@ import {
     PROVISIONING_BUNDLE_ID_METHODS,
     PROVISIONING_CERTIFICATES_METHODS,
     PROVISIONING_PROFILES_METHODS,
-		PROVISIONING_MERCHANT_IDS_METHODS
+		PROVISIONING_MERCHANT_IDS_METHODS,
+		PROVISIONING_PASSTYPE_IDS_METHODS
 } from "./methods_constants";
 
 export let USERS_OPERATIONS = [
@@ -411,5 +412,35 @@ export const PROVISIONING_MERCHANT_IDS_OPERATIONS = [
 		group: ['Merchant IDs'],
 		action: 'Delete Merchant ID',
 	},
+]
 
+export const PROVISIONING_PASSTYPE_IDS_OPERATIONS = [
+	{
+		name: 'Read Pass Type ID Information',
+		value: PROVISIONING_PASSTYPE_IDS_METHODS.READ_PASSTYPEID_INFORMATION,
+		description: 'Read information about a pass type ID',
+		group: ['Pass Type IDs'],
+		action: 'Read Pass Type ID Information',
+	},
+	{
+		name: 'List Certificates for a Pass Type ID',
+		value: PROVISIONING_PASSTYPE_IDS_METHODS.LIST_CERTIFICATES_FOR_PASSTYPEID,
+		description: 'List all certificates for a pass type ID',
+		group: ['Pass Type IDs'],
+		action: 'List Certificates for a Pass Type ID',
+	},
+	{
+		name: 'Get Certificates Relationship for a Pass Type ID',
+		value: PROVISIONING_PASSTYPE_IDS_METHODS.GET_PASSTYPEID_CERTIFICATES_RELATIONSHIP,
+		description: 'Get a certificates relationship for a pass type ID',
+		group: ['Pass Type IDs'],
+		action: 'Get Certificates Relationship for a Pass Type ID',
+	},
+	{
+		name: 'Delete Pass Type ID',
+		value: PROVISIONING_PASSTYPE_IDS_METHODS.DELETE_PASSTYPEID,
+		description: 'Delete a pass type ID',
+		group: ['Pass Type IDs'],
+		action: 'Delete Pass Type ID',
+	},
 ]
