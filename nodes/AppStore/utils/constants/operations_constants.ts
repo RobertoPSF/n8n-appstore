@@ -150,7 +150,13 @@ export const PROVISIONING_BUNDLE_ID_OPERATIONS = [
 			value: PROVISIONING_BUNDLE_ID_METHODS.LIST_BUNDLE_IDS,
 			description: 'List all bundle IDs',
 			group: ['Bundle ID'],
-		}
+		},
+		{
+			name: 'Read Bundle ID Information',
+			value: PROVISIONING_BUNDLE_ID_METHODS.READ_BUNDLE_ID_INFORMATION,
+			description: 'Read bundle ID information',
+			group: ['Bundle ID'],
+		},
 ]
 
 export const PROVISIONING_BUNDLE_ID_CAPABILITIES_OPERATIONS = [
