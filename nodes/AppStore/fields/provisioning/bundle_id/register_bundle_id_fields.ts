@@ -1,6 +1,6 @@
 import { NodePropertyTypes } from "n8n-workflow";
-import { PROVISIONING_BUNDLE_ID_METHODS } from "../../utils/constants/methods_constants";
-import { PLATFORMS } from "../../utils/constants/bundle_id_platform";
+import { PROVISIONING_BUNDLE_ID_METHODS } from "../../../utils/constants/methods_constants";
+import { PLATFORMS } from "../../../utils/constants/bundle_id_platform";
 
 export let BUNDLE_ID_IDENTIFIER_FIELD = {
 	displayName: 'Bundle ID',

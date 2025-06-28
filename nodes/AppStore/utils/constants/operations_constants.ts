@@ -139,23 +139,33 @@ export const SANDBOX_TESTERS_OPERATIONS = [
 ];
 
 export const PROVISIONING_BUNDLE_ID_OPERATIONS = [
-    {
-        name: 'Register a Bundle ID',
-        value: PROVISIONING_BUNDLE_ID_METHODS.REGISTER_NEW_BUNDLE_ID,
-        description: 'Register a new bundle ID',
-        group: ['Bundle ID'],
-    },
 		{
 			name: 'List Bundle IDs',
 			value: PROVISIONING_BUNDLE_ID_METHODS.LIST_BUNDLE_IDS,
 			description: 'List all bundle IDs',
 			group: ['Bundle ID'],
+			action: 'List Bundle IDs',
 		},
+    {
+        name: 'Register a Bundle ID',
+        value: PROVISIONING_BUNDLE_ID_METHODS.REGISTER_NEW_BUNDLE_ID,
+        description: 'Register a new bundle ID',
+        group: ['Bundle ID'],
+				action: 'Register a Bundle ID',
+    },
 		{
 			name: 'Read Bundle ID Information',
 			value: PROVISIONING_BUNDLE_ID_METHODS.READ_BUNDLE_ID_INFORMATION,
-			description: 'Read bundle ID information',
+			description: 'Read a bundle ID information',
 			group: ['Bundle ID'],
+			action: 'Read Bundle ID Information',
+		},
+		{
+			name: 'Delete Bundle ID',
+			value: PROVISIONING_BUNDLE_ID_METHODS.DELETE_BUNDLE_ID,
+			description: 'Delete a bundle ID',
+			group: ['Bundle ID'],
+			action: 'Delete Bundle ID',
 		},
 ]
 

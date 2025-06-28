@@ -1,5 +1,5 @@
 import { NodePropertyTypes } from "n8n-workflow";
-import { PROVISIONING_BUNDLE_ID_METHODS } from "../../utils/constants/methods_constants";
+import { PROVISIONING_BUNDLE_ID_METHODS } from "../../../utils/constants/methods_constants";
 
 export let BUNDLE_ID_FIELD = {
 	displayName: 'Bundle ID',
@@ -11,7 +11,8 @@ export let BUNDLE_ID_FIELD = {
 	displayOptions: {
 			show: {
 					operation: [
-						PROVISIONING_BUNDLE_ID_METHODS.READ_BUNDLE_ID_INFORMATION
+						PROVISIONING_BUNDLE_ID_METHODS.READ_BUNDLE_ID_INFORMATION,
+						PROVISIONING_BUNDLE_ID_METHODS.DELETE_BUNDLE_ID
 					],
 			},
 	},

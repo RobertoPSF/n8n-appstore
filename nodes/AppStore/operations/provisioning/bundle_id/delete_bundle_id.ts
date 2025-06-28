@@ -1,12 +1,13 @@
-import { ROUTE_BUNDLE_ID } from "../../../requests/api_routes";
+import { ROUTE_BUNDLE_ID_BY_ID } from "../../../requests/api_routes";
 import { appStoreGeneralRequest } from "../../../requests/general_request";
 
 
-export async function node_list_bundle_ids(context: any, jwtToken: string) {
+export async function node_delete_bundle_id(context: any, jwtToken: string) {
+	const bundleId = context.getNodeParameter('bundleId', 0) as string;
 	try {
 			const response = await appStoreGeneralRequest({
-					method: 'GET',
-					endpoint: ROUTE_BUNDLE_ID,
+					method: 'DELETE',
+					endpoint: ROUTE_BUNDLE_ID_BY_ID(bundleId),
 					jwtToken,
 					helpers: context.helpers,
 			});
