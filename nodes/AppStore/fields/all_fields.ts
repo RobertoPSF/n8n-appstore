@@ -32,6 +32,9 @@ import { PASSTYPE_ID_FIELD } from "./provisioning/passtype_id/passtype_id_fields
 import { LIST_PASS_TYPE_IDS_FIELDS } from "./provisioning/passtype_id/list_field";
 import { GET_CERT_PTI_REL_FIELDS } from "./provisioning/passtype_id/get_relation_field";
 import { LIST_ALL_PTI_FIELDS } from "./provisioning/passtype_id/list_pass_type_id_field";
+import { CERTIFICATE_STATUS_FIELD } from "./provisioning/certificates/certificate_status_fields";
+import { CSR_CONTENT_FIELD } from "./provisioning/certificates/csr_content_field";
+import { CERTIFICATE_TYPE_FIELD } from "./provisioning/certificates/certificate_type_fields";
 
 export const ALL_FIELDS = [
     USER_ID_FIELD,
@@ -85,5 +88,8 @@ export const ALL_FIELDS = [
     PROFILE_DEVICES_IDS_FIELDS,
     PROFILE_ID_FIELD,
     MERCHANT_ID_FIELD,
-    PASSTYPE_ID_FIELD
+    PASSTYPE_ID_FIELD,
+    CERTIFICATE_STATUS_FIELD,
+    CERTIFICATE_TYPE_FIELD,
+    CSR_CONTENT_FIELD
 ];

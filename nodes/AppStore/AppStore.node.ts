@@ -85,6 +85,8 @@ import { node_list_all_certificates_for_passtype_id } from './operations/provisi
 import { node_get_certificates_relationships_for_passtype_ids } from './operations/provisioning/passtype_id/get_certificates_relationships_for_passtype_ids';
 import { node_delete_passtype_id } from './operations/provisioning/passtype_id/delete_passtype_id';
 import { node_modify_bundle_id } from './operations/provisioning/bundle_id/modify_a_bundle_id';
+import { node_create_certificate } from './operations/provisioning/certificates/create';
+import { node_modify_certificate } from './operations/provisioning/certificates/modify';
 
 interface IAppStoreApiCredentials extends ICredentialDataDecryptedObject {
 	issuerId: string;
@@ -327,6 +329,8 @@ export class AppStore implements INodeType {
 		if (operation === PROVISIONING_BUNDLE_ID_METHODS.GET_BUNDLEID_PROFILES_RELATIONSHIP) returnData = await node_get_bundle_id_relationship_profile(this, jwtToken);
 
 		// provisioning certificates
+		if (operation === PROVISIONING_CERTIFICATES_METHODS.CREATE_CERTIFICATE) returnData = await node_create_certificate(this, jwtToken);
+		if (operation === PROVISIONING_CERTIFICATES_METHODS.MODIFY_CERTIFICATE) returnData = await node_modify_certificate(this, jwtToken);
 		if (operation === PROVISIONING_CERTIFICATES_METHODS.LIST_AND_DOWNLOAD_CERTIFICATES) returnData = await node_list_certificates(this, jwtToken);
 		if (operation === PROVISIONING_CERTIFICATES_METHODS.READ_AND_DOWNLOAD_CERTIFICATE_INFORMATION) returnData.push(await node_read_certificate_information(this, jwtToken));
 		if (operation === PROVISIONING_CERTIFICATES_METHODS.LIST_PASSTYPEID_IDS_FOR_CERTIFICATE) returnData = await node_list_passtype_ids_for_a_certificate(this, jwtToken);

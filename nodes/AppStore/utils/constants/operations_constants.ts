@@ -241,6 +241,20 @@ export const PROVISIONING_BUNDLE_ID_CAPABILITIES_OPERATIONS = [
 ];
 
 export const PROVISIONING_CERTIFICATES_OPERATIONS = [
+    {
+        name: 'Create Certificate',
+        value: PROVISIONING_CERTIFICATES_METHODS.CREATE_CERTIFICATE,
+        description: 'Create a new certificate using a CSR',
+        group: ['Certificates'],
+        action: 'Create Certificate',
+    },
+    {
+        name: 'Modify Certificate',
+        value: PROVISIONING_CERTIFICATES_METHODS.MODIFY_CERTIFICATE,
+        description: 'Update the activation status of an existing certificate',
+        group: ['Certificates'],
+        action: 'Modify Certificate',
+    },
 	{
 		name: 'List Certificates',
 		value: PROVISIONING_CERTIFICATES_METHODS.LIST_AND_DOWNLOAD_CERTIFICATES,
