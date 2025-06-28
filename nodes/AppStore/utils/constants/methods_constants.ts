@@ -102,4 +102,5 @@ export const PROVISIONING_PASSTYPE_IDS_METHODS = {
 export const DEVICE_METHODS = {
 	REGISTER_DEVICE: 'registerDevice',
 	LIST_DEVICES: 'listDevices',
+    READ_DEVICE: 'readDevice',
 };

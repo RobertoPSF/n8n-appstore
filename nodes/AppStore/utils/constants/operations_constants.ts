@@ -274,13 +274,19 @@ export const DEVICES_OPERATIONS = [
 		name: 'Register a Device',
 		value: DEVICE_METHODS.REGISTER_DEVICE,
 		description: 'Register a new device to the App Store Connect account',
+        group: ['Devices'],
+        action: 'Register Device',
 	},
 
 	{
 		name: 'List Devices',
 		value: DEVICE_METHODS.LIST_DEVICES,
 		description: 'List registered devices',
+        group: ['Devices'],
+        action: 'List Devices',
 	},
+    { name: 'Read Device Information', value: DEVICE_METHODS.READ_DEVICE, description: 'Read information about a registered device', group: ['Devices'], action: 'Read Device Information' }, 
+
 ];
 
 export const PROVISIONING_PROFILES_OPERATIONS = [

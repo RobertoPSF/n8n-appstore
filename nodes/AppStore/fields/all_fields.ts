@@ -24,6 +24,7 @@ import { LIMIT } from "./users/limit_field";
 import { APP_IDS_FIELD, LIST_ALL_APPS_USER_FIELDS_FIELD, MODIFY_USER_ALL_APPS_VISIBLE_SWITCH, MODIFY_USER_PROVISIONING_ALLOWED_SWITCH, MODIFY_USER_ROLES_FIELD } from "./users/modify_user_fields";
 import { USER_ID_FIELD } from "./users/user_get_by_id_fields";
 import { USERS_FIELDS } from "./users/users_fields";
+import { GET_DEVICE_FIELDS } from "./provisioning/devices/get_by_id_field";
 
 export const ALL_FIELDS = [
     USER_ID_FIELD,
@@ -37,6 +38,7 @@ export const ALL_FIELDS = [
     LIST_ALL_APPS_USER_FIELDS_FIELD,
     ...REGISTER_DEVICE_FIELDS,
     ...LIST_DEVICES_FIELDS,
+    ...GET_DEVICE_FIELDS,
     LIMIT(200, 'Maximum number of devices to return (max 200)', [DEVICE_METHODS.LIST_DEVICES]),
     INCLUDE_VISIBLE_APPS_FIELD,
     USERS_FIELDS,
