@@ -17,6 +17,6 @@ export async function node_get_profile_bundleid_relation(context: any, jwtToken:
           return response;
       }
   } catch (error: any) {
-      throw new Error(`AppStore API request failed: ${error.message}`);
+      throw new Error(`AppStore API request failed: ${JSON.stringify(error?.response?.data?.errors?.[0] ?? {})}`);
   }
 }

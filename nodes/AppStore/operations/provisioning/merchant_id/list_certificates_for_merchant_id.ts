@@ -17,6 +17,6 @@ export async function node_list_certificates_for_merchant_id(context: any, jwtTo
             return response;
         }
     } catch (error: any) {
-        throw new Error(`AppStore API request failed: ${error.message}`);
+        throw new Error(`AppStore API request failed: ${JSON.stringify(error?.response?.data?.errors?.[0] ?? {})}`);
     }
 }

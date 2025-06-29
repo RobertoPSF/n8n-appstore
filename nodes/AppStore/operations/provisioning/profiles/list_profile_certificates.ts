@@ -17,6 +17,6 @@ export async function node_list_profile_certificates(context: any, jwtToken: str
           return response;
       }
   } catch (error: any) {
-      throw new Error(`AppStore API request failed: ${error.message}`);
+      throw new Error(`AppStore API request failed: ${JSON.stringify(error?.response?.data?.errors?.[0] ?? {})}`);
   }
 }

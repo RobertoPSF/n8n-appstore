@@ -20,6 +20,6 @@ export async function node_add_user_visible_apps(context: any, jwtToken: string)
             return response;
         }
     } catch (error: any) {
-        throw new Error(`AppStore API request failed: ${error.message}`);
+        throw new Error(`AppStore API request failed: ${JSON.stringify(error?.response?.data?.errors?.[0] ?? {})}`);
     }
 } 

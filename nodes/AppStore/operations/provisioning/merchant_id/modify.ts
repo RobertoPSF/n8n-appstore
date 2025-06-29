@@ -27,7 +27,6 @@ export async function node_modify_merchant(context: any, jwtToken: string) {
             return response;
         }
     } catch (error: any) {
-        console.log(error.response.data.errors)
-        throw new Error(`AppStore API request failed: ${error.message}`);
+        throw new Error(`AppStore API request failed: ${JSON.stringify(error?.response?.data?.errors?.[0] ?? {})}`);
     }
 }

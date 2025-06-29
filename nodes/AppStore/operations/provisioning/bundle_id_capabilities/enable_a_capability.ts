@@ -64,6 +64,6 @@ export async function enable_a_bundle_id_capability(context: any, jwtToken: stri
         });
         return response;
     } catch (error: any) {
-        throw new Error(`AppStore API request failed: ${error.message}`);
+        throw new Error(`AppStore API request failed: ${JSON.stringify(error?.response?.data?.errors?.[0] ?? {})}`);
     }
 }

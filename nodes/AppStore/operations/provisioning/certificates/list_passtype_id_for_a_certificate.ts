@@ -17,6 +17,6 @@ export async function node_list_passtype_ids_for_a_certificate(context: any, jwt
           return response;
       }
   } catch (error: any) {
-      throw new Error(`AppStore API request failed: ${error.message}`);
+      throw new Error(`AppStore API request failed: ${JSON.stringify(error?.response?.data?.errors?.[0] ?? {})}`);
   }
 }

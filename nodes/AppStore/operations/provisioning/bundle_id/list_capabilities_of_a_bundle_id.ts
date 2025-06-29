@@ -17,6 +17,6 @@ export async function node_list_capabilities_of_a_bundle_id(context: any, jwtTok
 					return response;
 			}
 	} catch (error: any) {
-			throw new Error(`AppStore API request failed: ${error.message}`);
+			throw new Error(`AppStore API request failed: ${JSON.stringify(error?.response?.data?.errors?.[0] ?? {})}`);
 	}
 }

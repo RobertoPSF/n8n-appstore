@@ -27,6 +27,6 @@ export async function node_create_merchant_id(context: any, jwtToken: string) {
             return response;
         }
     } catch (error: any) {
-        throw new Error(`AppStore API request failed: ${error.message}`);
+        throw new Error(`AppStore API request failed: ${JSON.stringify(error?.response?.data?.errors?.[0] ?? {})}`);
     }
 }
