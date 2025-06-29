@@ -88,6 +88,7 @@ import { node_modify_bundle_id } from './operations/provisioning/bundle_id/modif
 import { node_create_certificate } from './operations/provisioning/certificates/create';
 import { node_modify_certificate } from './operations/provisioning/certificates/modify';
 import { node_create_passtype_id } from './operations/provisioning/passtype_id/create_passtype_id';
+import { node_modify_merchant } from './operations/provisioning/merchant_id/modify';
 
 interface IAppStoreApiCredentials extends ICredentialDataDecryptedObject {
 	issuerId: string;
@@ -363,6 +364,7 @@ export class AppStore implements INodeType {
 		if (operation === PROVISIONING_MERCHANT_IDS_METHODS.DELETE_MERCHANT_ID) returnData.push(await node_delete_merchant_id(this, jwtToken));
 		if (operation === PROVISIONING_MERCHANT_IDS_METHODS.LIST_CERTIFICATES_FOR_MERCHANT_ID) returnData = await node_list_certificates_for_merchant_id(this, jwtToken);
 		if (operation === PROVISIONING_MERCHANT_IDS_METHODS.GET_MERCHANTID_CERTIFICATES_RELATIONSHIP) returnData = await node_list_certificates_relationships_for_merchant_id(this, jwtToken);
+		if (operation === PROVISIONING_MERCHANT_IDS_METHODS.MODIFY_MERCHANT_IDS) returnData = await node_modify_merchant(this, jwtToken);
 
 		// pass type id
 		if (operation === PROVISIONING_PASSTYPE_IDS_METHODS.READ_PASSTYPEID_INFORMATION) returnData.push(await node_read_passtype_id_information(this, jwtToken));

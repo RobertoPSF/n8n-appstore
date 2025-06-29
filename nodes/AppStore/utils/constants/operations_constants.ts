@@ -419,6 +419,13 @@ export const PROVISIONING_MERCHANT_IDS_OPERATIONS = [
 		group: ['Merchant IDs'],
 		action: 'List Certificates for a Merchant ID',
 	},
+    {
+        name: 'Modify Merchant ID',
+		value: PROVISIONING_MERCHANT_IDS_METHODS.MODIFY_MERCHANT_IDS,
+		description: 'Update a specific merchant ID.',
+		group: ['Merchant IDs'],
+		action: 'Modify Merchant ID',
+    },
 	{
 		name: 'Get Certificates Relationship for a Merchant ID',
 		value: PROVISIONING_MERCHANT_IDS_METHODS.GET_MERCHANTID_CERTIFICATES_RELATIONSHIP,
