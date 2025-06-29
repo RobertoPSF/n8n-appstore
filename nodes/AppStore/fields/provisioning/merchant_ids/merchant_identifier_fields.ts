@@ -1,17 +1,16 @@
 import { NodePropertyTypes } from "n8n-workflow";
 import { PROVISIONING_MERCHANT_IDS_METHODS } from "../../../utils/constants/methods_constants";
 
-export const MERCHANT_NAME_FIELD = {
-    displayName: 'Merchant Name',
-    name: 'merchantName',
+export const MERCHANT_IDENTIFIER_FIELD = {
+    displayName: 'Merchant Identifier',
+    name: 'merchantIdentifier',
     type: 'string' as NodePropertyTypes,
 	required: true,
     default: '',
-    description: 'The new name of the merchant that you want',
+    description: 'The merchant identifier',
     displayOptions: {
         show: {
             operation: [
-                PROVISIONING_MERCHANT_IDS_METHODS.MODIFY_MERCHANT_IDS,
                 PROVISIONING_MERCHANT_IDS_METHODS.CREATE_MERCHANT_ID
             ],
         },

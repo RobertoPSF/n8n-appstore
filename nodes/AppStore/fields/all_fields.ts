@@ -36,6 +36,7 @@ import { CERTIFICATE_STATUS_FIELD } from "./provisioning/certificates/certificat
 import { CSR_CONTENT_FIELD } from "./provisioning/certificates/csr_content_field";
 import { CERTIFICATE_TYPE_FIELD } from "./provisioning/certificates/certificate_type_fields";
 import { MERCHANT_NAME_FIELD } from "./provisioning/merchant_ids/merchant_name_fields";
+import { MERCHANT_IDENTIFIER_FIELD } from "./provisioning/merchant_ids/merchant_identifier_fields";
 
 export const ALL_FIELDS = [
     USER_ID_FIELD,
@@ -95,5 +96,6 @@ export const ALL_FIELDS = [
     CSR_CONTENT_FIELD,
     PASSTYPE_ID_IDENTIFIER_FIELD,
     PASSTYPE_ID_NAME_FIELD,
-    MERCHANT_NAME_FIELD
+    MERCHANT_NAME_FIELD,
+    MERCHANT_IDENTIFIER_FIELD
 ];

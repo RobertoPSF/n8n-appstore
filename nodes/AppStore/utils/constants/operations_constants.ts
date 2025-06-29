@@ -398,6 +398,13 @@ export const PROVISIONING_PROFILES_OPERATIONS = [
 ];
 
 export const PROVISIONING_MERCHANT_IDS_OPERATIONS = [
+    {
+        name: 'Create Merchant ID',
+        value: PROVISIONING_MERCHANT_IDS_METHODS.CREATE_MERCHANT_ID,
+        description: 'Creates a Merchant ID',
+        group: ['Merchant IDs'],
+        action: 'Create Merchant ID'
+    },
 	{
 		name: 'List Merchant IDs',
 		value: PROVISIONING_MERCHANT_IDS_METHODS.LIST_MERCHANT_IDS,

@@ -89,6 +89,7 @@ import { node_create_certificate } from './operations/provisioning/certificates/
 import { node_modify_certificate } from './operations/provisioning/certificates/modify';
 import { node_create_passtype_id } from './operations/provisioning/passtype_id/create_passtype_id';
 import { node_modify_merchant } from './operations/provisioning/merchant_id/modify';
+import { node_create_merchant_id } from './operations/provisioning/merchant_id/create';
 
 interface IAppStoreApiCredentials extends ICredentialDataDecryptedObject {
 	issuerId: string;
@@ -359,6 +360,7 @@ export class AppStore implements INodeType {
 		if (operation === PROVISIONING_PROFILES_METHODS.GET_PROFILE_DEVICES_RELATIONSHIP) returnData = await node_get_profile_devices_relationship(this, jwtToken);
 
 		// merchant id
+		if (operation === PROVISIONING_MERCHANT_IDS_METHODS.CREATE_MERCHANT_ID) returnData = await node_create_merchant_id(this, jwtToken);
 		if (operation === PROVISIONING_MERCHANT_IDS_METHODS.LIST_MERCHANT_IDS) returnData = await node_list_merchant_id(this, jwtToken);
 		if (operation === PROVISIONING_MERCHANT_IDS_METHODS.READ_MERCHANT_ID_DETAILS) returnData.push(await node_read_merchant_id_details(this, jwtToken));
 		if (operation === PROVISIONING_MERCHANT_IDS_METHODS.DELETE_MERCHANT_ID) returnData.push(await node_delete_merchant_id(this, jwtToken));

@@ -1,21 +1,21 @@
-import { ROUTE_MERCHANT_ID_BY_ID } from "../../../requests/api_routes";
+import { ROUTE_MERCHANT_ID } from "../../../requests/api_routes";
 import { appStoreGeneralRequest } from "../../../requests/general_request";
 
-export async function node_modify_merchant(context: any, jwtToken: string) {
+export async function node_create_merchant_id(context: any, jwtToken: string) {
     const get = context.getNodeParameter;
-    const merchantId = get('merchantId', 0) as string;
+    const merchantIdentifier = get('merchantIdentifier', 0) as string;
     const merchantName = get('merchantName', 0) as string;
     try {
         const response = await appStoreGeneralRequest({
-            method: 'PATCH',
-            endpoint: ROUTE_MERCHANT_ID_BY_ID(merchantId),
+            method: 'POST',
+            endpoint: ROUTE_MERCHANT_ID,
             jwtToken,
             helpers: context.helpers,
             body: {
                 data: {
                     type: "merchantIds",
-                    id: merchantId,
                     attributes: {
+                        identifier: merchantIdentifier,
                         name: merchantName
                     }
                 }
@@ -27,7 +27,6 @@ export async function node_modify_merchant(context: any, jwtToken: string) {
             return response;
         }
     } catch (error: any) {
-        console.log(error.response.data.errors)
         throw new Error(`AppStore API request failed: ${error.message}`);
     }
 }
