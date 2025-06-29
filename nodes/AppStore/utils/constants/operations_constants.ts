@@ -499,6 +499,13 @@ export const PROVISIONING_PASSTYPE_IDS_OPERATIONS = [
 		group: ['Pass Type IDs'],
 		action: 'Create a Pass Type ID',
 	},
+    {
+        name: 'Modify the Pass Type ID name',
+		value: PROVISIONING_PASSTYPE_IDS_METHODS.MODIFY_PASSTYPEID,
+		description: 'Modifies the Pass Type ID name',
+		group: ['Pass Type IDs'],
+		action: 'Modify the Pass Type ID name',
+    },
 	{
 		name: 'Delete Pass Type ID',
 		value: PROVISIONING_PASSTYPE_IDS_METHODS.DELETE_PASSTYPEID,

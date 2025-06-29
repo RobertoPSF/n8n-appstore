@@ -90,6 +90,7 @@ import { node_modify_certificate } from './operations/provisioning/certificates/
 import { node_create_passtype_id } from './operations/provisioning/passtype_id/create_passtype_id';
 import { node_modify_merchant } from './operations/provisioning/merchant_id/modify';
 import { node_create_merchant_id } from './operations/provisioning/merchant_id/create';
+import { node_modify_passtype_id } from './operations/provisioning/passtype_id/modify';
 
 interface IAppStoreApiCredentials extends ICredentialDataDecryptedObject {
 	issuerId: string;
@@ -346,7 +347,6 @@ export class AppStore implements INodeType {
 		if (operation === DEVICE_METHODS.READ_DEVICE) returnData.push(await node_get_device_by_id(this, jwtToken));
 		if (operation === DEVICE_METHODS.MODIFY_DEVICE) {returnData.push(await node_modify_device(this, jwtToken));}
 
-
 		// profiles
 		if (operation === PROVISIONING_PROFILES_METHODS.LIST_AND_DOWNLOAD_PROFILES) returnData = await node_list_and_download_profiles(this, jwtToken);
 		if (operation === PROVISIONING_PROFILES_METHODS.READ_AND_DOWNLOAD_PROFILE_INFORMATION) returnData.push(await node_read_and_download_profile_info(this, jwtToken));
@@ -377,6 +377,7 @@ export class AppStore implements INodeType {
 		if (operation === PROVISIONING_PASSTYPE_IDS_METHODS.GET_RELATION_BY_CERT) {returnData.push(await node_get_pass_type_relation(this, jwtToken));}
 		if (operation === PROVISIONING_PASSTYPE_IDS_METHODS.LIST_ALL_PASS_TYPE_IDS) {returnData = await node_list_all_pass_type_ids(this, jwtToken);}
 		if (operation === PROVISIONING_PASSTYPE_IDS_METHODS.CREATE_PASSTYPEID) returnData.push(await node_create_passtype_id(this, jwtToken));
+		if (operation === PROVISIONING_PASSTYPE_IDS_METHODS.MODIFY_PASSTYPEID) returnData.push(await node_modify_passtype_id(this, jwtToken));
 		return [this.helpers.returnJsonArray(returnData)];
 	}
 }

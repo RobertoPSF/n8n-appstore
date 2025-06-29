@@ -31,6 +31,7 @@ displayOptions: {
 			show: {
 					operation: [
 							PROVISIONING_PASSTYPE_IDS_METHODS.CREATE_PASSTYPEID,
+							PROVISIONING_PASSTYPE_IDS_METHODS.MODIFY_PASSTYPEID
 					],
 			},
 	},
@@ -47,6 +48,7 @@ displayOptions: {
 			show: {
 					operation: [
 							PROVISIONING_PASSTYPE_IDS_METHODS.CREATE_PASSTYPEID,
+							PROVISIONING_PASSTYPE_IDS_METHODS.MODIFY_PASSTYPEID
 					],
 			},
 	},
