@@ -100,7 +100,7 @@ interface IAppStoreApiCredentials extends ICredentialDataDecryptedObject {
 
 export class AppStore implements INodeType {
 	description: INodeTypeDescription = {
-		displayName: 'AppStore',
+		displayName: 'App Store Connect',
 		name: 'appStore',
 		icon: 'file:appstore.svg',
 		group: ['transform'],
@@ -108,7 +108,7 @@ export class AppStore implements INodeType {
 		subtitle: '={{ $parameter["operation"] + ": " + $parameter["resource"] }}',
 		description: 'Consume AppStore API',
 		defaults: {
-			name: 'AppStore',
+			name: 'App Store Connect',
 		},
 		inputs: [NodeConnectionType.Main],
 		outputs: [NodeConnectionType.Main],
