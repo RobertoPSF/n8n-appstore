@@ -8,7 +8,8 @@ import {
     PROVISIONING_CERTIFICATES_METHODS,
     PROVISIONING_PROFILES_METHODS,
 		PROVISIONING_MERCHANT_IDS_METHODS,
-		PROVISIONING_PASSTYPE_IDS_METHODS
+		PROVISIONING_PASSTYPE_IDS_METHODS,
+        APP_METHODS
 } from "./methods_constants";
 
 export let USERS_OPERATIONS = [
@@ -18,6 +19,13 @@ export let USERS_OPERATIONS = [
         description: 'Get a list of users',
         group: ['Users'],
         action: 'List Users',
+    },
+    {
+        name: 'Get User By Email',
+        value: USER_METHODS.GET_USER_BY_EMAIL,
+        description: 'Get a user by their email',
+        group: ['Users'],
+        action: 'Get User By Email',
     },
     {
         name: 'Read User Information',
@@ -75,6 +83,21 @@ export let USERS_OPERATIONS = [
         action: 'Remove Visible Apps from a User',
     }
 ];
+
+export const APPS_OPERATIONS = [
+    {
+        name: 'Get All Apps',
+        value: APP_METHODS.GET_ALL_APPS,
+        description: 'Get a list of all apps',
+        group: ['Apps'],
+    },
+    {
+        name: 'Get Apps by List of Names',
+        value: APP_METHODS.GET_APPS_BY_LIST_OF_NAMES,
+        description: 'Get a list of apps by their names',
+        group: ['Apps'],
+    }
+]
 
 export const USER_INVITATIONS_OPERATIONS = [
     {

@@ -51,3 +51,7 @@ export const ROUTE_PASSTYPE_ID = '/v1/passTypeIds';
 export const ROUTE_READ_PASS_TYPE_ID_BY_ID = (passTypeId: string) => `/v1/passTypeIds/${passTypeId}`;
 export const ROUTE_READ_ALL_CERTIFICATES_FOR_PASS_TYPE_ID = (passTypeId: string) => `/v1/passTypeIds/${passTypeId}/certificates`;
 export const ROUTE_CERTIFICATES_RELATIONSHIPS_FOR_PASS_TYPE_ID = (passTypeId: string) => `/v1/passTypeIds/${passTypeId}/relationships/certificates`;
+
+
+//apps
+export const ROUTE_APPS = '/v1/apps';

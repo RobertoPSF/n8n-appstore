@@ -3,29 +3,46 @@ import { ROUTE_USER_BY_ID } from "../../requests/api_routes";
 
 export async function node_modify_user(context: any, jwtToken: string) {
     const userId = context.getNodeParameter('userId', 0) as string;
-    const roles = context.getNodeParameter('roles', 0) as string[];
-    const allAppsVisible = context.getNodeParameter('allAppsVisible', 0) as boolean;
-    const provisioningAllowed = context.getNodeParameter('provisioningAllowed', 0) as boolean;
-    const visibleAppsList = context.getNodeParameter('visibleApps', 0) as string[];
-    const visibleApps = visibleAppsList.map(id => ({ type: 'apps', id }));
+    
+    const roles = context.getNodeParameter('roles', 0) as string;
+    const rolesArray = roles.replace(/\n/g, '').split(',').map(role => role.trim());
+    
+
+    const visibleApps = context.getNodeParameter('visibleApps', 0) as string;
+    const visibleAppsData = visibleApps.split(',').map(id => ({
+        type: "apps",
+        id: id.trim()
+    }));
+    
+    const provisioningAllowed = true;
+
     const data: any = {
         data: {
             type: 'users',
             id: userId,
             attributes: {
-                roles,
-                allAppsVisible,
-                provisioningAllowed,
+                roles: rolesArray,
+                provisioningAllowed: provisioningAllowed
             },
         },
     };
-    if (visibleApps.length > 0) {
+
+    if (rolesArray.includes('FINANCE') ) {
+        data.data.attributes.allAppsVisible = true;
+    }
+
+    if (rolesArray.length === 1 && rolesArray[0] === 'MARKETING') {
+        data.data.attributes.provisioningAllowed = false;   
+    }
+
+    if (visibleApps.length > 0 && !data.data.attributes.allAppsVisible) {
         data.data.relationships = {
             visibleApps: {
-                data: visibleApps,
-            },
+                data: visibleAppsData
+            }
         };
     }
+
     try {
         const response = await appStoreGeneralRequest({
             method: 'PATCH',

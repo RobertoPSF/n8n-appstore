@@ -1,5 +1,6 @@
 export const USER_METHODS = {
     LIST_USERS: "list_users",
+    GET_USER_BY_EMAIL: "get_user_by_email",
     READ_USER_INFORMATION: "read_user_information",
     MODIFY_A_USER_ACCOUNT: "modify_a_user_account",
     REMOVE_A_USER_ACCOUNT: "remove_a_user_account",
@@ -8,6 +9,11 @@ export const USER_METHODS = {
     ADD_VISIBLE_APPS_TO_A_USER: "add_visible_apps_to_a_user",
     REPLACE_THE_LIST_OF_VISIBLE_APPS_FOR_A_USER: "replace_the_list_of_visible_apps_for_a_user",
     REMOVE_VISIBLE_APPS_FROM_A_USER: "remove_visible_apps_from_a_user",
+}
+
+export const APP_METHODS = {
+    GET_APPS_BY_LIST_OF_NAMES: "get_apps_by_list_of_names",
+    GET_ALL_APPS: "get_all_apps",
 }
 
 export const USER_INVITATIONS_METHODS = {

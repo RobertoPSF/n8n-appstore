@@ -1,6 +1,24 @@
 import { NodePropertyTypes } from "n8n-workflow";
-import { USER_INVITATIONS_METHODS } from "../../utils/constants/methods_constants";
+import { USER_INVITATIONS_METHODS, USER_METHODS } from "../../utils/constants/methods_constants";
 
+export let INVITE_USER_VISIBLE_APPS_FIELD = {
+    displayName: 'Visible Apps',
+    name: 'visibleApps',
+    type: 'string' as NodePropertyTypes,
+    default: '',
+    description: 'Comma separated list of app ids to make visible to the invited user',
+    displayOptions: {
+        show: {
+            operation: [
+                USER_METHODS.MODIFY_A_USER_ACCOUNT,
+                USER_METHODS.ADD_VISIBLE_APPS_TO_A_USER,
+                USER_METHODS.REPLACE_THE_LIST_OF_VISIBLE_APPS_FOR_A_USER,
+                USER_METHODS.REMOVE_VISIBLE_APPS_FROM_A_USER,
+                USER_INVITATIONS_METHODS.INVITE_A_USER
+            ],
+        },
+    },
+};
 
 export let INVITE_USER_ALL_APPS_VISIBLE_SWITCH = {
     displayName: 'All Apps Visible',
@@ -23,7 +41,7 @@ export let INVITE_USER_PROVISIONING_ALLOWED_SWITCH = {
     description: 'Is provisioning allowed for the user?',
     displayOptions: {
         show: {
-            operation: [USER_INVITATIONS_METHODS.INVITE_A_USER],
+            operation: [],
         },
     },
 };

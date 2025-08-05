@@ -1,4 +1,4 @@
-import { DEVICE_METHODS, SANDBOX_TESTERS_METHODS, USER_INVITATIONS_METHODS, USER_METHODS } from "../utils/constants/methods_constants";
+import { DEVICE_METHODS, SANDBOX_TESTERS_METHODS, USER_METHODS } from "../utils/constants/methods_constants";
 import { BUNDLE_ID_FIELD } from "./provisioning/bundle_id/bundle_id_get_by_id_fields";
 import { BUNDLE_ID_IDENTIFIER_FIELD, BUNDLE_ID_NAME_FIELD, BUNDLE_ID_PLATFORM_FIELD, BUNDLE_ID_SEED_ID_FIELD } from "./provisioning/bundle_id/register_bundle_id_fields";
 import { CAPABILITY_ID_FIELD, CAPABILITY_SETTINGS_FIELD, CAPABILITY_TYPE_FIELD, ENABLE_CAPABILITY_BUNDLE_ID_REL_FIELD } from "./provisioning/bundle_id_capabilities/bundle_id_capabilities_fields";
@@ -18,11 +18,11 @@ import { SANDBOX_TESTER_IDS_FIELDS } from "./sandbox_testers/sandbox_tester_ids_
 import { SUBSCRIPTION_RENEWAL_RATE_FIELD } from "./sandbox_testers/subscription_renewal_rate_field";
 import { TERRITORY_FIELD } from "./sandbox_testers/territory";
 import { INVITATION_ID_FIELD } from "./user_invitations/invitation_get_by_id_fields";
-import { INVITE_USER_ALL_APPS_VISIBLE_SWITCH, INVITE_USER_EMAIL_FIELD, INVITE_USER_FIRST_NAME_FIELD, INVITE_USER_LAST_NAME_FIELD, INVITE_USER_PROVISIONING_ALLOWED_SWITCH } from "./user_invitations/invite_user_fields";
+import { INVITE_USER_ALL_APPS_VISIBLE_SWITCH, INVITE_USER_EMAIL_FIELD, INVITE_USER_FIRST_NAME_FIELD, INVITE_USER_LAST_NAME_FIELD, INVITE_USER_PROVISIONING_ALLOWED_SWITCH, INVITE_USER_VISIBLE_APPS_FIELD } from "./user_invitations/invite_user_fields";
 import { APPS_FIELDS } from "./users/apps_fields";
 import { INCLUDE_VISIBLE_APPS_FIELD } from "./users/include_visible_apps_fields";
 import { LIMIT } from "./users/limit_field";
-import { APP_IDS_FIELD, LIST_ALL_APPS_USER_FIELDS_FIELD, MODIFY_USER_ALL_APPS_VISIBLE_SWITCH, MODIFY_USER_PROVISIONING_ALLOWED_SWITCH, MODIFY_USER_ROLES_FIELD } from "./users/modify_user_fields";
+import { LIST_ALL_APPS_USER_FIELDS_FIELD, MODIFY_USER_ALL_APPS_VISIBLE_SWITCH, MODIFY_USER_PROVISIONING_ALLOWED_SWITCH, MODIFY_USER_ROLES_FIELD } from "./users/modify_user_fields";
 import { USER_ID_FIELD } from "./users/user_get_by_id_fields";
 import { USERS_FIELDS } from "./users/users_fields";
 import { GET_DEVICE_FIELDS } from "./provisioning/devices/get_by_id_field";
@@ -37,16 +37,14 @@ import { CSR_CONTENT_FIELD } from "./provisioning/certificates/csr_content_field
 import { CERTIFICATE_TYPE_FIELD } from "./provisioning/certificates/certificate_type_fields";
 import { MERCHANT_NAME_FIELD } from "./provisioning/merchant_ids/merchant_name_fields";
 import { MERCHANT_IDENTIFIER_FIELD } from "./provisioning/merchant_ids/merchant_identifier_fields";
+import { USER_EMAIL_FIELD } from "./users/user_get_by_email_fields";
+import { APP_NAMES_FIELD } from "./apps/get_apps_by_list_of_names";
 
 export const ALL_FIELDS = [
     USER_ID_FIELD,
     MODIFY_USER_ROLES_FIELD,
     MODIFY_USER_ALL_APPS_VISIBLE_SWITCH,
     MODIFY_USER_PROVISIONING_ALLOWED_SWITCH,
-    APP_IDS_FIELD,
-    LIMIT(200, 'Number of apps to return (max 200)', [USER_METHODS.LIST_ALL_APPS_VISIBLE_TO_A_USER]),
-    LIMIT(100, 'Limit of apps to fetch',[USER_INVITATIONS_METHODS.LIST_ALL_APPS_VISIBLE_TO_AN_INVITED_USER]),
-    LIMIT(200, 'Maximum number of app relationships to return (max 200)', [USER_INVITATIONS_METHODS.LIST_VISIBLE_APP_RELATIONSHIPS_FOR_INVITED_USER]),
     LIST_ALL_APPS_USER_FIELDS_FIELD,
     ...REGISTER_DEVICE_FIELDS,
     ...LIST_DEVICES_FIELDS,
@@ -97,5 +95,8 @@ export const ALL_FIELDS = [
     PASSTYPE_ID_IDENTIFIER_FIELD,
     PASSTYPE_ID_NAME_FIELD,
     MERCHANT_NAME_FIELD,
-    MERCHANT_IDENTIFIER_FIELD
+    MERCHANT_IDENTIFIER_FIELD,
+    USER_EMAIL_FIELD,
+    INVITE_USER_VISIBLE_APPS_FIELD,
+    APP_NAMES_FIELD
 ];

@@ -3,25 +3,47 @@ import { appStoreGeneralRequest } from "../../requests/general_request";
 
 
 export async function node_invite_user(context: any, jwtToken: string) {
-    const allAppsVisible = context.getNodeParameter('allAppsVisible', 0) as boolean;
-    const provisioningAllowed = context.getNodeParameter('provisioningAllowed', 0) as boolean;
     const email = context.getNodeParameter('email', 0) as string;
     const firstName = context.getNodeParameter('firstName', 0) as string;
     const lastName = context.getNodeParameter('lastName', 0) as string;
-    const roles = context.getNodeParameter('roles', 0) as string[];
 
+
+    const roles = context.getNodeParameter('roles', 0) as string;
+    const rolesArray = roles.replace(/\n/g, '').split(',').map(role => role.trim());
+    
+
+    const visibleApps = context.getNodeParameter('visibleApps', 0) as string;
+    const visibleAppsData = visibleApps.split(',').map(id => ({
+        type: "apps",
+        id: id.trim()
+    }));
+    
+    const provisioningAllowed = false;
+    
     const data: any = {
         data: {
             type: 'userInvitations',
             attributes: {
-                allAppsVisible,
-                email,
-                firstName,
-                lastName,
-                provisioningAllowed,
-                roles,
+                email: email,
+                firstName: firstName,
+                lastName: lastName,
+
+                provisioningAllowed: provisioningAllowed,
+                roles: rolesArray,
             }
         }
+    };
+
+    if (rolesArray.length === 1 && rolesArray[0] === 'MARKETING') {
+        data.data.attributes.provisioningAllowed = false;   
+    }
+
+    if (visibleApps.length > 0 && !data.data.attributes.allAppsVisible) {
+        data.data.relationships = {
+            visibleApps: {
+                data: visibleAppsData
+            }
+        };
     }
 
     try {

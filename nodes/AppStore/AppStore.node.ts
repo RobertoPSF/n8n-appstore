@@ -1,11 +1,12 @@
 import {
 	IExecuteFunctions,
-	ICredentialDataDecryptedObject,
+	// ICredentialDataDecryptedObject,
 	NodeConnectionType,
 	IDataObject,
 	INodeExecutionData,
 	INodeType,
 	INodeTypeDescription,
+	INodeProperties,
 } from 'n8n-workflow';
 import {
 	SANDBOX_TESTERS_METHODS,
@@ -17,6 +18,7 @@ import {
 	PROVISIONING_PROFILES_METHODS,
 	PROVISIONING_MERCHANT_IDS_METHODS,
 	PROVISIONING_PASSTYPE_IDS_METHODS,
+	APP_METHODS,
 } from './utils/constants/methods_constants';
 
 
@@ -28,7 +30,7 @@ import { node_register_device } from './operations/provisioning/devices/register
 import { node_list_devices } from './operations/provisioning/devices/list';
 import { node_get_device_by_id } from './operations/provisioning/devices/get_by_id';
 import { DEVICE_METHODS } from './utils/constants/methods_constants';
-import { DEVICES_OPERATIONS, PROVISIONING_MERCHANT_IDS_OPERATIONS, PROVISIONING_PASSTYPE_IDS_OPERATIONS, PROVISIONING_PROFILES_OPERATIONS } from './utils/constants/operations_constants';
+import { APPS_OPERATIONS, DEVICES_OPERATIONS, PROVISIONING_MERCHANT_IDS_OPERATIONS, PROVISIONING_PASSTYPE_IDS_OPERATIONS, PROVISIONING_PROFILES_OPERATIONS } from './utils/constants/operations_constants';
 import { generateAppStoreJwt } from './utils/token_generate';
 import { node_modify_user } from './operations/user/modify';
 import { node_list_user } from './operations/user/list';
@@ -91,12 +93,15 @@ import { node_create_passtype_id } from './operations/provisioning/passtype_id/c
 import { node_modify_merchant } from './operations/provisioning/merchant_id/modify';
 import { node_create_merchant_id } from './operations/provisioning/merchant_id/create';
 import { node_modify_passtype_id } from './operations/provisioning/passtype_id/modify';
+import { node_get_user_by_email } from './operations/user/get_by_email';
+import { node_get_apps_by_list_of_names } from './operations/apps/get_apps_by_list_of_names';
+import { node_get_all_apps } from './operations/apps/list';
 
-interface IAppStoreApiCredentials extends ICredentialDataDecryptedObject {
-	issuerId: string;
-	keyId: string;
-	privateKey: string;
-}
+// interface IAppStoreApiCredentials extends ICredentialDataDecryptedObject {
+// 	issuerId: string;
+// 	keyId: string;
+// 	privateKey: string;
+// }
 
 export class AppStore implements INodeType {
 	description: INodeTypeDescription = {
@@ -112,19 +117,27 @@ export class AppStore implements INodeType {
 		},
 		inputs: [NodeConnectionType.Main],
 		outputs: [NodeConnectionType.Main],
-		credentials: [
-			{
-				name: 'appStoreApi',
-				required: true,
-			},
-		],
+		// Removed credentials property so the node does not ask for credentials
 		properties: [
+			{
+				displayName: 'wich workspace do you want to see?',
+				name: 'workspace',
+				type: 'options',
+				options: [
+					{ name: 'Fun Games For Free', value: 'Fun Games For Free' },
+					{ name: 'Texas', value: 'Texas' },
+					{ name: 'Workspace 3', value: 'workspace3' },
+				],
+				default: 'workspace1',
+				description: 'Select the workspace you want to see.',
+			},
 			{
 			  displayName: 'Resource',
 			  name: 'resource',
 			  type: 'options',
 				noDataExpression: true,
 			  options: [
+				{ name: 'Apps', value: 'apps' },
 				{ name: 'Bundle ID', value: 'bundleId' },
 				{ name: 'Bundle ID Capabilities', value: 'bundleIdCapabilities' },
 				{ name: 'Certificates', value: 'certificates' },
@@ -137,6 +150,20 @@ export class AppStore implements INodeType {
 				{ name: 'Users', value: 'users' },
 			  ],
 			  default: 'users',
+			},
+			{
+				displayName: 'Operation',
+				name: 'operation',
+				type: 'options',
+				noDataExpression: true,
+				displayOptions: {
+					show: { resource: ['apps'] },
+				},
+				options: APPS_OPERATIONS,
+				default: '',
+				typeOptions: {
+					groups: [{ name: 'Apps' }],
+				},
 			},
 			{
 				displayName: 'Operation',
@@ -278,7 +305,7 @@ export class AppStore implements INodeType {
 					groups: [{ name: 'Pass Type IDs' }],
 				},
 			},
-			...ALL_FIELDS
+			...ALL_FIELDS as INodeProperties[]
 		],
 	};
 
@@ -286,13 +313,21 @@ export class AppStore implements INodeType {
 		let returnData: IDataObject[] = [];
 		const operation = this.getNodeParameter('operation', 0) as string;
 
-		const credentials = (await this.getCredentials('appStoreApi')) as IAppStoreApiCredentials;
-		const { issuerId, keyId, privateKey } = credentials;
+		// const credentials = (await this.getCredentials('appStoreApi')) as IAppStoreApiCredentials;
+		// const { issuerId keyId, privateKey } = credentials;
+		const issuerId = process.env.APPSTORE_ISSUER_ID as string;
+		const keyId = process.env.APPSTORE_KEY_ID as string;
+		const privateKey = process.env.APPSTORE_PRIVATE_KEY as string;
 
 		const jwtToken = generateAppStoreJwt(issuerId, keyId, privateKey);
 
+		// apps
+		if (operation === APP_METHODS.GET_ALL_APPS) returnData = await node_get_all_apps(this, jwtToken);
+		if (operation === APP_METHODS.GET_APPS_BY_LIST_OF_NAMES) returnData = await node_get_apps_by_list_of_names(this, jwtToken);
+
 		// user
 		if (operation === USER_METHODS.LIST_USERS) returnData = await node_list_user(this, jwtToken);
+		if (operation === USER_METHODS.GET_USER_BY_EMAIL) returnData.push(await node_get_user_by_email(this, jwtToken));
 		if (operation === USER_METHODS.READ_USER_INFORMATION) returnData.push(await node_get_user(this, jwtToken));
 		if (operation === USER_METHODS.MODIFY_A_USER_ACCOUNT) returnData.push(await node_modify_user(this, jwtToken));
 		if (operation === USER_METHODS.REMOVE_A_USER_ACCOUNT) returnData.push(await node_remove_user(this, jwtToken));
