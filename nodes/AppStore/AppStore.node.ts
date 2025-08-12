@@ -96,6 +96,8 @@ import { node_modify_passtype_id } from './operations/provisioning/passtype_id/m
 import { node_get_user_by_email } from './operations/user/get_by_email';
 import { node_get_apps_by_list_of_names } from './operations/apps/get_apps_by_list_of_names';
 import { node_get_all_apps } from './operations/apps/list';
+import { node_list_invited_users_by_email } from './operations/user_invitations/get_by_email';
+import * as dotenv from 'dotenv';
 
 // interface IAppStoreApiCredentials extends ICredentialDataDecryptedObject {
 // 	issuerId: string;
@@ -128,7 +130,7 @@ export class AppStore implements INodeType {
 					{ name: 'Texas', value: 'Texas' },
 					{ name: 'Workspace 3', value: 'workspace3' },
 				],
-				default: 'workspace1',
+				default: 'Fun Games For Free',
 				description: 'Select the workspace you want to see.',
 			},
 			{
@@ -310,14 +312,93 @@ export class AppStore implements INodeType {
 	};
 
 	async execute(this: IExecuteFunctions): Promise<INodeExecutionData[][]> {
+		// Load environment variables from .env file with multiple path attempts
+		const path = require('path');
+		const fs = require('fs');
+		
+		// Try multiple possible locations for the .env file
+		const possiblePaths = [
+			path.resolve(process.cwd(), '.env'), // Current working directory
+			path.resolve(__dirname, '../../.env'), // Two levels up from the node file
+			path.resolve(__dirname, '../../../.env'), // Three levels up from the node file
+			path.resolve(process.env.USERPROFILE || process.env.HOME || '', 'Documents/Github/n8n-appstore/.env'), // Your project directory
+			path.resolve(process.env.USERPROFILE || process.env.HOME || '', '.n8n/custom/.env'), // n8n custom directory
+		];
+		
+		let envLoaded = false;
+		for (const envPath of possiblePaths) {
+			console.log('Trying to load .env file from:', envPath);
+			if (fs.existsSync(envPath)) {
+				const result = dotenv.config({ path: envPath });
+				if (result.error) {
+					console.error('Error loading .env file from', envPath, ':', result.error.message);
+				} else {
+					console.log('✅ .env file loaded successfully from:', envPath);
+					envLoaded = true;
+					break;
+				}
+			} else {
+				console.log('❌ .env file not found at:', envPath);
+			}
+		}
+		
+		if (!envLoaded) {
+			console.error('❌ Could not load .env file from any of the attempted locations');
+		}
+		
 		let returnData: IDataObject[] = [];
 		const operation = this.getNodeParameter('operation', 0) as string;
+		const workspace = this.getNodeParameter('workspace', 0) as string;
+		const resource = this.getNodeParameter('resource', 0) as string;
 
-		// const credentials = (await this.getCredentials('appStoreApi')) as IAppStoreApiCredentials;
-		// const { issuerId keyId, privateKey } = credentials;
-		const issuerId = process.env.APPSTORE_ISSUER_ID as string;
-		const keyId = process.env.APPSTORE_KEY_ID as string;
-		const privateKey = process.env.APPSTORE_PRIVATE_KEY as string;
+		// Verify that a workflow is chosen
+		if (!operation) {
+			throw new Error('No operation selected. Please choose an operation to proceed.');
+		}
+
+		// Verify that a resource is selected
+		if (!resource) {
+			throw new Error('No resource selected. Please choose a resource to proceed.');
+		}
+
+		// Get environment variables based on selected workspace
+		let issuerId: string;
+		let keyId: string;
+		let privateKey: string;
+
+		switch (workspace) {
+			case 'Fun Games For Free':
+				issuerId = process.env.FUN_GAMES_ISSUER_ID as string;
+				keyId = process.env.FUN_GAMES_KEY_ID as string;
+				privateKey = process.env.FUN_GAMES_PRIVATE_KEY as string;
+				break;
+			case 'Texas':
+				issuerId = process.env.TEXAS_ISSUER_ID as string;
+				keyId = process.env.TEXAS_KEY_ID as string;
+				privateKey = process.env.TEXAS_PRIVATE_KEY as string;
+				break;
+			case 'workspace3':
+				issuerId = process.env.WORKSPACE3_ISSUER_ID as string;
+				keyId = process.env.WORKSPACE3_KEY_ID as string;
+				privateKey = process.env.WORKSPACE3_PRIVATE_KEY as string;
+				break;
+			default:
+				throw new Error(`Unknown workspace: ${workspace}. Please select a valid workspace.`);
+		}
+
+		// Verify that all required environment variables are set
+		if (!issuerId || !keyId || !privateKey) {
+			throw new Error(`Missing required environment variables for workspace '${workspace}'. Please ensure all required variables are set in your .env file.`);
+		}
+
+		// Log workspace and operation for debugging (without sensitive data)
+		console.log(`Executing App Store Connect operation: ${operation} for workspace: ${workspace}`);
+		console.log(`Environment variables loaded - Issuer ID exists: ${!!issuerId}, Key ID exists: ${!!keyId}, Private Key exists: ${!!privateKey}`);
+		
+		// Debug: Show the actual values (be careful with sensitive data)
+		console.log(`Issuer ID length: ${issuerId ? issuerId.length : 0}`);
+		console.log(`Key ID: ${keyId || 'NOT SET'}`);
+		console.log(`Private Key starts with: ${privateKey ? privateKey.substring(0, 20) + '...' : 'NOT SET'}`);
 
 		const jwtToken = generateAppStoreJwt(issuerId, keyId, privateKey);
 
@@ -340,6 +421,7 @@ export class AppStore implements INodeType {
 		// user invitations
 		if (operation === USER_INVITATIONS_METHODS.LIST_INVITED_USERS) returnData.push(await node_list_invited_users(this, jwtToken));
 		if (operation === USER_INVITATIONS_METHODS.READ_USER_INVITATION_INFORMATION) returnData.push(await node_get_user_invitation(this, jwtToken));
+		if (operation === USER_INVITATIONS_METHODS.READ_USER_INVITATION_BY_EMAIL) returnData.push(await node_list_invited_users_by_email(this, jwtToken));
 		if (operation === USER_INVITATIONS_METHODS.INVITE_A_USER) returnData.push(await node_invite_user(this, jwtToken));
 		if (operation === USER_INVITATIONS_METHODS.LIST_ALL_APPS_VISIBLE_TO_AN_INVITED_USER) returnData = await list_visible_apps_invited_user(this, jwtToken);
 		if (operation === USER_INVITATIONS_METHODS.LIST_VISIBLE_APP_RELATIONSHIPS_FOR_INVITED_USER) returnData = await node_list_visible_apps_relationship(this, jwtToken);

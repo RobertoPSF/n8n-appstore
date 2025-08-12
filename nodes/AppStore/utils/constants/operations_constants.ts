@@ -108,6 +108,13 @@ export const USER_INVITATIONS_OPERATIONS = [
         action: 'List Invited Users',
     },
     {
+        name: 'Get User Invitation by Email',
+        value: USER_INVITATIONS_METHODS.READ_USER_INVITATION_BY_EMAIL,
+        description: 'Get a user invitation based on email',
+        group: ['User Invitations'],
+        action: 'Get User Invitation by Email'
+    },
+    {
         name: 'Read User Invitation Information',
         value: USER_INVITATIONS_METHODS.READ_USER_INVITATION_INFORMATION,
         description: 'Get information about a pending invitation to join your team',

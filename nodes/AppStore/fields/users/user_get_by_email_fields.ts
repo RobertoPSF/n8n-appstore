@@ -1,5 +1,5 @@
 import { NodePropertyTypes } from "n8n-workflow";
-import { USER_METHODS } from "../../utils/constants/methods_constants";
+import { USER_INVITATIONS_METHODS, USER_METHODS } from "../../utils/constants/methods_constants";
 
 export let USER_EMAIL_FIELD = {
     displayName: 'User Email',
@@ -12,6 +12,7 @@ export let USER_EMAIL_FIELD = {
         show: {
             operation: [
                 USER_METHODS.GET_USER_BY_EMAIL,
+                USER_INVITATIONS_METHODS.READ_USER_INVITATION_BY_EMAIL
             ],
         },
     },
