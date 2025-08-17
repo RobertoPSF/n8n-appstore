@@ -11,14 +11,10 @@ export async function node_get_user_by_email(context: any, jwtToken: string) {
             helpers: context.helpers,
         });
         if (response.data) {
-            if (Array.isArray(response.data)) {
-                const user = response.data.find(
-                    (user: any) => user?.attributes?.username === emailToFind
-                );
-                return user || {"error": "User not found"};
-            } else {
-                return {};
-            }
+            const user = response.data.find(
+                (user: any) => user?.attributes?.username === emailToFind
+            );
+            return user || {"error": "User not found"};
         } else {
             return response;
         }

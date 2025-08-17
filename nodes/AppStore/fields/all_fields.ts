@@ -1,4 +1,4 @@
-import { DEVICE_METHODS, SANDBOX_TESTERS_METHODS, USER_METHODS } from "../utils/constants/methods_constants";
+import { DEVICE_METHODS, SANDBOX_TESTERS_METHODS, USER_METHODS, USER_INVITATIONS_METHODS } from "../utils/constants/methods_constants";
 import { BUNDLE_ID_FIELD } from "./provisioning/bundle_id/bundle_id_get_by_id_fields";
 import { BUNDLE_ID_IDENTIFIER_FIELD, BUNDLE_ID_NAME_FIELD, BUNDLE_ID_PLATFORM_FIELD, BUNDLE_ID_SEED_ID_FIELD } from "./provisioning/bundle_id/register_bundle_id_fields";
 import { CAPABILITY_ID_FIELD, CAPABILITY_SETTINGS_FIELD, CAPABILITY_TYPE_FIELD, ENABLE_CAPABILITY_BUNDLE_ID_REL_FIELD } from "./provisioning/bundle_id_capabilities/bundle_id_capabilities_fields";
@@ -58,6 +58,9 @@ export const ALL_FIELDS = [
     USERS_FIELDS,
     APPS_FIELDS,
     LIMIT(50, 'The maximum number of games to show (max 50)', [USER_METHODS.READ_USER_INFORMATION]),
+    LIMIT(300, 'The maximum number of apps to show (max 200)', [USER_METHODS.LIST_ALL_APPS_VISIBLE_TO_A_USER]),
+    LIMIT(300, 'The maximum number of apps to show (max 200)', [USER_INVITATIONS_METHODS.LIST_ALL_APPS_VISIBLE_TO_AN_INVITED_USER]),
+    LIMIT(300, 'The maximum number of app relationships to show (max 200)', [USER_INVITATIONS_METHODS.LIST_VISIBLE_APP_RELATIONSHIPS_FOR_INVITED_USER]),
     CAPABILITY_ID_FIELD,
     LIMIT(200, 'The maximum number of sandbox testers to show (max 200)', [SANDBOX_TESTERS_METHODS.LIST_SANDBOX_TESTERS]),
     ENABLE_CAPABILITY_BUNDLE_ID_REL_FIELD,
