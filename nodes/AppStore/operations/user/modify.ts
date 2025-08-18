@@ -27,22 +27,6 @@ export async function node_modify_user(context: any, jwtToken: string) {
         },
     };
 
-    if (rolesArray.includes('FINANCE') ) {
-        data.data.attributes.allAppsVisible = true;
-    }
-
-    if (rolesArray.length === 1 && rolesArray[0] === 'MARKETING') {
-        data.data.attributes.provisioningAllowed = false;   
-    }
-
-    if (visibleApps.length > 0 && !data.data.attributes.allAppsVisible) {
-        data.data.relationships = {
-            visibleApps: {
-                data: visibleAppsData
-            }
-        };
-    }
-
     try {
         // Get the user
         const userResponse = await appStoreGeneralRequest({
@@ -52,7 +36,32 @@ export async function node_modify_user(context: any, jwtToken: string) {
             helpers: context.helpers,
         });
 
-        // Get the visible apps for the user
+        
+        if (userResponse.data && userResponse.data.attributes && userResponse.data.attributes.roles) {
+            const currentRoles = userResponse.data.attributes.roles;
+            for (const role of currentRoles) {
+                if (!rolesArray.includes(role)) {
+                    rolesArray.push(role);
+                }
+            }
+        }
+
+        if (rolesArray.includes('FINANCE') ) {
+            data.data.attributes.allAppsVisible = true;
+        }
+    
+        if (rolesArray.length === 1 && rolesArray[0] === 'MARKETING') {
+            data.data.attributes.provisioningAllowed = false;   
+        }
+    
+        if (visibleApps.length > 0 && !data.data.attributes.allAppsVisible) {
+            data.data.relationships = {
+                visibleApps: {
+                    data: visibleAppsData
+                }
+            };
+        }
+
         const params: Record<string, any> = {};
         params['fields[apps]'] = 'name';
         params.limit = 5;
@@ -93,18 +102,18 @@ export async function node_modify_user(context: any, jwtToken: string) {
         
         return { visibleApps: visibleAppsData };
         
-        // const response = await appStoreGeneralRequest({
-        //     method: 'PATCH',
-        //     endpoint: ROUTE_USER_BY_ID(userId),
-        //     jwtToken,
-        //     helpers: context.helpers,
-        //     body: data,
-        // });
-        // if (response.data) {
-        //     return response.data;
-        // } else {
-        //     return response;
-        // }
+        const response = await appStoreGeneralRequest({
+            method: 'PATCH',
+            endpoint: ROUTE_USER_BY_ID(userId),
+            jwtToken,
+            helpers: context.helpers,
+            body: data,
+        });
+        if (response.data) {
+            return response.data;
+        } else {
+            return response;
+        }
     } catch (error: any) {
         throw new Error(`AppStore API request failed: ${JSON.stringify(error?.response?.data?.errors?.[0] ?? {})}`);
     }
