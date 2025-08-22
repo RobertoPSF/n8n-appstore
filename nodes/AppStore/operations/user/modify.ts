@@ -100,8 +100,6 @@ export async function node_modify_user(context: any, jwtToken: string) {
         visibleAppsData.length = 0;
         visibleAppsData.push(...uniqueVisibleAppsData);
         
-        return { visibleApps: visibleAppsData };
-        
         const response = await appStoreGeneralRequest({
             method: 'PATCH',
             endpoint: ROUTE_USER_BY_ID(userId),

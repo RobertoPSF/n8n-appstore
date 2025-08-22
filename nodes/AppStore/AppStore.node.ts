@@ -122,7 +122,7 @@ export class AppStore implements INodeType {
 		// Removed credentials property so the node does not ask for credentials
 		properties: [
 			{
-				displayName: 'wich workspace do you want to see?',
+				displayName: 'which workspace do you want to see?',
 				name: 'workspace',
 				type: 'options',
 				options: [

@@ -34,6 +34,10 @@ export async function node_invite_user(context: any, jwtToken: string) {
         }
     };
 
+    if (rolesArray.includes('FINANCE') ) {
+        data.data.attributes.allAppsVisible = true;
+    }
+
     if (rolesArray.length === 1 && rolesArray[0] === 'MARKETING') {
         data.data.attributes.provisioningAllowed = false;   
     }
